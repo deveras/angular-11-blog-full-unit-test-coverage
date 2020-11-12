@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
+import { TutorialsComponent } from './components/tutorials/tutorials.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
@@ -16,6 +17,9 @@ const routes: Routes = [
   }, {
     path: "bookshelf",
     component: BookshelfComponent
+  }, {
+    path: "tutorials",
+    component: TutorialsComponent
   }, {
     path: "**",
     component: PageNotFoundComponent
