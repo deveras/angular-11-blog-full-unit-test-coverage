@@ -18,7 +18,7 @@ describe('ArticleModel', () => {
   });
 
 
-  it('should have exactly 12 properties', () => {
+  it('should have exactly 6 properties', () => {
     expect( Object.getOwnPropertyNames(subjectUnderTest).length ).toBe(6);
   });
 
@@ -100,14 +100,14 @@ describe('ArticleAdapter', () => {
       createDate: mockDateString,
     };
 
-    const bookModel:ArticleModel = subjectUnderTest.adapt(mockResponse);
+    const articleModel:ArticleModel = subjectUnderTest.adapt(mockResponse);
 
-    expect( bookModel.id ).toBe(100);
-    expect( bookModel.title ).toBe("foo");
-    expect( bookModel.recomendationSummary ).toBe("bar");
-    expect( bookModel.body ).toBe("baz");
-    expect( bookModel.lastUpdateDate ).toEqual(new Date(mockDateString));
-    expect( bookModel.createDate ).toEqual(new Date(mockDateString));
+    expect( articleModel.id ).toBe(100);
+    expect( articleModel.title ).toBe("foo");
+    expect( articleModel.recomendationSummary ).toBe("bar");
+    expect( articleModel.body ).toBe("baz");
+    expect( articleModel.lastUpdateDate ).toEqual(new Date(mockDateString));
+    expect( articleModel.createDate ).toEqual(new Date(mockDateString));
   });
 
 });
