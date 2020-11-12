@@ -1,6 +1,9 @@
 <div class="content">
   <span>'{{title}} app is running!'</span>
   <p>
+    <a [routerLink]=" ['/articles'] " routerLinkActive="isActive">Articles</a>
+  </p>
+  <p>
     <a [routerLink]=" ['/bookshelf'] " routerLinkActive="isActive">Bookshelf</a>
   </p>
   <router-outlet></router-outlet>

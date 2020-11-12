@@ -1,0 +1,6 @@
+<div id="articles">
+  <h1>Articles</h1>
+  <ul>
+    <li *ngFor="let article of collection">{{article.title}} - {{article.createDate | date: 'long'}}</li>
+  </ul>
+</div>
