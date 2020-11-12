@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,9 @@ const routes: Routes = [
   }, {
     path: "bookshelf",
     component: BookshelfComponent
+  }, {
+    path: "**",
+    component: PageNotFoundComponent
   }
 ];
 
