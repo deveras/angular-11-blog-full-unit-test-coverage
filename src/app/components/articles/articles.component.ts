@@ -4,11 +4,13 @@ import { ArticlesService } from '../../services/articles.service';
 import { ArticleModel } from '../../models/article-model';
 
 
-@Component({
-  selector: 'blog-articles',
-  templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.scss']
-})
+@Component(
+  {
+    selector: 'blog-articles',
+    templateUrl: './articles.component.html',
+    styleUrls: ['./articles.component.scss']
+  }
+)
 export class ArticlesComponent
   implements OnInit
 {
