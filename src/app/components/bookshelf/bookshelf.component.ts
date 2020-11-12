@@ -15,6 +15,7 @@ export class BookshelfComponent
   implements OnInit
 {
   public collection:BookModel[] = [];
+  public errorMessage:string = "";
 
 
   constructor(
@@ -27,7 +28,8 @@ export class BookshelfComponent
     this.titleService.setTitle("Bookshelf");
 
     this.bookshelfService.getAll().subscribe(
-      (response:BookModel[]) => this.collection = response
+      (response:BookModel[]) => this.collection = response,
+      (errorMessage) => this.errorMessage = errorMessage
     );
   }
 

@@ -68,4 +68,45 @@ describe('BookshelfService', () => {
     httpTestingController.verify();
   });
 
+
+  it('getAll should return an observable error string, when there is a problem in the client', () => {
+    const errorMessage = "Failed to retrieve books from the server";
+
+    subjectUnderTest.getAll().subscribe(
+      (response) => fail("no reason to stop here..."),
+      (receivedErrorMessage:string) => {
+        expect( receivedErrorMessage ).toBe(errorMessage);
+      }
+    );
+    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "bookshelf/read.php");
+    expect( testingRequest.request.method ).toEqual('GET');
+
+    testingRequest.error(
+      new ErrorEvent('Client error', { message: errorMessage })
+    );
+    httpTestingController.verify();
+  });
+
+
+  it('getAll should return an observable error string, when there is a problem with the network', () => {
+    const errorMessage = "Failed to retrieve books from the server";
+
+    subjectUnderTest.getAll().subscribe(
+      (response) => fail("no reason to stop here..."),
+      (receivedErrorMessage:string) => {
+        expect( receivedErrorMessage ).toBe(errorMessage);
+      }
+    );
+    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "bookshelf/read.php");
+    expect( testingRequest.request.method ).toEqual('GET');
+
+    testingRequest.flush("Network error",
+      {
+        status: 404,
+        statusText: errorMessage
+      }
+    );
+    httpTestingController.verify();
+  });
+
 });
