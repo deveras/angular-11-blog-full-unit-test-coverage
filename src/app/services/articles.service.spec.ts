@@ -1,7 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController }
   from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ArticlesService } from './articles.service';
 import { ArticleModel, ArticleAdapter } from '../models/article-model';
 import { environment } from '../../environments/environment.prod';
@@ -63,10 +62,10 @@ describe('ArticlesService', () => {
 
 
   it('getAll should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve articles from the server";
+    const errorMessage = "Failed to retrieve data from the server";
 
     subjectUnderTest.getAll().subscribe(
-      (response) => fail("not reason to stop here..."),
+      (response) => fail("no reason to stop here..."),
       (receivedErrorMessage:string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
@@ -82,10 +81,10 @@ describe('ArticlesService', () => {
 
 
   it('getAll should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve articles from the server";
+    const errorMessage = "Failed to retrieve data from the server";
 
     subjectUnderTest.getAll().subscribe(
-      (response) => fail("not a good response"),
+      (response) => fail("no reason to stop here..."),
       (receivedErrorMessage:string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
