@@ -1,32 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from "rxjs/operators";
-import { TutorialModel, TutorialAdapter } from '../models/tutorial-model';
-import { environment } from '../../environments/environment.prod';
+import { BaseService } from './base.service';
+import { TutorialAdapter } from '../models/tutorial-model';
 
 
-@Injectable({
-  providedIn: 'root'
-})
-export class TutorialsService {
-  private collection:TutorialModel[];
-
+@Injectable(
+  {
+    providedIn: 'root'
+  }
+)
+export class TutorialsService
+  extends BaseService
+{
 
   constructor(
-    private httpClient:HttpClient,
-    private adapter:TutorialAdapter) {
+    protected httpClient:HttpClient,
+    protected adapter:TutorialAdapter)
+  {
+    super("tutorials/read.php");
   }
 
-
-  public getAll():Observable<TutorialModel[]> {
-    return this.httpClient.get<TutorialModel[]>(environment.apiUrl + "tutorials/read.php")
-      .pipe(
-        map(
-          (response:any[]) => response.map(
-            (item) => this.adapter.adapt(item)
-          )
-        )
-      );
-  }
 }

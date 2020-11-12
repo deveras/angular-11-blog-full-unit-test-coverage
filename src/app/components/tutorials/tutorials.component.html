@@ -1,5 +1,6 @@
 <div id="tutorials">
   <h1>Tutorials</h1>
+   <p style="color: red" *ngIf="errorMessage">{{errorMessage}}</p>
   <ul>
     <li *ngFor="let tutorial of collection">{{tutorial.title}} - {{tutorial.createDate | date: 'long'}}</li>
   </ul>

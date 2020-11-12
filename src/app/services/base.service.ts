@@ -5,6 +5,7 @@ import { map, catchError } from "rxjs/operators";
 import { environment } from '../../environments/environment.prod';
 import { ArticleModel, ArticleAdapter } from '../models/article-model';
 import { BookModel, BookAdapter } from '../models/book-model';
+import { TutorialModel, TutorialAdapter } from '../models/tutorial-model';
 
 
 @Injectable(
@@ -14,7 +15,7 @@ import { BookModel, BookAdapter } from '../models/book-model';
 )
 export class BaseService
 {
-  protected adapter:ArticleAdapter | BookAdapter;
+  protected adapter:ArticleAdapter | BookAdapter | TutorialAdapter;
   protected httpClient:HttpClient;
   private errorMessage:string = 'Failed to retrieve data from the server';
 
@@ -35,8 +36,12 @@ export class BaseService
   }
 
 
-  public getAll():Observable<ArticleModel[]> | Observable<BookModel[]> {
-    return this.httpClient.get<ArticleModel[] | BookModel[]>(environment.apiUrl + this.urlEndpoint)
+  public getAll():
+    Observable<ArticleModel[]> | Observable<BookModel[]> | Observable<TutorialModel[]>
+  {
+    return this.httpClient.get<ArticleModel[] | BookModel[] | TutorialModel[]>(
+      environment.apiUrl + this.urlEndpoint
+    )
       .pipe(
         map(
           (response:any[]) => response.map(

@@ -15,6 +15,7 @@ export class TutorialsComponent
   implements OnInit
 {
   public collection:TutorialModel[] = [];
+  public errorMessage:string = "";
 
 
   constructor(
@@ -22,11 +23,13 @@ export class TutorialsComponent
     private tutorialsService:TutorialsService) {
   }
 
+
   ngOnInit():void {
     this.titleService.setTitle("Tutorials");
 
     this.tutorialsService.getAll().subscribe(
-      (response:TutorialModel[]) => this.collection = response
+      (response:TutorialModel[]) => this.collection = response,
+      (errorMessage) => this.errorMessage = errorMessage
     );
   }
 
