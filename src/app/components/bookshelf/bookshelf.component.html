@@ -1,0 +1,6 @@
+<div id="bookself">
+  <h1>Bookshelf</h1>
+  <ul>
+    <li *ngFor="let book of collection">{{book.title}} - {{book.createDate | date: 'long'}}</li>
+  </ul>
+</div>
