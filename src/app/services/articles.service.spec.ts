@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController }
   from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ArticlesService } from './articles.service';
 import { ArticleModel, ArticleAdapter } from '../models/article-model';
 import { environment } from '../../environments/environment.prod';
@@ -34,7 +35,7 @@ describe('ArticlesService', () => {
   });
 
 
-  it('getAll should return a ArticleModel array via GET request method', () => {
+  it('getAll should return an observable ArticleModel array via GET request method', () => {
     const mockDateString = "1977-11-19 03:00:00";
     const mockArticlesAPIResponse = [
       {
@@ -59,5 +60,47 @@ describe('ArticlesService', () => {
     testingRequest.flush(mockArticlesAPIResponse);
     httpTestingController.verify();
   });
+
+
+  it('getAll should return an observable error string, when there is a problem in the client', () => {
+    const errorMessage = "Failed to retrieve articles from the server";
+
+    subjectUnderTest.getAll().subscribe(
+      (response) => fail("not reason to stop here..."),
+      (receivedErrorMessage:string) => {
+        expect( receivedErrorMessage ).toBe(errorMessage);
+      }
+    );
+    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php");
+    expect( testingRequest.request.method ).toEqual('GET');
+
+    testingRequest.error(
+      new ErrorEvent('Client error', { message: errorMessage })
+    );
+    httpTestingController.verify();
+  });
+
+
+  it('getAll should return an observable error string, when there is a problem with the network', () => {
+    const errorMessage = "Failed to retrieve articles from the server";
+
+    subjectUnderTest.getAll().subscribe(
+      (response) => fail("not a good response"),
+      (receivedErrorMessage:string) => {
+        expect( receivedErrorMessage ).toBe(errorMessage);
+      }
+    );
+    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php");
+    expect( testingRequest.request.method ).toEqual('GET');
+
+    testingRequest.flush("Network error",
+      {
+        status: 404,
+        statusText: errorMessage
+      }
+    );
+    httpTestingController.verify();
+  });
+
 
 });

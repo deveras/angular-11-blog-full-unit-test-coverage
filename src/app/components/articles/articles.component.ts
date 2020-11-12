@@ -15,6 +15,7 @@ export class ArticlesComponent
   implements OnInit
 {
   public collection:ArticleModel[] = [];
+  public errorMessage:string = "";
 
 
   constructor(
@@ -27,7 +28,8 @@ export class ArticlesComponent
     this.titleService.setTitle("Articles");
 
     this.articlesService.getAll().subscribe(
-      (response:ArticleModel[]) => this.collection = response
+      (response:ArticleModel[]) => this.collection = response,
+      (errorMessage) => this.errorMessage = errorMessage
     );
   }
 
