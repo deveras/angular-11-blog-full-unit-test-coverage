@@ -1,32 +1,61 @@
+import { Injectable } from "@angular/core";
+import { Adapter } from "./adapter";
+
+
 export class BookModel
 {
-  public id:number;
-  public title:string;
-  public recomendationSummary:string;
-  public author:string;
-  public authorLink:string;
-  public image:string;
-  public body:string;
-  public bookLink:string;
-  public featured:boolean;
-  public weight:number;
-  public lastUpdate:string;
-  public createDate:string;
-
-
-  constructor() {
-    this.id = 0;
-    this.title = "";
-    this.recomendationSummary = "";
-    this.author = "";
-    this.authorLink = "";
-    this.image = "";
-    this.body = "";
-    this.bookLink = "";
-    this.featured = false;
-    this.weight = 1;
-    this.lastUpdate = "";
-    this.createDate = "";
+  constructor(
+    public id:number = 0,
+    public title:string = "",
+    public recomendationSummary:string = "",
+    public author:string = "",
+    public authorLink:string = "",
+    public image:string = "",
+    public body:string = "",
+    public bookLink:string = "",
+    public featured:boolean = false,
+    public weight:number = 1,
+    public lastUpdateDate:Date = new Date(),
+    public createDate:Date = new Date()
+  ) {
+    this.id = id;
+    this.title = title;
+    this.recomendationSummary = recomendationSummary;
+    this.author = author;
+    this.authorLink = authorLink;
+    this.image = image;
+    this.body = body;
+    this.bookLink = bookLink;
+    this.featured = featured;
+    this.weight = weight;
+    this.lastUpdateDate = lastUpdateDate;
+    this.createDate = createDate;
   }
+}
 
+
+@Injectable(
+  {
+    providedIn: "root"
+  }
+)
+export class BookAdapter
+  implements Adapter<BookModel>
+{
+  adapt(item:any):BookModel {
+    return new BookModel(
+      item.id,
+      item.title,
+      item.recomendationSummary,
+      item.author,
+      item.authorLink,
+      item.image,
+      item.body,
+      item.bookLink,
+      item.featured,
+      item.weight,
+      new Date(item.lastUpdate),
+      new Date(item.createDate)
+    )
+  }
 }

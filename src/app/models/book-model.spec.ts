@@ -1,16 +1,20 @@
-import { BookModel } from './book-model';
+import { BookModel, BookAdapter } from './book-model';
+
 
 describe('BookModel', () => {
   let subjectUnderTest:BookModel;
+  let dateInstance = new Date();
 
 
   beforeEach( () => {
     subjectUnderTest = new BookModel();
+    subjectUnderTest.lastUpdateDate = dateInstance;
+    subjectUnderTest.createDate = dateInstance;
   });
 
 
   it('should create an instance', () => {
-    expect( subjectUnderTest).toBeTruthy();
+    expect( subjectUnderTest ).toBeTruthy();
   });
 
 
@@ -19,7 +23,7 @@ describe('BookModel', () => {
   });
 
 
-  it('should have defined the following properties and types', () => {
+ it('should have defined the following properties and types', () => {
     expect( subjectUnderTest.id ).toBeDefined();
     expect( subjectUnderTest.id ).toBeInstanceOf(Number);
     expect( subjectUnderTest.title ).toBeDefined();
@@ -40,10 +44,10 @@ describe('BookModel', () => {
     expect( subjectUnderTest.featured ).toBeFalsy();
     expect( subjectUnderTest.weight ).toBeDefined();
     expect( subjectUnderTest.weight ).toBeInstanceOf(Number);
-    expect( subjectUnderTest.lastUpdate ).toBeDefined();
-    expect( subjectUnderTest.lastUpdate ).toBeInstanceOf(String);
+    expect( subjectUnderTest.lastUpdateDate ).toBeDefined();
+    expect( subjectUnderTest.lastUpdateDate ).toBeInstanceOf(Date);
     expect( subjectUnderTest.createDate ).toBeDefined();
-    expect( subjectUnderTest.createDate ).toBeInstanceOf(String);
+    expect( subjectUnderTest.createDate ).toBeInstanceOf(Date);
   });
 
 
@@ -58,8 +62,8 @@ describe('BookModel', () => {
     expect( subjectUnderTest.bookLink ).toBe("");
     expect( subjectUnderTest.featured ).toBe(false);
     expect( subjectUnderTest.weight ).toBe(1);
-    expect( subjectUnderTest.lastUpdate ).toBe("");
-    expect( subjectUnderTest.createDate ).toBe("");
+    expect( subjectUnderTest.lastUpdateDate ).toEqual(dateInstance);
+    expect( subjectUnderTest.createDate ).toEqual(dateInstance);
   });
 
 
@@ -74,8 +78,8 @@ describe('BookModel', () => {
     subjectUnderTest.bookLink = "barfoo";
     subjectUnderTest.featured = true;
     subjectUnderTest.weight = 0.5;
-    subjectUnderTest.lastUpdate = "barbar";
-    subjectUnderTest.createDate = "barbaz";
+    subjectUnderTest.lastUpdateDate = dateInstance;
+    subjectUnderTest.createDate = dateInstance;
 
     expect( subjectUnderTest.id ).toBe(100);
     expect( subjectUnderTest.title ).toBe("foo");
@@ -87,8 +91,65 @@ describe('BookModel', () => {
     expect( subjectUnderTest.bookLink ).toBe("barfoo");
     expect( subjectUnderTest.featured ).toBe(true);
     expect( subjectUnderTest.weight ).toBe(0.5);
-    expect( subjectUnderTest.lastUpdate ).toBe("barbar");
-    expect( subjectUnderTest.createDate ).toBe("barbaz");
+    expect( subjectUnderTest.lastUpdateDate ).toEqual(dateInstance);
+    expect( subjectUnderTest.createDate ).toEqual(dateInstance);
+  });
+
+});
+
+
+describe('BookAdapter', () => {
+  let subjectUnderTest:BookAdapter;
+  let dateInstance = new Date();
+
+
+  beforeEach( () => {
+    subjectUnderTest = new BookAdapter();
+  });
+
+
+  it('should create an instance', () => {
+    expect( subjectUnderTest ).toBeTruthy();
+  });
+
+
+  it('should have an adapt method', () => {
+    expect( subjectUnderTest.adapt ).toBeDefined();
+    expect( typeof subjectUnderTest.adapt ).toBe("function");
+  });
+
+
+  it('adapt should return a BookModel instance', () => {
+    const mockDateString = "1977-11-19 03:00:00";
+    const mockResponse = {
+      id: 100,
+      title: "foo",
+      recomendationSummary: "bar",
+      author: "baz",
+      authorLink: "foofoo",
+      image: "foobar",
+      body: "foobaz",
+      bookLink: "barfoo",
+      featured: true,
+      weight: 0.5,
+      lastUpdate: mockDateString,
+      createDate: mockDateString,
+    };
+
+    const bookModel:BookModel = subjectUnderTest.adapt(mockResponse);
+
+    expect( bookModel.id ).toBe(100);
+    expect( bookModel.title ).toBe("foo");
+    expect( bookModel.recomendationSummary ).toBe("bar");
+    expect( bookModel.author ).toBe("baz");
+    expect( bookModel.authorLink ).toBe("foofoo");
+    expect( bookModel.image ).toBe("foobar");
+    expect( bookModel.body ).toBe("foobaz");
+    expect( bookModel.bookLink ).toBe("barfoo");
+    expect( bookModel.featured ).toBe(true);
+    expect( bookModel.weight ).toBe(0.5);
+    expect( bookModel.lastUpdateDate ).toEqual(new Date(mockDateString));
+    expect( bookModel.createDate ).toEqual(new Date(mockDateString));
   });
 
 });

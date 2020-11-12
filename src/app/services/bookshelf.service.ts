@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
-import { BookModel } from '../models/book-model';
+import { BookModel, BookAdapter } from '../models/book-model';
 import { environment } from '../../environments/environment.prod';
 
 
@@ -16,7 +16,8 @@ export class BookshelfService {
 
 
   constructor(
-    private httpClient:HttpClient) {
+    private httpClient:HttpClient,
+    private adapter:BookAdapter) {
   }
 
 
@@ -24,10 +25,9 @@ export class BookshelfService {
     return this.httpClient.get<BookModel[]>(environment.apiUrl + "bookshelf/read.php")
       .pipe(
         map(
-          (response) => {
-            this.collection = response;
-            return response;
-          }
+          (response:any[]) => response.map(
+            (item) => this.adapter.adapt(item)
+          )
         )
       );
   }
