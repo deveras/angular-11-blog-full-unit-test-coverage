@@ -12,15 +12,13 @@ import { filter } from 'rxjs/operators';
   }
 )
 export class AppComponent {
-  title = 'Blog';
+  public openMobileMenu:boolean = false;
 
 
   constructor(
     private router:Router,
     private titleService:Title
-  ) {
-    this.titleService.setTitle(this.title);
-  }
+  ) { }
 
   ngOnInit() {
     this.router.events.subscribe(
@@ -29,7 +27,7 @@ export class AppComponent {
           if (event.snapshot.data.title) {
             this.titleService.setTitle(event.snapshot.data.title)
           } else {
-            this.titleService.setTitle(this.title);
+            this.titleService.setTitle("Blog");
           }
         }
       }

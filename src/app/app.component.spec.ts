@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AppComponent } from './app.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { of } from 'rxjs';
 
@@ -19,7 +20,10 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AppComponent ],
+      declarations: [
+        AppComponent,
+        NavigationComponent
+      ],
       providers: [ Title ],
       imports: [ RouterTestingModule.withRoutes(
         [
@@ -65,8 +69,8 @@ describe('AppComponent', () => {
   });
 
 
-  it(`should have as title 'Blog'`, () => {
-    expect( app.title ).toEqual('Blog');
+  it('should have as openMobileMenu public boolean', () => {
+    expect( app.openMobileMenu ).toBe(false);
   });
 
 

@@ -1,16 +1,27 @@
-<div class="content">
-  <span>'{{title}} app is running!'</span>
-  <p>
-    <a [routerLink]=" ['/articles'] " routerLinkActive="isActive">Articles</a>
-  </p>
-  <p>
-    <a [routerLink]=" ['/tutorials'] " routerLinkActive="isActive">Tutorials</a>
-  </p>
-  <p>
-    <a [routerLink]=" ['/bookshelf'] " routerLinkActive="isActive">Bookshelf</a>
-  </p>
-  <p>
-    <a [routerLink]=" ['/dontExist'] " routerLinkActive="isActive">Page Not Found</a>
-  </p>
-  <router-outlet></router-outlet>
+<div id="app">
+  <aside>
+    <div id="card">
+      <a href="/" rel="home"><div title="André R. Ferreira, MSc photograph"></div></a>
+      <h4>André R. Ferreira, MSc</h4>
+    </div>
+
+    <div id="socialMedia">
+      <ul>
+        <li>
+          <a target="_blank" tabIndex="2" hreflang="en" title="Link to André Ferreira's LinkedIn account"href="https://www.linkedin.com/in/andreraposoferreira"><img src="https://assets.andreferreira.website/imgs/linkedin.png"/></a>
+        </li>
+        <li>
+          <a target="_blank" tabIndex="3" hreflang="en" title="Link to André Ferreira's Github account" href="github"><img src="https://assets.andreferreira.website/imgs/github.png"/></a>
+        </li>
+        <li>
+          <a target="_blank" tabIndex="1" hreflang="en" title="Link to André Ferreira's Twitter account" href="twitter"><img src="https://assets.andreferreira.website/imgs/twitter.png"/></a>
+        </li>
+      </ul>
+    </div>
+    <div id="mobileMenu" (click)="openMobileMenu = !openMobileMenu" [class.openMenu]="openMobileMenu" (openMobileMenuChange)="openMobileMenu = $event"></div>
+    <blog-navigation [(openMobileMenu)]="openMobileMenu"></blog-navigation>
+  </aside>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 </div>

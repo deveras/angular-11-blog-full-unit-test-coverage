@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 import { TutorialsComponent } from './components/tutorials/tutorials.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { TutorialsComponent } from './components/tutorials/tutorials.component';
     AppComponent,
     ArticlesComponent,
     BookshelfComponent,
-    TutorialsComponent
+    TutorialsComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

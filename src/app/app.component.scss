@@ -1,0 +1,149 @@
+@import 'variables';
+
+#app {
+  display: flex;
+  flex-direction:row;
+
+  @media (max-width: 1286px) { flex-direction: column; }
+
+  &>aside {
+    z-index: 99;
+    order: 0;
+    width: 220px;
+    min-height: 100vh;
+    min-width: 220px;
+    width: 220px;
+    color: $colorWhite;
+    background-color: $colorGreyDark;
+
+    @media (max-width: 1286px) {
+      width: 100%;
+      min-height: 80px;
+    }
+
+    #card {
+      text-align: center;
+
+      @media (max-width: 1286px) {
+        height: 80px;
+        text-align: left;
+      }
+
+      a {
+        @media (max-width: 1286px) {
+          float: left;
+          display: inline-block;
+        }
+
+        div {
+          float: none;
+          height: 130px;
+          width: 130px;
+          border-radius: 50%;
+          border: 1px solid $colorWhite;
+          margin: 50px auto 20px auto;
+          background-position: 50%;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-image: url("https://assets.andreferreira.website/imgs/andreFerreiraMSc.jpg");
+
+          &:hover { border-color: $colorGreyLight; }
+
+          @media (max-width: 1286px) {
+            margin: 17px 0 0 30px;
+            width: 50px;
+            height: 50px;
+          }
+        }
+      }
+
+      h4 {
+        color: $colorGreyLight;
+        font-weight: normal;
+
+        @media (max-width: 1286px) {
+          margin: 34px 0 0 15px;
+          display: inline-block;
+        }
+      }
+    }
+
+    #socialMedia {
+      margin-top: 10px;
+      text-align: center;
+
+      @media (max-width: 1286px) { display: none; }
+
+      ul li {
+        display: inline-block;
+        margin-right: 8px;
+
+        a {
+          &:hover img {
+            background-color: $colorGreyLight;
+          }
+
+          img {
+            padding: 1px;
+            background-color: $colorWhite;
+            border-radius: 25%;
+            height: 25px;
+            width: 25px;
+          }
+        }
+      }
+    }
+
+    #mobileMenu {
+      display: none;
+      position: absolute;
+      right: 20px;
+      top: 30px;
+      width: 25px;
+      height: 25px;
+      transition-property: transform;
+      transition-duration: 0.15s;
+      transition-timing-function: ease;
+      transition: opacity 0.15s 0.4s ease;
+      transition-delay: 0.1s;
+      cursor: pointer;
+
+      @media (max-width: 1286px) { display: block; }
+
+      &:before {
+        position: absolute;
+        border-radius: 4px;
+        top: 7px;
+        content: '';
+        background-color: #FFF;
+        height: 2px;
+        width: 23px;
+      }
+
+      &:after {
+        position: absolute;
+        border-radius: 4px;
+        top: 14px;
+        content: '';
+        background-color: #FFF;
+        height: 2px;
+        width: 23px;
+      }
+
+      &.openMenu {
+        &:before { transform: translate3d(0,7px,0) rotate(45deg); }
+
+        &:after { transform: translate3d(0,0,0) rotate(-45deg); }
+      }
+    }
+  }
+
+  main {
+    margin: 100px auto 80px auto;
+    padding: 0 20px;
+    min-width: 300px;
+    max-width: 1150px;
+
+    @media (max-width: 1286px) { margin: 20px auto 50px auto; }
+  }
+}
