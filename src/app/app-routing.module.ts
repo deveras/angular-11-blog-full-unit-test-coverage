@@ -14,19 +14,31 @@ const routes: Routes = [
   }, {
     path: "articles",
     component: ArticlesComponent,
-    data: { title: "Articles" }
+    data: {
+      title: "Articles",
+      breadcrumb: "Articles"
+    }
   }, {
     path: "bookshelf",
     component: BookshelfComponent,
-    data: { title: "Bookshelf" }
+    data: {
+      title: "Bookshelf",
+      breadcrumb: "Bookshelf"
+    }
   }, {
     path: "tutorials",
     component: TutorialsComponent,
-    data: { title: "Tutorials" }
+    data: {
+      title: "Tutorials",
+      breadcrumb: "Tutorials"
+    }
   }, {
     path: "**",
     component: PageNotFoundComponent,
-    data: { title: "Page not found" }
+    data: {
+      title: "Page not found",
+      breadcrumb: "Page not found"
+    }
   }
 ];
 

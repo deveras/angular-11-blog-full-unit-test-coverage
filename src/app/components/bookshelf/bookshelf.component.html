@@ -1,5 +1,4 @@
 <div id="bookself">
-  <h1>Bookshelf</h1>
   <p style="color: red" *ngIf="errorMessage">{{errorMessage}}</p>
   <ul>
     <li *ngFor="let book of collection">{{book.title}} - {{book.createDate | date: 'long'}}</li>

@@ -8,6 +8,7 @@ import { ArticlesComponent } from './components/articles/articles.component';
 import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 import { TutorialsComponent } from './components/tutorials/tutorials.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     ArticlesComponent,
     BookshelfComponent,
     TutorialsComponent,
-    NavigationComponent
+    NavigationComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     BrowserModule,

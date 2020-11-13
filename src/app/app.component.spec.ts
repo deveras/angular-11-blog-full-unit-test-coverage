@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -11,7 +11,7 @@ import { of } from 'rxjs';
 
 describe('AppComponent', () => {
   let fixture:ComponentFixture<AppComponent>;
-  let app:AppComponent;
+  let subjectUnderTest:AppComponent;
   let titleService:Title;
   let spyTitleServiceSet:jasmine.Spy;
   let router:Router;
@@ -25,16 +25,22 @@ describe('AppComponent', () => {
         NavigationComponent
       ],
       providers: [ Title ],
-      imports: [ RouterTestingModule.withRoutes(
-        [
+      imports: [
+        RouterModule.forRoot([
           {
             path: "articles",
             component: PageNotFoundComponent,
-            data: { title: "The title is now FOO" }
+            data: {
+              title: "The title is now FOO",
+              breadcrumb: "foo"
+            }
           }, {
             path: "tutorials",
             component: PageNotFoundComponent,
-            data: { title: "The title is now BAR" }
+            data: {
+              title: "The title is now BAR",
+              breadcrumb: "bar"
+            }
           }, {
             path: "**",
             component: PageNotFoundComponent
@@ -46,7 +52,7 @@ describe('AppComponent', () => {
 
   beforeEach( () => {
     fixture = TestBed.createComponent(AppComponent);
-    app = fixture.componentInstance;
+    subjectUnderTest = fixture.componentInstance;
 
     titleService = TestBed.inject(Title);
     spyTitleServiceSet = spyOn(titleService, "setTitle");
@@ -64,13 +70,18 @@ describe('AppComponent', () => {
   });
 
 
-  it('should create the app', () => {
-    expect( app ).toBeTruthy();
+  it('should create the subjectUnderTest', () => {
+    expect( subjectUnderTest ).toBeTruthy();
   });
 
 
-  it('should have as openMobileMenu public boolean', () => {
-    expect( app.openMobileMenu ).toBe(false);
+  it('should have 3 public properties', () => {
+    expect( subjectUnderTest.openMobileMenu ).toBeDefined();
+    expect( subjectUnderTest.openMobileMenu ).toBe(false);
+    expect( subjectUnderTest.breadcrumbsTitle ).toBeDefined();
+    expect( subjectUnderTest.breadcrumbsTitle ).toBe("");
+    expect( subjectUnderTest.showLoading ).toBeDefined();
+    expect( subjectUnderTest.showLoading ).toBe(true);
   });
 
 
@@ -83,6 +94,8 @@ describe('AppComponent', () => {
         expect( location.path()).toBe("/tutorials");
         expect( spyTitleServiceSet.calls.count() ).toBe(1);
         expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now BAR");
+        expect( subjectUnderTest.breadcrumbsTitle ).toBe("bar");
+        expect( subjectUnderTest.showLoading ).toBe(false);
       });
     }
   ));
@@ -97,6 +110,8 @@ describe('AppComponent', () => {
         expect( location.path()).toBe("/articles");
         expect( spyTitleServiceSet.calls.count() ).toBe(1);
         expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now FOO");
+        expect( subjectUnderTest.breadcrumbsTitle ).toBe("foo");
+        expect( subjectUnderTest.showLoading ).toBe(false);
      });
     }
   ));
@@ -111,6 +126,8 @@ describe('AppComponent', () => {
         expect( location.path()).toBe("/DoNotExist");
         expect( spyTitleServiceSet.calls.count() ).toBe(1);
         expect( spyTitleServiceSet ).toHaveBeenCalledWith("Blog");
+        expect( subjectUnderTest.breadcrumbsTitle ).toBe("");
+        expect( subjectUnderTest.showLoading ).toBe(false);
      });
     }
   ));

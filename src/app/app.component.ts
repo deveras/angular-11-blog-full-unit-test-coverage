@@ -13,6 +13,8 @@ import { filter } from 'rxjs/operators';
 )
 export class AppComponent {
   public openMobileMenu:boolean = false;
+  public breadcrumbsTitle:string = "";
+  public showLoading:boolean = true;
 
 
   constructor(
@@ -23,13 +25,17 @@ export class AppComponent {
   ngOnInit() {
     this.router.events.subscribe(
       (event) => {
+        this.showLoading = true;
         if (event instanceof ActivationEnd) {
           if (event.snapshot.data.title) {
-            this.titleService.setTitle(event.snapshot.data.title)
+            this.titleService.setTitle(event.snapshot.data.title);
+            this.breadcrumbsTitle = event.snapshot.data.breadcrumb;
           } else {
             this.titleService.setTitle("Blog");
+            this.breadcrumbsTitle = "";
           }
         }
+        this.showLoading = false;
       }
     );
   }

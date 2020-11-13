@@ -1,0 +1,39 @@
+@import 'variables';
+
+
+#breadcrumbs {
+  display: block;
+  height: 25px;
+  margin-bottom: 20px;
+
+  ul {
+
+    li {
+      float: left;
+      margin-right: 10px;
+
+      i {
+        width: 16px;
+        color: $colorGreyDark;
+      }
+
+      a, span:last-of-type {
+        position: relative;
+        color: $colorGreyDark;
+        font-size: 1em;
+        text-shadow: none;
+      }
+
+      span:last-of-type {
+        margin-left: 5px;
+        color: $colorGreyLight;
+      }
+
+      span:first-of-type {
+        position:relative;
+        top: 1px;
+      }
+
+    }
+  }
+}

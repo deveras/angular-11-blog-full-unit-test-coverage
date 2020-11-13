@@ -22,6 +22,7 @@
     <blog-navigation [(openMobileMenu)]="openMobileMenu"></blog-navigation>
   </aside>
   <main>
+    <blog-breadcrumbs [crumbs]="[{title: breadcrumbsTitle }]" *ngIf="!showLoading"></blog-breadcrumbs>
     <router-outlet></router-outlet>
   </main>
 </div>
