@@ -13,16 +13,20 @@ const routes: Routes = [
     pathMatch: "full"
   }, {
     path: "articles",
-    component: ArticlesComponent
+    component: ArticlesComponent,
+    data: { title: "Articles" }
   }, {
     path: "bookshelf",
-    component: BookshelfComponent
+    component: BookshelfComponent,
+    data: { title: "Bookshelf" }
   }, {
     path: "tutorials",
-    component: TutorialsComponent
+    component: TutorialsComponent,
+    data: { title: "Tutorials" }
   }, {
     path: "**",
-    component: PageNotFoundComponent
+    component: PageNotFoundComponent,
+    data: { title: "Page not found" }
   }
 ];
 

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 
 
 @Component(
@@ -9,15 +8,8 @@ import { Title } from '@angular/platform-browser';
     styleUrls: ['./page-not-found.component.scss']
   }
 )
-export class PageNotFoundComponent
-  implements OnInit
-{
+export class PageNotFoundComponent {
 
-  constructor(private titleService:Title) { }
-
-
-  ngOnInit():void {
-    this.titleService.setTitle("Page not found!");
-  }
+  constructor() { }
 
 }

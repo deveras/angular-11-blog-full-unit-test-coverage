@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ArticlesService } from '../../services/articles.service';
 import { ArticleModel } from '../../models/article-model';
 
@@ -19,14 +18,11 @@ export class ArticlesComponent
 
 
   constructor(
-    private titleService:Title,
-    private articlesService:ArticlesService) {
-  }
+    private articlesService:ArticlesService
+  ) {}
 
 
   ngOnInit():void {
-    this.titleService.setTitle("Articles");
-
     this.articlesService.getAll().subscribe(
       (response:ArticleModel[]) => this.collection = response,
       (errorMessage) => this.errorMessage = errorMessage

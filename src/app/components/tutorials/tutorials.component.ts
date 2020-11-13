@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { TutorialsService } from '../../services/tutorials.service';
 import { TutorialModel } from '../../models/tutorial-model';
 
@@ -19,14 +18,11 @@ export class TutorialsComponent
 
 
   constructor(
-    private titleService:Title,
-    private tutorialsService:TutorialsService) {
-  }
+    private tutorialsService:TutorialsService
+  ) { }
 
 
   ngOnInit():void {
-    this.titleService.setTitle("Tutorials");
-
     this.tutorialsService.getAll().subscribe(
       (response:TutorialModel[]) => this.collection = response,
       (errorMessage) => this.errorMessage = errorMessage

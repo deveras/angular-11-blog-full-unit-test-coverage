@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { BookshelfService } from '../../services/bookshelf.service';
 import { BookModel } from '../../models/book-model';
 
@@ -19,14 +18,11 @@ export class BookshelfComponent
 
 
   constructor(
-    private titleService:Title,
-    private bookshelfService:BookshelfService) {
-  }
+    private bookshelfService:BookshelfService
+  ) {}
 
 
   ngOnInit():void {
-    this.titleService.setTitle("Bookshelf");
-
     this.bookshelfService.getAll().subscribe(
       (response:BookModel[]) => this.collection = response,
       (errorMessage) => this.errorMessage = errorMessage

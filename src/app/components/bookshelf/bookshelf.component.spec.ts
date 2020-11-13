@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookshelfComponent } from './bookshelf.component';
-import { Title } from '@angular/platform-browser';
 import { BookshelfService } from './../../services/bookshelf.service';
 import { HttpClientTestingModule, HttpTestingController }
   from '@angular/common/http/testing';
@@ -16,16 +15,14 @@ describe('BookshelfComponent', () => {
   }];
   let fixture: ComponentFixture<BookshelfComponent>;
   let component: BookshelfComponent;
-  let titleService:Title;
   let bookshelfService:BookshelfService;
-  let spyTitleServiceSet:jasmine.Spy;
   let spyBookshelfServiceGetAll:jasmine.Spy;
 
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ BookshelfComponent ],
-      providers: [ Title, BookshelfService ],
+      providers: [ BookshelfService ],
       imports: [ HttpClientTestingModule ]
     });
   });
@@ -34,9 +31,6 @@ describe('BookshelfComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BookshelfComponent);
     component = fixture.componentInstance;
-
-    titleService = TestBed.inject(Title);
-    spyTitleServiceSet = spyOn(titleService, "setTitle");
 
     bookshelfService = TestBed.inject(BookshelfService);
     spyBookshelfServiceGetAll = spyOn(bookshelfService, "getAll");
@@ -53,15 +47,6 @@ describe('BookshelfComponent', () => {
     expect( component.collection ).toEqual([]);
     expect( component.errorMessage ).toBeDefined();
     expect( component.errorMessage ).toBe("");
-  });
-
-
-  it('ngOnInit should set the page title to Bookshelf', () => {
-    spyBookshelfServiceGetAll.and.returnValue( of("") );
-    fixture.detectChanges();
-
-    expect( spyTitleServiceSet.calls.count() ).toBe(1);
-    expect( spyTitleServiceSet ).toHaveBeenCalledWith("Bookshelf");
   });
 
 
