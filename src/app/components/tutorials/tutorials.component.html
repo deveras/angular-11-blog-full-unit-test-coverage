@@ -12,7 +12,7 @@
         <time>{{item.lastUpdateDate | date : 'long'}}</time>
 
         <div>
-          <h2><a [routerLink]="['/' + breadcrumbsTitle, item.slugTitle]">{{item.title}}</a><span *ngIf="item.author"> - <a target="_blank" href="{{item.authorLink}}">{{item.author}}</a></span></h2>
+          <h2><a [routerLink]="['/' + breadcrumbsTitle, item.slugTitle]">{{item.title}}</a><span *ngIf="item.author"> - <a target="_blank" href="{{item.authorLink}}" rel="noopener">{{item.author}}</a></span></h2>
           <p>{{item.recomendationSummary}}</p>
         </div>
       </li>
