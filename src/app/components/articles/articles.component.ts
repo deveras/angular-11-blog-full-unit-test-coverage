@@ -15,6 +15,7 @@ export class ArticlesComponent
 {
   public collection:ArticleModel[] = [];
   public errorMessage:string = "";
+  public showLoading:boolean = true;
 
 
   constructor(
@@ -24,8 +25,14 @@ export class ArticlesComponent
 
   ngOnInit():void {
     this.articlesService.getAll().subscribe(
-      (response:ArticleModel[]) => this.collection = response,
-      (errorMessage) => this.errorMessage = errorMessage
+      (response:ArticleModel[]) => {
+        this.collection = response;
+        this.showLoading = false;
+      },
+      (errorMessage) => {
+        this.errorMessage = errorMessage;
+        this.showLoading = false;
+      }
     );
   }
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { ArticlesComponent } from './articles.component';
 import { ArticlesService } from './../../services/articles.service';
 import { HttpClientTestingModule, HttpTestingController }
@@ -22,7 +23,10 @@ describe('ArticlesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ArticlesComponent ],
       providers: [ ArticlesService ],
-      imports: [ HttpClientTestingModule ]
+      imports: [
+        HttpClientTestingModule,
+        RouterModule.forRoot([])
+      ]
     })
   });
 
@@ -46,6 +50,8 @@ describe('ArticlesComponent', () => {
     expect( component.collection ).toEqual([]);
     expect( component.errorMessage ).toBeDefined();
     expect( component.errorMessage ).toBe("");
+    expect( component.showLoading ).toBeDefined();
+    expect( component.showLoading ).toBe(true);
   });
 
 
@@ -55,6 +61,7 @@ describe('ArticlesComponent', () => {
 
     expect( spyArticlesServiceGetAll.calls.count() ).toBe(1);
     expect( component.collection ).toEqual(expectedArticles);
+    expect( component.showLoading ).toBe(false);
   });
 
 
@@ -64,6 +71,7 @@ describe('ArticlesComponent', () => {
 
     expect( spyArticlesServiceGetAll.calls.count() ).toBe(1);
     expect( component.errorMessage ).toEqual("foo bar baz");
+    expect( component.showLoading ).toBe(false);
   });
 
 });
