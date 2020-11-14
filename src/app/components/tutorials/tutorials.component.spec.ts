@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { TutorialsComponent } from './tutorials.component';
 import { TutorialsService } from './../../services/tutorials.service';
 import { HttpClientTestingModule, HttpTestingController }
@@ -21,7 +22,10 @@ describe('TutorialsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ TutorialsComponent ],
       providers: [ TutorialsService ],
-      imports: [ HttpClientTestingModule ]
+      imports: [
+        HttpClientTestingModule,
+        RouterModule.forRoot([])
+      ]
     })
   });
 
@@ -40,11 +44,13 @@ describe('TutorialsComponent', () => {
   });
 
 
-  it('ngOnInit should set the page title to Bookshelf', () => {
+  it('should have 3 public properties', () => {
     expect( component.collection ).toBeDefined();
     expect( component.collection ).toEqual([]);
     expect( component.errorMessage ).toBeDefined();
     expect( component.errorMessage ).toBe("");
+    expect( component.showLoading ).toBeDefined();
+    expect( component.showLoading ).toBe(true);
   });
 
 
@@ -54,6 +60,7 @@ describe('TutorialsComponent', () => {
 
     expect( spyTutorialsServiceGetAll.calls.count() ).toBe(1);
     expect( component.collection ).toEqual(expectedTutorials);
+    expect( component.showLoading ).toBe(false);
   });
 
 
@@ -63,6 +70,7 @@ describe('TutorialsComponent', () => {
 
     expect( spyTutorialsServiceGetAll.calls.count() ).toBe(1);
     expect( component.errorMessage ).toEqual("foo bar baz");
+    expect( component.showLoading ).toBe(false);
   });
 
 });

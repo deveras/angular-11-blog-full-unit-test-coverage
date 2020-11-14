@@ -15,6 +15,7 @@ export class TutorialsComponent
 {
   public collection:TutorialModel[] = [];
   public errorMessage:string = "";
+  public showLoading:boolean = true;
 
 
   constructor(
@@ -24,8 +25,14 @@ export class TutorialsComponent
 
   ngOnInit():void {
     this.tutorialsService.getAll().subscribe(
-      (response:TutorialModel[]) => this.collection = response,
-      (errorMessage) => this.errorMessage = errorMessage
+      (response:TutorialModel[]) => {
+        this.collection = response;
+        this.showLoading = false;
+      },
+      (errorMessage) => {
+        this.errorMessage = errorMessage;
+        this.showLoading = false;
+      }
     );
   }
 

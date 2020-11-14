@@ -14,7 +14,6 @@ describe('ArticlesComponent', () => {
   }];
   let fixture: ComponentFixture<ArticlesComponent>;
   let component: ArticlesComponent;
-
   let articlesService:ArticlesService;
   let spyArticlesServiceGetAll:jasmine.Spy;
 
@@ -45,7 +44,7 @@ describe('ArticlesComponent', () => {
   });
 
 
-  it('should have 2 public properties', () => {
+  it('should have 3 public properties', () => {
     expect( component.collection ).toBeDefined();
     expect( component.collection ).toEqual([]);
     expect( component.errorMessage ).toBeDefined();

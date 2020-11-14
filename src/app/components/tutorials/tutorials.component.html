@@ -1,6 +1,22 @@
 <div id="tutorials">
-   <p style="color: red" *ngIf="errorMessage">{{errorMessage}}</p>
-  <ul>
-    <li *ngFor="let tutorial of collection">{{tutorial.title}} - {{tutorial.createDate | date: 'long'}}</li>
-  </ul>
+  <section [ngSwitch]="showLoading">
+
+    <span *ngSwitchDefault>
+      <i class="fa fa-circle-o-notch fa-spin"></i>
+    </span>
+
+    <p *ngSwitchCase="false && errorMessage">{{errorMessage}}</p>
+
+    <ul *ngSwitchCase="false && !errorMessage">
+      <li *ngFor="let item of collection">
+        <time>{{item.lastUpdateDate | date : 'long'}}</time>
+
+        <div>
+          <h2><a [routerLink]="['/' + breadcrumbsTitle, item.slugTitle]">{{item.title}}</a><span *ngIf="item.author"> - <a target="_blank" href="{{item.authorLink}}">{{item.author}}</a></span></h2>
+          <p>{{item.recomendationSummary}}</p>
+        </div>
+      </li>
+    </ul>
+
+  </section>
 </div>
