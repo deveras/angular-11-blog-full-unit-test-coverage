@@ -1,0 +1,123 @@
+@import 'variables';
+
+#bookshelf {
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: 1286px) { flex-direction: column; }
+
+  section {
+    display: block;
+    width: 100%;
+
+    &>span {
+      display: block;
+      margin: 150px auto;
+      height: 80px;
+      text-align: center;
+      min-width: 100%;
+
+      i {
+        font-size: 10em;
+        color: #DDD;
+      }
+    }
+
+    &>ul {
+
+      li {
+        display: flex;
+        flex-direction: row;
+        border-top: 1px solid #ccc;
+
+        @media (max-width: 600px) {
+          flex-direction: column;
+          border: 0;
+        }
+
+        &:last-of-type {
+          border-bottom: 1px solid #ccc;
+
+          @media (max-width: 600px) { border-bottom: 0; }
+        }
+
+        time {
+          border-right: 1px solid #ccc;
+          margin: 5px;
+          padding: 20px 0 0 0;
+          color: $colorGreyDark;
+          width: 120px;
+          display: inline-block;
+          font-size: 14px;
+
+          @media (max-width: 600px) { display: none; }
+        }
+
+        &> div {
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          margin: 5px;
+          padding: 15px 0 20px 10px;
+
+          @media (max-width: 600px) {
+            display: flex;
+            flex-direction: column;
+            order: 1;
+            margin: 0;
+            padding-left: 0;
+          }
+
+          &> div {
+            display: flex;
+            flex-direction: column;
+
+            img {
+              display: block;
+              border: 1px solid #777;
+              margin-right: 20px;
+              width: 100px;
+              min-height: 130px;
+              background-color: #DDD;
+              color: #777;
+
+              @media (max-width: 600px) {
+                margin: 0 auto;
+                width: 150px;
+              }
+            }
+
+            &>a {
+              display: block;
+              margin: 20px 0;
+              width: 100px;
+              background: linear-gradient(to bottom,#f8e6b8 0,#f3d686 6%,#ebb62c 100%);
+              text-decoration: none;
+
+              @media (max-width: 600px) {
+                margin: 20px auto 30px auto;
+              }
+
+              span {
+                display: table-cell;
+                padding-left: 30px;
+                height: 25px;
+                font-size: 11.4px;
+                vertical-align: middle;
+                background-repeat: no-repeat;
+                color: #333;
+                background-position: 0 0;
+                background-image: url('//wms-eu.amazon-adsystem.com/panda/20070822/US/img/cart.gif');
+              }
+            }
+
+            p {
+              line-height: 23px;
+              color: #777;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { BookshelfComponent } from './bookshelf.component';
 import { BookshelfService } from './../../services/bookshelf.service';
 import { HttpClientTestingModule, HttpTestingController }
@@ -23,7 +24,10 @@ describe('BookshelfComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ BookshelfComponent ],
       providers: [ BookshelfService ],
-      imports: [ HttpClientTestingModule ]
+      imports: [
+        HttpClientTestingModule,
+        RouterModule.forRoot([])
+      ]
     });
   });
 
@@ -47,6 +51,8 @@ describe('BookshelfComponent', () => {
     expect( component.collection ).toEqual([]);
     expect( component.errorMessage ).toBeDefined();
     expect( component.errorMessage ).toBe("");
+    expect( component.showLoading ).toBeDefined();
+    expect( component.showLoading ).toBe(true);
   });
 
 
@@ -56,6 +62,7 @@ describe('BookshelfComponent', () => {
 
     expect( spyBookshelfServiceGetAll.calls.count() ).toBe(1);
     expect( component.collection ).toEqual(expectedBooks);
+    expect( component.showLoading ).toBe(false);
   });
 
 
@@ -65,6 +72,7 @@ describe('BookshelfComponent', () => {
 
     expect( spyBookshelfServiceGetAll.calls.count() ).toBe(1);
     expect( component.errorMessage ).toEqual("foo bar baz");
+    expect( component.showLoading ).toBe(false);
   });
 
 });

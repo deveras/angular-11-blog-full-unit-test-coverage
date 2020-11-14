@@ -15,6 +15,7 @@ export class BookshelfComponent
 {
   public collection:BookModel[] = [];
   public errorMessage:string = "";
+  public showLoading:boolean = true;
 
 
   constructor(
@@ -24,8 +25,14 @@ export class BookshelfComponent
 
   ngOnInit():void {
     this.bookshelfService.getAll().subscribe(
-      (response:BookModel[]) => this.collection = response,
-      (errorMessage) => this.errorMessage = errorMessage
+      (response:BookModel[]) => {
+        this.collection = response;
+        this.showLoading = false;
+      },
+      (errorMessage) => {
+        this.errorMessage = errorMessage;
+        this.showLoading = false;
+      }
     );
   }
 
