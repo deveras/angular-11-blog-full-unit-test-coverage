@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from "@angular/core";
+import { Component, ChangeDetectionStrategy, EventEmitter } from "@angular/core";
 
 
 @Component(
@@ -8,6 +8,7 @@ import { Component, EventEmitter } from "@angular/core";
     styleUrls: ["./navigation.component.scss"],
     inputs : [ "openMobileMenu" ],
     outputs : [ "openMobileMenuChange" ],
+    changeDetection: ChangeDetectionStrategy.OnPush
   }
 )
 export class NavigationComponent

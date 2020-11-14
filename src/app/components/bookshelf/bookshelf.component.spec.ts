@@ -15,9 +15,10 @@ describe('BookshelfComponent', () => {
     createDate: new Date()
   }];
   let fixture: ComponentFixture<BookshelfComponent>;
-  let component: BookshelfComponent;
+  let subjectUnderTest: BookshelfComponent;
   let bookshelfService:BookshelfService;
   let spyBookshelfServiceGetAll:jasmine.Spy;
+  let spyChangeDetectorRefMarkForCheck:jasmine.Spy;
 
 
   beforeEach(async () => {
@@ -34,25 +35,29 @@ describe('BookshelfComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BookshelfComponent);
-    component = fixture.componentInstance;
+    subjectUnderTest = fixture.componentInstance;
 
     bookshelfService = TestBed.inject(BookshelfService);
     spyBookshelfServiceGetAll = spyOn(bookshelfService, "getAll");
+
+    // subjectUnderTest.changeDetectorRef is private,
+    // however i want to ensure that markForCheck is called
+    spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, "markForCheck");
   });
 
 
   it('should create the component', () => {
-    expect( component ).toBeTruthy();
+    expect( subjectUnderTest ).toBeTruthy();
   });
 
 
   it('should have 2 public property', () => {
-    expect( component.collection ).toBeDefined();
-    expect( component.collection ).toEqual([]);
-    expect( component.errorMessage ).toBeDefined();
-    expect( component.errorMessage ).toBe("");
-    expect( component.showLoading ).toBeDefined();
-    expect( component.showLoading ).toBe(true);
+    expect( subjectUnderTest.collection ).toBeDefined();
+    expect( subjectUnderTest.collection ).toEqual([]);
+    expect( subjectUnderTest.errorMessage ).toBeDefined();
+    expect( subjectUnderTest.errorMessage ).toBe("");
+    expect( subjectUnderTest.showLoading ).toBeDefined();
+    expect( subjectUnderTest.showLoading ).toBe(true);
   });
 
 
@@ -61,8 +66,9 @@ describe('BookshelfComponent', () => {
     fixture.detectChanges();
 
     expect( spyBookshelfServiceGetAll.calls.count() ).toBe(1);
-    expect( component.collection ).toEqual(expectedBooks);
-    expect( component.showLoading ).toBe(false);
+    expect( subjectUnderTest.collection ).toEqual(expectedBooks);
+    expect( subjectUnderTest.showLoading ).toBe(false);
+    expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
   });
 
 
@@ -71,8 +77,28 @@ describe('BookshelfComponent', () => {
     fixture.detectChanges();
 
     expect( spyBookshelfServiceGetAll.calls.count() ).toBe(1);
-    expect( component.errorMessage ).toEqual("foo bar baz");
-    expect( component.showLoading ).toBe(false);
+    expect( subjectUnderTest.errorMessage ).toEqual("foo bar baz");
+    expect( subjectUnderTest.showLoading ).toBe(false);
+    expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
   });
 
+
+  it('ngOnDestroy should unsubscribe', () => {
+    spyBookshelfServiceGetAll.and.returnValue( {
+      subscribe: () => {
+        return {
+          unsubscribe: () => { return "bar"}
+        };
+      }
+    });
+    fixture.detectChanges();
+
+    // subjectUnderTest.subs is private,
+    // however i want to ensure that unsubscribe is called
+    spyOn((subjectUnderTest as any).subs, 'unsubscribe');
+
+    subjectUnderTest.ngOnDestroy();
+
+    expect( (subjectUnderTest as any).subs.unsubscribe ).toHaveBeenCalled();
+  });
 });
