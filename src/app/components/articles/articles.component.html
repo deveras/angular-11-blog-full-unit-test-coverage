@@ -13,7 +13,7 @@
           <time>{{item.lastUpdateDate | date : 'long'}}</time>
 
           <div>
-            <h2><a [routerLink]="['/articles', item.id]">{{item.title}}</a></h2>
+            <h2><a [routerLink]="['/articles', item.id, item.title | slug ]">{{item.title}}</a></h2>
             <p>{{item.recomendationSummary}}</p>
           </div>
         </li>

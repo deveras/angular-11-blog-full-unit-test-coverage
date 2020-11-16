@@ -56,4 +56,23 @@ export class BaseService
       );
   }
 
+
+
+  public getById(id:number):Observable<ArticleModel> | Observable<BookModel> | Observable<TutorialModel>
+  {
+    return this.httpClient.get<ArticleModel | BookModel | TutorialModel>(
+      environment.apiUrl + this.urlEndpoint + "?" + id
+    )
+      .pipe(
+        map(
+          (item:any) => this.adapter.adapt(item)
+        ),
+        catchError(
+          (error:HttpErrorResponse) => {
+            return throwError(this.handleError(error));
+          }
+        )
+      );
+  }
+
 }

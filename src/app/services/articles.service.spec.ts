@@ -102,4 +102,68 @@ describe('ArticlesService', () => {
   });
 
 
+  it('should have a getById method', () => {
+    expect( subjectUnderTest.getById ).toBeDefined();
+  });
+
+
+  it('getById should return an observable ArticleModel via GET request method', () => {
+    const mockDateString = "1977-11-19 03:00:00";
+    const mockArticlesAPIResponse = {
+      id: 1, title: "foo", recomendationSummary: "bar", body: "baz",
+      lastUpdate: mockDateString, createDate: mockDateString
+    };
+    const expectedArticle = new ArticleModel(1, "foo", "bar", "baz", new Date(mockDateString), new Date(mockDateString) );
+
+    subjectUnderTest.getById(1).subscribe(
+      response => expect( response ).toEqual(expectedArticle)
+    );
+    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php?1");
+    expect( testingRequest.request.method ).toEqual('GET');
+
+    testingRequest.flush(mockArticlesAPIResponse);
+    httpTestingController.verify();
+  });
+
+
+  it('getById should return an observable error string, when there is a problem in the client', () => {
+    const errorMessage = "Failed to retrieve data from the server";
+
+    subjectUnderTest.getById(1).subscribe(
+      (response) => fail("no reason to stop here..."),
+      (receivedErrorMessage:string) => {
+        expect( receivedErrorMessage ).toBe(errorMessage);
+      }
+    );
+    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php?1");
+    expect( testingRequest.request.method ).toEqual('GET');
+
+    testingRequest.error(
+      new ErrorEvent('Client error', { message: errorMessage })
+    );
+    httpTestingController.verify();
+  });
+
+
+  it('getById should return an observable error string, when there is a problem with the network', () => {
+    const errorMessage = "Failed to retrieve data from the server";
+
+    subjectUnderTest.getById(1).subscribe(
+      (response) => fail("no reason to stop here..."),
+      (receivedErrorMessage:string) => {
+        expect( receivedErrorMessage ).toBe(errorMessage);
+      }
+    );
+    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php?1");
+    expect( testingRequest.request.method ).toEqual('GET');
+
+    testingRequest.flush("Network error",
+      {
+        status: 404,
+        statusText: errorMessage
+      }
+    );
+    httpTestingController.verify();
+  });
+
 });

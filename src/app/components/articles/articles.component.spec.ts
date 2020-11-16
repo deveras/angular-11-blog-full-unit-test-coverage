@@ -7,6 +7,7 @@ import { of, throwError } from 'rxjs';
 import { ArticlesComponent } from './articles.component';
 import { ArticlesService } from './../../services/articles.service';
 import { PagingFilterPipe } from '../../pipes/paging-filter.pipe';
+import { SlugPipe } from '../../pipes/slug.pipe';
 
 
 describe('ArticlesComponent', () => {
@@ -23,7 +24,7 @@ describe('ArticlesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArticlesComponent, PagingFilterPipe ],
+      declarations: [ ArticlesComponent, PagingFilterPipe, SlugPipe ],
       providers: [ ArticlesService ],
       imports: [
         HttpClientTestingModule,

@@ -10,8 +10,10 @@ import { TutorialsComponent } from './components/tutorials/tutorials.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { ContentComponent } from './components/content/content.component';
 
 import { PagingFilterPipe } from './pipes/paging-filter.pipe';
+import { SlugPipe } from './pipes/slug.pipe';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { PagingFilterPipe } from './pipes/paging-filter.pipe';
     NavigationComponent,
     BreadcrumbsComponent,
     PaginationComponent,
-    PagingFilterPipe
+    ContentComponent,
+    PagingFilterPipe,
+    SlugPipe
   ],
   imports: [
     BrowserModule,

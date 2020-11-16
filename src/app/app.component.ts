@@ -14,6 +14,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent {
   public openMobileMenu:boolean = false;
   public breadcrumbsTitle:string = "";
+  public breadcrumbsRoute:string = "";
   public showLoading:boolean = true;
 
 
@@ -29,7 +30,8 @@ export class AppComponent {
         if (event instanceof ActivationEnd) {
           if (event.snapshot.data.title) {
             this.titleService.setTitle(event.snapshot.data.title);
-            this.breadcrumbsTitle = event.snapshot.data.breadcrumb;
+            this.breadcrumbsTitle = event.snapshot.data.breadcrumbs.title;
+            this.breadcrumbsRoute = event.snapshot.data.breadcrumbs.route || undefined;
           } else {
             this.titleService.setTitle("Blog");
             this.breadcrumbsTitle = "";

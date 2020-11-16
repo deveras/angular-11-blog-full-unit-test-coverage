@@ -32,14 +32,19 @@ describe('AppComponent', () => {
             component: PageNotFoundComponent,
             data: {
               title: "The title is now FOO",
-              breadcrumb: "foo"
+              breadcrumbs: {
+                title: "foo"
+              }
             }
           }, {
             path: "tutorials",
             component: PageNotFoundComponent,
             data: {
               title: "The title is now BAR",
-              breadcrumb: "bar"
+              breadcrumbs: {
+                title: "bar",
+                route: "baz"
+              }
             }
           }, {
             path: "**",
@@ -75,11 +80,13 @@ describe('AppComponent', () => {
   });
 
 
-  it('should have 3 public properties', () => {
+  it('should have 4 public properties', () => {
     expect( subjectUnderTest.openMobileMenu ).toBeDefined();
     expect( subjectUnderTest.openMobileMenu ).toBe(false);
     expect( subjectUnderTest.breadcrumbsTitle ).toBeDefined();
     expect( subjectUnderTest.breadcrumbsTitle ).toBe("");
+    expect( subjectUnderTest.breadcrumbsRoute ).toBeDefined();
+    expect( subjectUnderTest.breadcrumbsRoute ).toBe("");
     expect( subjectUnderTest.showLoading ).toBeDefined();
     expect( subjectUnderTest.showLoading ).toBe(true);
   });
@@ -96,6 +103,7 @@ describe('AppComponent', () => {
         expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now BAR");
         expect( subjectUnderTest.breadcrumbsTitle ).toBe("bar");
         expect( subjectUnderTest.showLoading ).toBe(false);
+        expect( subjectUnderTest.breadcrumbsRoute ).toBe("baz");
       });
     }
   ));
@@ -112,6 +120,7 @@ describe('AppComponent', () => {
         expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now FOO");
         expect( subjectUnderTest.breadcrumbsTitle ).toBe("foo");
         expect( subjectUnderTest.showLoading ).toBe(false);
+        expect( subjectUnderTest.breadcrumbsRoute ).toBe(undefined);
      });
     }
   ));
@@ -128,6 +137,7 @@ describe('AppComponent', () => {
         expect( spyTitleServiceSet ).toHaveBeenCalledWith("Blog");
         expect( subjectUnderTest.breadcrumbsTitle ).toBe("");
         expect( subjectUnderTest.showLoading ).toBe(false);
+        expect( subjectUnderTest.breadcrumbsRoute ).toBe("");
      });
     }
   ));

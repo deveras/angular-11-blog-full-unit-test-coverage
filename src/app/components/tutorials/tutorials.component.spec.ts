@@ -7,6 +7,7 @@ import { of, throwError } from 'rxjs';
 import { TutorialsComponent } from './tutorials.component';
 import { TutorialsService } from './../../services/tutorials.service';
 import { PagingFilterPipe } from '../../pipes/paging-filter.pipe';
+import { SlugPipe } from '../../pipes/slug.pipe';
 
 
 describe('TutorialsComponent', () => {
@@ -23,7 +24,7 @@ describe('TutorialsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TutorialsComponent, PagingFilterPipe ],
+      declarations: [ TutorialsComponent, PagingFilterPipe, SlugPipe ],
       providers: [ TutorialsService ],
       imports: [
         HttpClientTestingModule,

@@ -7,6 +7,7 @@ import { of, throwError } from 'rxjs';
 import { BookshelfComponent } from './bookshelf.component';
 import { BookshelfService } from './../../services/bookshelf.service';
 import { PagingFilterPipe } from '../../pipes/paging-filter.pipe';
+import { SlugPipe } from '../../pipes/slug.pipe';
 
 
 describe('BookshelfComponent', () => {
@@ -25,7 +26,7 @@ describe('BookshelfComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookshelfComponent, PagingFilterPipe ],
+      declarations: [ BookshelfComponent, PagingFilterPipe, SlugPipe ],
       providers: [ BookshelfService ],
       imports: [
         HttpClientTestingModule,

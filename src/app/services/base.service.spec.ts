@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { BaseService } from './base.service';
+
 
 describe('BaseService', () => {
   let subjectUnderTest:BaseService;
@@ -26,6 +26,12 @@ describe('BaseService', () => {
   });
 
 
-  xit('handleError() and getAll() are tested on the extended classes', () => {} );
+  it('should have a getById method', () => {
+    expect( subjectUnderTest.getById ).toBeDefined();
+  });
+
+
+  xit('handleError(), getAll() and getById() are tested on the extended classes', () => {} );
+
 
 });
