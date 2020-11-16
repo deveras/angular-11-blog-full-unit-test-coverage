@@ -1,31 +1,35 @@
 <div id="bookshelf">
-  <section [ngSwitch]="showLoading">
+  <section>
 
-    <span *ngSwitchDefault>
+    <span *ngIf="showLoading">
       <i class="fa fa-circle-o-notch fa-spin"></i>
     </span>
 
-    <p *ngSwitchCase="false && errorMessage">{{errorMessage}}</p>
+    <p *ngIf="!showLoading && errorMessage">{{errorMessage}}</p>
 
-    <ul *ngSwitchCase="false && !errorMessage">
-      <li *ngFor="let item of collection">
-        <time>{{item.lastUpdateDate | date : 'long'}}</time>
+    <div *ngIf="!showLoading && !errorMessage">
+      <ul>
+        <li *ngFor="let item of collection| pagingFilter: currentPageIndex: pageSize">
+          <time>{{item.lastUpdateDate | date : 'long'}}</time>
 
-        <div>
-          <div *ngIf="item.image">
-            <img [src]="item.image"/>
-
-            <a [href]="item.bookLink" target="_black" title="Buy it now" (click)="reportBookPurchase(item)">
-              <span>Buy it now</span>
-            </a>
-          </div>
           <div>
-            <h2><a [routerLink]="['/' + breadcrumbsTitle, item.slugTitle]">{{item.title}}</a><span *ngIf="item.author"> - <a target="_blank" href="{{item.authorLink}}" rel="noopener">{{item.author}}</a></span></h2>
-            <p>{{item.recomendationSummary}}</p>
+            <div *ngIf="item.image">
+              <img [src]="item.image"/>
+
+              <a [href]="item.bookLink" target="_black" title="Buy it now" (click)="reportBookPurchase(item)">
+                <span>Buy it now</span>
+              </a>
+            </div>
+            <div>
+              <h2><a [routerLink]="['/' + breadcrumbsTitle, item.slugTitle]">{{item.title}}</a><span *ngIf="item.author"> - <a target="_blank" href="{{item.authorLink}}" rel="noopener">{{item.author}}</a></span></h2>
+              <p>{{item.recomendationSummary}}</p>
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+
+      <blog-pagination [collection]="collection" [currentPageIndex]="currentPageIndex" [pageSize]="pageSize" collectionType="books"></blog-pagination>
+    </div>
 
   </section>
 </div>

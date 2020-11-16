@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BookshelfComponent } from './bookshelf.component';
-import { BookshelfService } from './../../services/bookshelf.service';
 import { HttpClientTestingModule, HttpTestingController }
   from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
+import { BookshelfComponent } from './bookshelf.component';
+import { BookshelfService } from './../../services/bookshelf.service';
+import { PagingFilterPipe } from '../../pipes/paging-filter.pipe';
 
 
 describe('BookshelfComponent', () => {
@@ -23,12 +25,13 @@ describe('BookshelfComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookshelfComponent ],
+      declarations: [ BookshelfComponent, PagingFilterPipe ],
       providers: [ BookshelfService ],
       imports: [
         HttpClientTestingModule,
         RouterModule.forRoot([])
-      ]
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     });
   });
 
@@ -51,13 +54,17 @@ describe('BookshelfComponent', () => {
   });
 
 
-  it('should have 2 public property', () => {
+  it('should have 5 public property', () => {
     expect( subjectUnderTest.collection ).toBeDefined();
     expect( subjectUnderTest.collection ).toEqual([]);
     expect( subjectUnderTest.errorMessage ).toBeDefined();
     expect( subjectUnderTest.errorMessage ).toBe("");
     expect( subjectUnderTest.showLoading ).toBeDefined();
     expect( subjectUnderTest.showLoading ).toBe(true);
+    expect( subjectUnderTest.currentPageIndex ).toBeDefined();
+    expect( subjectUnderTest.currentPageIndex ).toBe(0);
+    expect( subjectUnderTest.pageSize ).toBeDefined();
+    expect( subjectUnderTest.pageSize ).toBe(5);
   });
 
 
@@ -95,10 +102,10 @@ describe('BookshelfComponent', () => {
 
     // subjectUnderTest.subs is private,
     // however i want to ensure that unsubscribe is called
-    spyOn((subjectUnderTest as any).subs, 'unsubscribe');
+    spyOn((subjectUnderTest as any).bookshelfServiceSubscription, 'unsubscribe');
 
     subjectUnderTest.ngOnDestroy();
 
-    expect( (subjectUnderTest as any).subs.unsubscribe ).toHaveBeenCalled();
+    expect( (subjectUnderTest as any).bookshelfServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 });

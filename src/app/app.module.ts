@@ -9,6 +9,9 @@ import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 import { TutorialsComponent } from './components/tutorials/tutorials.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+
+import { PagingFilterPipe } from './pipes/paging-filter.pipe';
 
 
 @NgModule({
@@ -18,7 +21,9 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
     BookshelfComponent,
     TutorialsComponent,
     NavigationComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    PaginationComponent,
+    PagingFilterPipe
   ],
   imports: [
     BrowserModule,

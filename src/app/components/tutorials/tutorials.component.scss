@@ -19,80 +19,71 @@
 
       i {
         font-size: 10em;
-        color: #DDD;
+        color: $colorGreySuperLight;
       }
     }
 
-    &>ul {
+    &>div {
 
-      li {
-        display: flex;
-        flex-direction: row;
-        border-top: 1px solid #ccc;
+      &>ul {
 
-        @media (max-width: 600px) {
-          flex-direction: column;
-          border: 0;
-        }
-
-        &:last-of-type {
-          border-bottom: 1px solid #ccc;
-
-          @media (max-width: 600px) { border-bottom: 0; }
-        }
-
-        time {
-          border-right: 1px solid #ccc;
-          margin: 5px;
-          padding: 20px 0 0 0;
-          color: $colorGreyDark;
-          width: 120px;
-          display: inline-block;
-          font-size: 14px;
-
-          @media (max-width: 600px) { display: none; }
-        }
-
-        &> div {
-          flex: 1;
-          margin: 5px;
-          padding: 15px 0 20px 10px;
+        li {
+          display: flex;
+          flex-direction: row;
+          border-top: 1px solid $colorGreySuperLight;
 
           @media (max-width: 600px) {
-            display: flex;
             flex-direction: column;
-            order: 1;
-            margin: 0;
-            padding-left: 0;
+            border: 0;
           }
 
-          &>a {
-            display: block;
-            margin: 20px 0;
-            width: 100px;
-            background: linear-gradient(to bottom,#f8e6b8 0,#f3d686 6%,#ebb62c 100%);
-            text-decoration: none;
+          &:last-of-type {
+            border-bottom: 1px solid $colorGreySuperLight;
+
+            @media (max-width: 600px) { border-bottom: 0; }
+          }
+
+          time {
+            border-right: 1px solid $colorGreySuperLight;
+            margin: 5px;
+            padding: 20px 0 0 0;
+            color: $colorGreyDark;
+            width: 120px;
+            display: inline-block;
+            font-size: 14px;
+
+            @media (max-width: 600px) { display: none; }
+          }
+
+          &> div {
+            flex: 1;
+            margin: 5px;
+            padding: 15px 0 20px 10px;
 
             @media (max-width: 600px) {
-              margin: 20px auto 30px auto;
+              display: flex;
+              flex-direction: column;
+              order: 1;
+              margin: 0;
+              padding-left: 0;
             }
 
-            span {
-              display: table-cell;
-              padding-left: 30px;
-              height: 25px;
-              font-size: 11.4px;
-              vertical-align: middle;
-              background-repeat: no-repeat;
-              color: #333;
-              background-position: 0 0;
-              background-image: url('//wms-eu.amazon-adsystem.com/panda/20070822/US/img/cart.gif');
-            }
-          }
+            &>a {
+              display: block;
+              margin: 20px 0;
+              width: 100px;
+              background: linear-gradient(to bottom,#f8e6b8 0,#f3d686 6%,#ebb62c 100%);
+              text-decoration: none;
 
-          p {
-            line-height: 23px;
-            color: #777;
+              @media (max-width: 600px) {
+                margin: 20px auto 30px auto;
+              }
+            }
+
+            p {
+              line-height: 23px;
+              color: $colorGreyLight;
+            }
           }
         }
       }

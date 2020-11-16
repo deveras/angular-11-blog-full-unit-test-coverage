@@ -1,22 +1,25 @@
 <div id="tutorials">
-  <section [ngSwitch]="showLoading">
+  <section>
 
-    <span *ngSwitchDefault>
+    <span *ngIf="showLoading">
       <i class="fa fa-circle-o-notch fa-spin"></i>
     </span>
 
-    <p *ngSwitchCase="false && errorMessage">{{errorMessage}}</p>
+    <p *ngIf="!showLoading && errorMessage">{{errorMessage}}</p>
 
-    <ul *ngSwitchCase="false && !errorMessage">
-      <li *ngFor="let item of collection">
-        <time>{{item.lastUpdateDate | date : 'long'}}</time>
+    <div *ngIf="!showLoading && !errorMessage">
+      <ul>
+        <li *ngFor="let item of collection | pagingFilter: currentPageIndex: pageSize">
+          <time>{{item.lastUpdateDate | date : 'long'}}</time>
 
-        <div>
-          <h2><a [routerLink]="['/' + breadcrumbsTitle, item.slugTitle]">{{item.title}}</a><span *ngIf="item.author"> - <a target="_blank" href="{{item.authorLink}}" rel="noopener">{{item.author}}</a></span></h2>
-          <p>{{item.recomendationSummary}}</p>
-        </div>
-      </li>
-    </ul>
+          <div>
+            <h2><a [routerLink]="['/' + breadcrumbsTitle, item.slugTitle]">{{item.title}}</a></h2>
+            <p>{{item.recomendationSummary}}</p>
+          </div>
+        </li>
+      </ul>
 
+     <blog-pagination [collection]="collection" [currentPageIndex]="currentPageIndex" [pageSize]="pageSize" collectionType="tutorials"></blog-pagination>
+    </div>
   </section>
 </div>

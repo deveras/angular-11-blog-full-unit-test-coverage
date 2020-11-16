@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { TutorialsService } from '../../services/tutorials.service';
 import { TutorialModel } from '../../models/tutorial-model';
 import { Subscription } from 'rxjs';
@@ -15,23 +16,30 @@ import { Subscription } from 'rxjs';
 export class TutorialsComponent
   implements OnInit
 {
-  private subs:Subscription;
+  private tutorialsServiceSubscription:Subscription;
   public collection:TutorialModel[] = [];
   public errorMessage:string = "";
   public showLoading:boolean = true;
+  public currentPageIndex:number = 0;
+  public pageSize:number = 5;
 
 
   constructor(
-    private tutorialsService:TutorialsService,
-    private changeDetectorRef:ChangeDetectorRef
-  ) { }
+    private router:Router,
+    private changeDetectorRef:ChangeDetectorRef,
+    private tutorialsService:TutorialsService
+  ) {
+    // https://github.com/angular/angular/issues/13831
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
 
   ngOnInit():void {
-    this.subs = this.tutorialsService.getAll().subscribe(
+    this.tutorialsServiceSubscription = this.tutorialsService.getAll().subscribe(
       (response:TutorialModel[]) => {
         this.collection = response;
         this.showLoading = false;
+        this.currentPageIndex = Number(this.router.url.split("/")[2]) || 0;
         this.changeDetectorRef.markForCheck();
       },
       (errorMessage) => {
@@ -44,8 +52,8 @@ export class TutorialsComponent
 
 
   ngOnDestroy():void {
-    if (this.subs && this.subs.unsubscribe) {
-      this.subs.unsubscribe();
+    if (this.tutorialsServiceSubscription && this.tutorialsServiceSubscription.unsubscribe) {
+      this.tutorialsServiceSubscription.unsubscribe();
     }
   }
 

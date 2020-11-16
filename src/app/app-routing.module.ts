@@ -19,6 +19,13 @@ const routes: Routes = [
       breadcrumb: "Articles"
     }
   }, {
+    path: "articles/:id",
+    component: ArticlesComponent,
+    data: {
+      title: "Articles",
+      breadcrumb: "Articles"
+    }
+  }, {
     path: "bookshelf",
     component: BookshelfComponent,
     data: {
@@ -26,7 +33,21 @@ const routes: Routes = [
       breadcrumb: "Bookshelf"
     }
   }, {
+    path: "bookshelf/:id",
+    component: BookshelfComponent,
+    data: {
+      title: "Bookshelf",
+      breadcrumb: "Bookshelf"
+    }
+  }, {
     path: "tutorials",
+    component: TutorialsComponent,
+    data: {
+      title: "Tutorials",
+      breadcrumb: "Tutorials"
+    }
+  }, {
+    path: "tutorials/:id",
     component: TutorialsComponent,
     data: {
       title: "Tutorials",
@@ -50,7 +71,7 @@ const routes: Routes = [
         enableTracing: false,
         useHash: false,
         initialNavigation: false,
-        onSameUrlNavigation: "ignore",
+        onSameUrlNavigation: "reload",
         scrollPositionRestoration: "enabled",
         anchorScrolling: "disabled"
       })

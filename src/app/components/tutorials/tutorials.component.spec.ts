@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TutorialsComponent } from './tutorials.component';
-import { TutorialsService } from './../../services/tutorials.service';
 import { HttpClientTestingModule, HttpTestingController }
   from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
+import { TutorialsComponent } from './tutorials.component';
+import { TutorialsService } from './../../services/tutorials.service';
+import { PagingFilterPipe } from '../../pipes/paging-filter.pipe';
 
 
 describe('TutorialsComponent', () => {
@@ -21,12 +23,13 @@ describe('TutorialsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TutorialsComponent ],
+      declarations: [ TutorialsComponent, PagingFilterPipe ],
       providers: [ TutorialsService ],
       imports: [
         HttpClientTestingModule,
         RouterModule.forRoot([])
-      ]
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
   });
 
@@ -49,13 +52,17 @@ describe('TutorialsComponent', () => {
   });
 
 
-  it('should have 3 public properties', () => {
+  it('should have 5 public properties', () => {
     expect( subjectUnderTest.collection ).toBeDefined();
     expect( subjectUnderTest.collection ).toEqual([]);
     expect( subjectUnderTest.errorMessage ).toBeDefined();
     expect( subjectUnderTest.errorMessage ).toBe("");
     expect( subjectUnderTest.showLoading ).toBeDefined();
     expect( subjectUnderTest.showLoading ).toBe(true);
+    expect( subjectUnderTest.currentPageIndex ).toBeDefined();
+    expect( subjectUnderTest.currentPageIndex ).toBe(0);
+    expect( subjectUnderTest.pageSize ).toBeDefined();
+    expect( subjectUnderTest.pageSize ).toBe(5);
   });
 
 
@@ -93,10 +100,10 @@ describe('TutorialsComponent', () => {
 
     // subjectUnderTest.subs is private,
     // however i want to ensure that unsubscribe is called
-    spyOn((subjectUnderTest as any).subs, 'unsubscribe');
+    spyOn((subjectUnderTest as any).tutorialsServiceSubscription, 'unsubscribe');
 
     subjectUnderTest.ngOnDestroy();
 
-    expect( (subjectUnderTest as any).subs.unsubscribe ).toHaveBeenCalled();
+    expect( (subjectUnderTest as any).tutorialsServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 });

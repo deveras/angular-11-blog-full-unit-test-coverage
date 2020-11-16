@@ -1,0 +1,26 @@
+@import 'variables';
+
+#pagination {
+  margin: 30px 0 80px 0;
+  text-align: center;
+
+  button {
+    border-radius: 50px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: $colorGreyLight;
+    color: $colorWhite;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+    &.active {
+      background-color: $colorWhite;
+      color: $colorGreyDark;
+    }
+  }
+  p {
+    margin-top: 5px;
+    font-size: 12px
+  }
+}

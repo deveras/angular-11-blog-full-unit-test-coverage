@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy  } from '@angular/core';
+import { Router } from '@angular/router';
 import { BookshelfService } from '../../services/bookshelf.service';
 import { BookModel } from '../../models/book-model';
 import { Subscription } from 'rxjs';
@@ -15,23 +16,30 @@ import { Subscription } from 'rxjs';
 export class BookshelfComponent
   implements OnInit
 {
-  private subs:Subscription;
+  private bookshelfServiceSubscription:Subscription;
   public collection:BookModel[] = [];
   public errorMessage:string = "";
   public showLoading:boolean = true;
+  public currentPageIndex:number = 0;
+  public pageSize:number = 5;
 
 
   constructor(
-    private bookshelfService:BookshelfService,
-    private changeDetectorRef:ChangeDetectorRef
-  ) {}
+    private router:Router,
+    private changeDetectorRef:ChangeDetectorRef,
+    private bookshelfService:BookshelfService
+  ) {
+    // https://github.com/angular/angular/issues/13831
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
 
   ngOnInit():void {
-    this.subs = this.bookshelfService.getAll().subscribe(
+    this.bookshelfServiceSubscription = this.bookshelfService.getAll().subscribe(
       (response:BookModel[]) => {
         this.collection = response;
         this.showLoading = false;
+        this.currentPageIndex = Number(this.router.url.split("/")[2]) || 0;
         this.changeDetectorRef.markForCheck();
       },
       (errorMessage) => {
@@ -44,8 +52,8 @@ export class BookshelfComponent
 
 
   ngOnDestroy():void {
-    if (this.subs && this.subs.unsubscribe) {
-      this.subs.unsubscribe();
+    if (this.bookshelfServiceSubscription && this.bookshelfServiceSubscription.unsubscribe) {
+      this.bookshelfServiceSubscription.unsubscribe();
     }
   }
 
