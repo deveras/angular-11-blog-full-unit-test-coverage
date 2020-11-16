@@ -1,6 +1,9 @@
 <nav [ngClass]="{ 'show': openMobileMenu}">
   <ul>
     <li>
+      <a hreflang="en" title="Link to André Ferreira's Home page" [routerLink]=" ['/home'] " (click)="closeMobileMenu()" routerLinkActive="isActive">Home</a>
+    </li>
+    <li>
       <a hreflang="en" title="Link to André Ferreira's Articles page" [routerLink]=" ['/articles'] " (click)="closeMobileMenu()" routerLinkActive="isActive">Articles</a>
     </li>
     <li>

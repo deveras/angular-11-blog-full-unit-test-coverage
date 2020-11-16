@@ -1,0 +1,22 @@
+<section id="home">
+  <div>
+    <div *ngIf="showLoading">
+      <i class="fa fa-circle-o-notch fa-spin"></i>
+    </div>
+
+    <ul *ngIf="!showLoading">
+      <li *ngFor="let c of collection">
+        <h2><a [routerLink]="[ prepareLink(c), c.id, c.title | slug ]">{{c.title}}</a></h2>
+        <p>{{c.recomendationSummary}}
+          <br>{{c.lastUpdateDate | date : 'long'}}</p>
+      </li>
+    </ul>
+  </div>
+
+  <aside>
+
+    <h3>Random thoughts</h3>
+    <p>Why can't apple fix their display arragement after each lock screen...</p>
+
+  </aside>
+</section>

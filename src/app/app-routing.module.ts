@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 import { TutorialsComponent } from './components/tutorials/tutorials.component';
@@ -10,8 +11,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "home",
+    redirectTo: "/home",
     pathMatch: "full"
+  }, {
+    path: "home",
+    component: HomeComponent,
   }, {
     path: "articles",
     component: ArticlesComponent,
@@ -113,7 +117,7 @@ const routes: Routes = [
       RouterModule.forRoot(routes,  {
         enableTracing: false,
         useHash: false,
-        initialNavigation: false,
+        initialNavigation: "enabled",
         onSameUrlNavigation: "reload",
         scrollPositionRestoration: "enabled",
         anchorScrolling: "disabled"
