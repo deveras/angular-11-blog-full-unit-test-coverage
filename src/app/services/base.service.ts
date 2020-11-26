@@ -40,7 +40,7 @@ export class BaseService
     Observable<ArticleModel[]> | Observable<BookModel[]> | Observable<TutorialModel[]>
   {
     return this.httpClient.get<ArticleModel[] | BookModel[] | TutorialModel[]>(
-      environment.apiUrl + this.urlEndpoint
+      environment.api.url + this.urlEndpoint
     )
       .pipe(
         map(
@@ -61,7 +61,7 @@ export class BaseService
   public getById(id:number):Observable<ArticleModel> | Observable<BookModel> | Observable<TutorialModel>
   {
     return this.httpClient.get<ArticleModel | BookModel | TutorialModel>(
-      environment.apiUrl + this.urlEndpoint + "?" + id
+      environment.api.url + this.urlEndpoint + "?" + id
     )
       .pipe(
         map(

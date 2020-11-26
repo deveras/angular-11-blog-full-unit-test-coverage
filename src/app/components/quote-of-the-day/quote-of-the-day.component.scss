@@ -1,0 +1,29 @@
+@import 'variables';
+
+
+#quoteOfTheDay {
+  padding-bottom: 50px;
+
+  h3 span {
+    display: inline-block;
+    float: right;
+    margin-top: -5px;
+
+    &.results {
+      margin-top: 0;
+      font-size: 0.7em;
+    }
+  }
+
+  div {
+    padding-top: 30px;
+    height: 80px;
+    text-align: center;
+    width: 100%;
+
+    i {
+      font-size: 50px;
+      color: $colorGreySuperLight;
+    }
+  }
+}

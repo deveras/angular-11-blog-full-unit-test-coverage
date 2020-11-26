@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment.prod';
 
 
 describe('ArticlesService', () => {
+  const endPoint:string = environment.api.url + environment.api.articles.get;
   let subjectUnderTest:ArticlesService;
   let httpTestingController: HttpTestingController;
 
@@ -53,7 +54,7 @@ describe('ArticlesService', () => {
     subjectUnderTest.getAll().subscribe(
       response => expect( response ).toEqual(expectedArticles)
     );
-    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php");
+    const testingRequest = httpTestingController.expectOne(endPoint);
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush(mockArticlesAPIResponse);
@@ -70,7 +71,7 @@ describe('ArticlesService', () => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php");
+    const testingRequest = httpTestingController.expectOne(endPoint);
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.error(
@@ -89,7 +90,7 @@ describe('ArticlesService', () => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php");
+    const testingRequest = httpTestingController.expectOne(endPoint);
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush("Network error",
@@ -118,7 +119,7 @@ describe('ArticlesService', () => {
     subjectUnderTest.getById(1).subscribe(
       response => expect( response ).toEqual(expectedArticle)
     );
-    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php?1");
+    const testingRequest = httpTestingController.expectOne(endPoint + "?1");
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush(mockArticlesAPIResponse);
@@ -135,7 +136,7 @@ describe('ArticlesService', () => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php?1");
+    const testingRequest = httpTestingController.expectOne(endPoint + "?1");
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.error(
@@ -154,7 +155,7 @@ describe('ArticlesService', () => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(environment.apiUrl + "articles/read.php?1");
+    const testingRequest = httpTestingController.expectOne(endPoint + "?1");
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush("Network error",

@@ -1,0 +1,26 @@
+<div id="quoteOfTheDay">
+  <h3>Inspirational
+
+    <span *ngIf="showLoadingQuote || showLoadingVote">
+      <i class="fa fa-circle-o-notch fa-spin" ></i>
+    </span>
+
+    <span *ngIf="!showLoadingQuote && !hasVotedThisQuote">
+      <button class="fa fa-thumbs-up" (click)="onThumbsClick(1)" aria-label="Thumbs up vote for the quote"></button> <button class="fa fa-thumbs-down" (click)="onThumbsClick(-1)" aria-label="Thumbs down vote for the quote"></button>
+    </span>
+
+    <span *ngIf="!showLoadingQuote && !showLoadingVote && hasVotedThisQuote" class="results">{{ (quote.numVotes > 0 ? '+' : '-') + quote.numVotes}} <i class="fa fa-heart"></i></span>
+  </h3>
+
+  <div *ngIf="showLoadingQuote">
+    <i class="fa fa-circle-o-notch fa-spin" ></i>
+  </div>
+
+  <p *ngIf="!showLoadingQuote && !errorMessage">
+    <cite>{{quote.quote}}</cite> -
+    <a *ngIf="quote.authorLink" [href]="quote.authorLink" target="_blank" rel="noopener author">{{quote.author}}</a>
+    <span *ngIf="!quote.authorLink">{{quote.author}}</span>
+  </p>
+
+  <p *ngIf="!showLoadingQuote && errorMessage">{{errorMessage}}</p>
+</div>
