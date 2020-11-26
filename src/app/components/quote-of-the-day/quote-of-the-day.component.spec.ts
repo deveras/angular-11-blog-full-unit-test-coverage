@@ -136,7 +136,9 @@ describe('QuoteOfTheDayComponent', () => {
 
     subjectUnderTest.onThumbsClick(1);
 
-    expect( subjectUnderTest.quote.numVotes ).toBe(101);
+    if ( subjectUnderTest.quote ) {
+      expect( subjectUnderTest.quote.numVotes ).toBe(101);
+    }
     expect( subjectUnderTest.hasVotedThisQuote ).toBe(true);
     expect( spyChangeDetectorRefMarkForCheck.calls.count() ).toBe(3);
     expect( subjectUnderTest.showLoadingVote ).toBe(false);

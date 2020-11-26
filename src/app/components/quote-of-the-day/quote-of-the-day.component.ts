@@ -16,22 +16,22 @@ import { Subscription } from 'rxjs';
 export class QuoteOfTheDayComponent
   implements OnInit, OnDestroy
 {
-  private quoteServiceSubscription:Subscription;
-  public quote:QuoteModel;
+  private quoteServiceSubscription:Subscription = new Subscription();
   public hasVotedThisQuote:boolean = false;
   public showLoadingQuote:boolean = true;
   public showLoadingVote:boolean = false;
-  public errorMessage:string = "";
+  public quote?:QuoteModel;
+  public errorMessage?:string = "";
 
 
   constructor(
     private changeDetectorRef:ChangeDetectorRef,
     private quoteService:QuoteService,
     private storageService:StorageService
-  ) { }
+  ) {}
 
 
-  ngOnInit(): void {
+  ngOnInit():void {
     this.quoteServiceSubscription = this.quoteService.getQuote().subscribe(
       (response:QuoteModel) => {
         this.quote = response;
@@ -56,7 +56,7 @@ export class QuoteOfTheDayComponent
 
 
   public onThumbsClick (value:number):void {
-    if (!this.hasVotedThisQuote) {
+    if (!this.hasVotedThisQuote && this.quote) {
       this.showLoadingVote = true;
       this.changeDetectorRef.markForCheck();
 

@@ -6,24 +6,37 @@ import { HttpClientTestingModule, HttpTestingController }
   from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
 import { ContentComponent } from './content.component';
+import { ArticlesService } from './../../services/articles.service';
 import { BookshelfService } from './../../services/bookshelf.service';
 import { TutorialsService } from './../../services/tutorials.service';
-import { ArticlesService } from './../../services/articles.service';
+
 
 
 describe('ContentComponent', () => {
+  const expectedArticle =  {
+    id: 1, title: "foo", recomendationSummary: "baz", body: "foo",
+    lastUpdateDate: new Date(), createDate: new Date()
+  };
   const expectedBook =  {
     id: 1, title: "foo", recomendationSummary: "baz", author: "foo",
     authorLink: "bar", image: "baz", body: "foo", bookLink: "bar",
     featured: false, weight: 1, lastUpdateDate: new Date(),
     createDate: new Date()
   };
+  const expectedTutorial =  {
+    id: 1, title: "foo", recomendationSummary: "baz", body: "foo",
+    lastUpdateDate: new Date(), createDate: new Date()
+  };
   let subjectUnderTest:ContentComponent;
   let fixture:ComponentFixture<ContentComponent>;
   let titleService:Title;
   let spyTitleServiceSet:jasmine.Spy;
+  let articlesService:ArticlesService;
+  let spyArticlesService:jasmine.Spy;
   let bookshelfService:BookshelfService;
   let spyBookshelfService:jasmine.Spy;
+  let tutorialsService:TutorialsService;
+  let spyTutorialsService:jasmine.Spy;
   let spyChangeDetectorRefMarkForCheck:jasmine.Spy;
 
 
@@ -63,8 +76,14 @@ describe('ContentComponent', () => {
     titleService = TestBed.inject(Title);
     spyTitleServiceSet = spyOn(titleService, "setTitle");
 
+    articlesService = TestBed.inject(ArticlesService);
+    spyArticlesService = spyOn(articlesService, "getById");
+
     bookshelfService = TestBed.inject(BookshelfService);
     spyBookshelfService = spyOn(bookshelfService, "getById");
+
+    tutorialsService = TestBed.inject(TutorialsService);
+    spyTutorialsService = spyOn(tutorialsService, "getById");
 
     // subjectUnderTest.changeDetectorRef is private,
     // however i want to ensure that markForCheck is called
@@ -87,6 +106,20 @@ describe('ContentComponent', () => {
   });
 
 
+  it('ngOnInit should collect all articles onInit if successfull', () => {
+    (subjectUnderTest as any).route.snapshot.data.title = "Articles";
+    spyArticlesService.and.returnValue( of(expectedArticle) );
+    fixture.detectChanges();
+
+    expect( spyArticlesService.calls.count() ).toBe(1);
+    expect( spyTitleServiceSet.calls.count() ).toBe(1);
+    expect( spyTitleServiceSet ).toHaveBeenCalledWith("foo");
+    expect( subjectUnderTest.content ).toEqual(expectedArticle);
+    expect( subjectUnderTest.showLoading ).toBe(false);
+    expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
+  });
+
+
   it('ngOnInit should collect all books onInit if successfull', () => {
     spyBookshelfService.and.returnValue( of(expectedBook) );
     fixture.detectChanges();
@@ -94,8 +127,22 @@ describe('ContentComponent', () => {
     expect( spyBookshelfService.calls.count() ).toBe(1);
     expect( spyTitleServiceSet.calls.count() ).toBe(1);
     expect( spyTitleServiceSet ).toHaveBeenCalledWith("foo");
-    expect( subjectUnderTest.content).toEqual(expectedBook);
-    expect( subjectUnderTest.showLoading).toBe(false);
+    expect( subjectUnderTest.content ).toEqual(expectedBook);
+    expect( subjectUnderTest.showLoading ).toBe(false);
+    expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
+  });
+
+
+  it('ngOnInit should collect all tutorials onInit if successfull', () => {
+    (subjectUnderTest as any).route.snapshot.data.title = "Tutorials";
+    spyTutorialsService.and.returnValue( of(expectedTutorial) );
+    fixture.detectChanges();
+
+    expect( spyTutorialsService.calls.count() ).toBe(1);
+    expect( spyTitleServiceSet.calls.count() ).toBe(1);
+    expect( spyTitleServiceSet ).toHaveBeenCalledWith("foo");
+    expect( subjectUnderTest.content ).toEqual(expectedTutorial);
+    expect( subjectUnderTest.showLoading ).toBe(false);
     expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
   });
 

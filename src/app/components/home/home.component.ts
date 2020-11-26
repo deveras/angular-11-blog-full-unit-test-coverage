@@ -17,14 +17,14 @@ import { Subscription } from 'rxjs';
   }
 )
 export class HomeComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
-  private articlesServiceSubscription:Subscription;
-  private bookshelfServiceSubscription:Subscription;
-  private tutorialsServiceSubscription:Subscription;
+  private articlesServiceSubscription:Subscription = new Subscription();
+  private bookshelfServiceSubscription:Subscription = new Subscription();
+  private tutorialsServiceSubscription:Subscription = new Subscription();
   private collectionsReceived:number = 0;
   private errorsReceived:number = 0;
-  public collection:any[] = [];
+  public collection:(ArticleModel | BookModel | TutorialModel)[] = [];
   public errorMessage:string = "";
   public showLoading:boolean = true;
 
@@ -34,10 +34,10 @@ export class HomeComponent
     private articlesService:ArticlesService,
     private bookshelfService:BookshelfService,
     private tutorialsService:TutorialsService
-  ) { }
+  ) {}
 
 
-  ngOnInit(): void {
+  ngOnInit():void {
     this.articlesServiceSubscription = this.articlesService.getAll().subscribe(
       this.prepareSuccessResponse.bind(this),
       this.prepareErrorMessage.bind(this)
@@ -68,7 +68,7 @@ export class HomeComponent
   }
 
 
-  private prepareSuccessResponse(response:ArticleModel[]):void {
+  private prepareSuccessResponse(response:(ArticleModel | BookModel | TutorialModel)[]):void {
     for (let index in response) {
       this.collection.push(response[index]);
     }
@@ -90,8 +90,8 @@ export class HomeComponent
   }
 
 
-  private sortCollection(a,b) {
-    if (parseInt(a.lastUpdateDate.getTime(), 10) >= parseInt(b.lastUpdateDate.getTime(),10)) {
+  private sortCollection(a:(ArticleModel | BookModel | TutorialModel), b:(ArticleModel | BookModel | TutorialModel)) {
+    if (a.lastUpdateDate.getTime() >= b.lastUpdateDate.getTime()) {
       return -1;
     }
     return 0;

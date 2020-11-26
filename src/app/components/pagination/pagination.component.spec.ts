@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { PaginationComponent } from './pagination.component';
+import { PaginationComponent, Page } from './pagination.component';
+import { ArticleModel } from '../../models/article-model';
+import { BookModel } from '../../models/book-model';
+import { TutorialModel } from '../../models/tutorial-model';
 
 
 describe('PaginationComponent', () => {
@@ -10,12 +13,24 @@ describe('PaginationComponent', () => {
     navigate: jasmine.createSpy("navigate"),
     url: "/foo/1"
   };
+  const mockArticleModel1:ArticleModel = new ArticleModel(1, "foo", "bar", "baz", new Date(), new Date());
+  const mockArticleModel2:ArticleModel = new ArticleModel(2, "foo", "bar", "baz", new Date(), new Date());
+  const mockArticleModel3:ArticleModel = new ArticleModel(3, "foo", "bar", "baz", new Date(), new Date());
+  const mockArticleModel4:ArticleModel = new ArticleModel(4, "foo", "bar", "baz", new Date(), new Date());
+  const mockBookModel1:BookModel = new BookModel(1, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
+  const mockBookModel2:BookModel = new BookModel(2, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
+  const mockBookModel3:BookModel = new BookModel(3, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
+  const mockBookModel4:BookModel = new BookModel(4, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
+  const mockTutorialModel1:TutorialModel = new TutorialModel(1, "foo", "bar", "baz", new Date(), new Date());
+  const mockTutorialModel2:TutorialModel = new TutorialModel(2, "foo", "bar", "baz", new Date(), new Date());
+  const mockTutorialModel3:TutorialModel = new TutorialModel(3, "foo", "bar", "baz", new Date(), new Date());
+  const mockTutorialModel4:TutorialModel = new TutorialModel(4, "foo", "bar", "baz", new Date(), new Date());
   const mockCollection = [
-    { title: "foo" }, { title: "bar"}, { title: "baz" },
-    { title: "fooFoo" }, { title: "fooBar"}, { title: "fooBaz" },
-    { title: "barFoo" }, { title: "barBar"}, { title: "barBaz" },
-    { title: "bazFoo" }, { title: "bazBar"}, { title: "bazBaz" }
+    mockArticleModel1, mockArticleModel2, mockArticleModel3, mockArticleModel4,
+    mockBookModel1, mockBookModel2, mockBookModel3, mockBookModel4,
+    mockTutorialModel1, mockTutorialModel2, mockTutorialModel3, mockTutorialModel4
   ];
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -46,6 +61,10 @@ describe('PaginationComponent', () => {
 
 
   it("should have the following properties", () => {
+    const mockPage0 = new Page(0);
+    const mockPage1 = new Page(1);
+    const mockPage2 = new Page(2);
+
     expect( subjectUnderTest.collection ).toBeDefined();
     expect( subjectUnderTest.collection ).toEqual(mockCollection)
     expect( subjectUnderTest.pageSize ).toBeDefined();
@@ -55,8 +74,7 @@ describe('PaginationComponent', () => {
     expect( subjectUnderTest.collectionType ).toBeDefined();
     expect( subjectUnderTest.collectionType ).toBe("baz");
     expect( subjectUnderTest.pages ).toBeDefined();
-    expect( subjectUnderTest.pages ).toEqual(
-      [ { pageIndex: 0 }, { pageIndex: 1 }, { pageIndex: 2 } ]);
+    expect( subjectUnderTest.pages ).toEqual( [ mockPage0, mockPage1, mockPage2 ] );
     expect( subjectUnderTest.firstRecord ).toBeDefined();
     expect( subjectUnderTest.firstRecord ).toBe(1);
     expect( subjectUnderTest.lastRecord ).toBeDefined();

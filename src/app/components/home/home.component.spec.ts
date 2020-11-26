@@ -97,7 +97,7 @@ describe('HomeComponent', () => {
     expect( spyBookshelfServiceGetAll.calls.count() ).toBe(1);
     expect( spyTutorialsServiceGetAll.calls.count() ).toBe(1);
     expect( subjectUnderTest.collection ).toEqual(
-      [].concat(expectedTutorials, expectedBooks, expectedArticles), "Ordered by lastUpdateDate" );
+      expectedTutorials.concat(expectedBooks, expectedArticles), "Ordered by lastUpdateDate" );
     expect( subjectUnderTest.showLoading ).toBe(false);
     expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
   });
@@ -113,7 +113,7 @@ describe('HomeComponent', () => {
     expect( spyBookshelfServiceGetAll.calls.count() ).toBe(1);
     expect( spyTutorialsServiceGetAll.calls.count() ).toBe(1);
     expect( subjectUnderTest.collection ).toEqual(
-      [].concat(expectedTutorials, expectedArticles), "Ordered by lastUpdateDate" );
+      expectedTutorials.concat(expectedArticles), "Ordered by lastUpdateDate" );
     expect( subjectUnderTest.showLoading ).toBe(false);
     expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
     expect( subjectUnderTest.errorMessage ).toBe("");

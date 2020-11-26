@@ -14,9 +14,9 @@ import { Subscription } from 'rxjs';
   }
 )
 export class BookshelfComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
-  private bookshelfServiceSubscription:Subscription;
+  private bookshelfServiceSubscription:Subscription = new Subscription();
   public collection:BookModel[] = [];
   public errorMessage:string = "";
   public showLoading:boolean = true;

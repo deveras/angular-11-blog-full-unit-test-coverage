@@ -65,11 +65,14 @@ describe('AppComponent', () => {
     router = TestBed.get(Router);
     location = TestBed.get(Location);
 
-    // avoid console.log warning "outside Angular zone...""
-    fixture.ngZone.run(() => {
-      // setup the required listeners and performs initial navigation
-      router.initialNavigation();
-    });
+    // avoid: Object is possibly 'null'
+    if (fixture.ngZone) {
+      // avoid console.log warning "outside Angular zone...""
+      fixture.ngZone.run(() => {
+        // setup the required listeners and performs initial navigation
+        router.initialNavigation();
+      });
+    }
 
     fixture.detectChanges();
   });
@@ -94,51 +97,57 @@ describe('AppComponent', () => {
 
   it('ngOnInit listens to router events setting page title from tutorials route data', fakeAsync(
     () => {
-      fixture.ngZone.run(() => {
-        router.navigate(['tutorials']);
-        tick(); // resolve promises
+      if (fixture.ngZone) {
+        fixture.ngZone.run(() => {
+          router.navigate(['tutorials']);
+          tick(); // resolve promises
 
-        expect( location.path()).toBe("/tutorials");
-        expect( spyTitleServiceSet.calls.count() ).toBe(1);
-        expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now BAR");
-        expect( subjectUnderTest.breadcrumbsTitle ).toBe("bar");
-        expect( subjectUnderTest.showLoading ).toBe(false);
-        expect( subjectUnderTest.breadcrumbsRoute ).toBe("baz");
-      });
+          expect( location.path()).toBe("/tutorials");
+          expect( spyTitleServiceSet.calls.count() ).toBe(1);
+          expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now BAR");
+          expect( subjectUnderTest.breadcrumbsTitle ).toBe("bar");
+          expect( subjectUnderTest.showLoading ).toBe(false);
+          expect( subjectUnderTest.breadcrumbsRoute ).toBe("baz");
+        });
+      }
     }
   ));
 
 
   it('ngOnInit listens to router events setting page title from articles route data', fakeAsync(
     () => {
-      fixture.ngZone.run(() => {
-        router.navigate(['articles']);
-        tick();
+      if (fixture.ngZone) {
+        fixture.ngZone.run(() => {
+          router.navigate(['articles']);
+          tick();
 
-        expect( location.path()).toBe("/articles");
-        expect( spyTitleServiceSet.calls.count() ).toBe(1);
-        expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now FOO");
-        expect( subjectUnderTest.breadcrumbsTitle ).toBe("foo");
-        expect( subjectUnderTest.showLoading ).toBe(false);
-        expect( subjectUnderTest.breadcrumbsRoute ).toBe(undefined);
-     });
+          expect( location.path()).toBe("/articles");
+          expect( spyTitleServiceSet.calls.count() ).toBe(1);
+          expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now FOO");
+          expect( subjectUnderTest.breadcrumbsTitle ).toBe("foo");
+          expect( subjectUnderTest.showLoading ).toBe(false);
+          expect( subjectUnderTest.breadcrumbsRoute ).not.toBeDefined();
+        });
+      }
     }
   ));
 
 
   it('ngOnInit listens to router events setting page title to default when data not set', fakeAsync(
     () => {
-      fixture.ngZone.run(() => {
-        router.navigate(['DoNotExist']);
-        tick();
+      if (fixture.ngZone) {
+        fixture.ngZone.run(() => {
+          router.navigate(['DoNotExist']);
+          tick();
 
-        expect( location.path()).toBe("/DoNotExist");
-        expect( spyTitleServiceSet.calls.count() ).toBe(1);
-        expect( spyTitleServiceSet ).toHaveBeenCalledWith("Blog");
-        expect( subjectUnderTest.breadcrumbsTitle ).toBe("");
-        expect( subjectUnderTest.showLoading ).toBe(false);
-        expect( subjectUnderTest.breadcrumbsRoute ).toBe("");
-     });
+          expect( location.path()).toBe("/DoNotExist");
+          expect( spyTitleServiceSet.calls.count() ).toBe(1);
+          expect( spyTitleServiceSet ).toHaveBeenCalledWith("Blog");
+          expect( subjectUnderTest.breadcrumbsTitle ).toBe("");
+          expect( subjectUnderTest.showLoading ).toBe(false);
+          expect( subjectUnderTest.breadcrumbsRoute ).toBe("");
+        });
+      }
     }
   ));
 

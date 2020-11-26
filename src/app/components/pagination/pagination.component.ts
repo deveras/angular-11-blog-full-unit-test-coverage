@@ -1,5 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ArticleModel } from '../../models/article-model';
+import { BookModel } from '../../models/book-model';
+import { TutorialModel } from '../../models/tutorial-model';
+
+
+export class Page {
+  public pageIndex:number;
+
+  constructor(index:number) {
+    this.pageIndex = index;
+  }
+
+};
 
 
 @Component(
@@ -12,14 +25,14 @@ import { Router } from '@angular/router';
 export class PaginationComponent
   implements OnInit
 {
-  @Input() collection:any[];
-  @Input() pageSize:number;
-  @Input() currentPageIndex:number;
-  @Input() collectionType:string;
+  @Input() collection:(ArticleModel | TutorialModel | BookModel)[] = [];
+  @Input() pageSize:number = 5;
+  @Input() currentPageIndex:number = 0;
+  @Input() collectionType:string = "Articles";
 
-  public pages:any[] = [];
-  public firstRecord:number;
-  public lastRecord:number;
+  public pages:Page[] = [];
+  public firstRecord:number = 0;
+  public lastRecord:number = 99;
 
 
   constructor(private router:Router) {}
@@ -36,7 +49,7 @@ export class PaginationComponent
     const noOfPages = Math.ceil(this.collection.length / this.pageSize);
     this.pages = [];
     for (let i = 0; i < noOfPages; i++){
-      this.pages.push({ pageIndex: i})
+      this.pages.push( new Page(i) );
     }
   }
 

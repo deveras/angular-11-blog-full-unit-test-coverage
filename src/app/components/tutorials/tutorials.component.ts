@@ -14,9 +14,9 @@ import { Subscription } from 'rxjs';
   }
 )
 export class TutorialsComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
-  private tutorialsServiceSubscription:Subscription;
+  private tutorialsServiceSubscription:Subscription = new Subscription();
   public collection:TutorialModel[] = [];
   public errorMessage:string = "";
   public showLoading:boolean = true;
@@ -28,13 +28,13 @@ export class TutorialsComponent
     private router:Router,
     private changeDetectorRef:ChangeDetectorRef,
     private tutorialsService:TutorialsService
-  ) {
-    // https://github.com/angular/angular/issues/13831
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-  }
+  ) {}
 
 
   ngOnInit():void {
+    // https://github.com/angular/angular/issues/13831
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     this.tutorialsServiceSubscription = this.tutorialsService.getAll().subscribe(
       (response:TutorialModel[]) => {
         this.collection = response;

@@ -14,9 +14,9 @@ import { Subscription } from 'rxjs';
   }
 )
 export class ArticlesComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
-  private articlesServiceSubscription:Subscription;
+  private articlesServiceSubscription:Subscription = new Subscription();
   public collection:ArticleModel[] = [];
   public errorMessage:string = "";
   public showLoading:boolean = true;
