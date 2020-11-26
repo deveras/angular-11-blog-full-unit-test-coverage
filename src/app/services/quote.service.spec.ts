@@ -56,7 +56,7 @@ describe('QuoteService', () => {
 
 
   it('getQuote should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve data from the server";
+    const errorMessage = "Failed to retrieve data from the server - QuoteService";
 
     subjectUnderTest.getQuote().subscribe(
       (response) => fail("no reason to stop here..."),
@@ -70,12 +70,12 @@ describe('QuoteService', () => {
     testingRequest.error(
       new ErrorEvent('Client error', { message: errorMessage })
     );
-     httpTestingController.verify();
+    httpTestingController.verify();
   });
 
 
   it('getQuote should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve data from the server";
+    const errorMessage = "Failed to retrieve data from the server - QuoteService";
 
     subjectUnderTest.getQuote().subscribe(
       (response) => fail("no reason to stop here..."),
@@ -100,6 +100,9 @@ describe('QuoteService', () => {
     subjectUnderTest.updateNumVotes(1, 1);
 
     const testingRequest = httpTestingController.expectOne(votesEndPoint);
+
+    expect( testingRequest.request.method ).toEqual('POST');
+
     testingRequest.flush({ id: 1, value: 1});
 
     expect( spyStorageServiceSet ).toHaveBeenCalledWith('quoteOfTheDay', '1');
@@ -109,11 +112,14 @@ describe('QuoteService', () => {
 
 
   it('updateNumVotes should not update the storage and throw', () => {
-    const errorMessage = "Failed to retrieve data from the server";
+    const errorMessage = "Failed to retrieve data from the server - QuoteService";
 
     subjectUnderTest.updateNumVotes(1, 1);
 
     const testingRequest = httpTestingController.expectOne(votesEndPoint);
+
+    expect( testingRequest.request.method ).toEqual('POST');
+
     testingRequest.flush("Network error",
       {
         status: 404,

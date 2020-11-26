@@ -50,12 +50,9 @@ describe('AppComponent', () => {
             path: "**",
             component: PageNotFoundComponent
           }
-        ]
-      ) ],
+      ], { relativeLinkResolution: 'legacy' }) ],
     });
-  });
 
-  beforeEach( () => {
     fixture = TestBed.createComponent(AppComponent);
     subjectUnderTest = fixture.componentInstance;
 
@@ -73,8 +70,6 @@ describe('AppComponent', () => {
         router.initialNavigation();
       });
     }
-
-    fixture.detectChanges();
   });
 
 
@@ -97,6 +92,8 @@ describe('AppComponent', () => {
 
   it('ngOnInit listens to router events setting page title from tutorials route data', fakeAsync(
     () => {
+      fixture.detectChanges();
+
       if (fixture.ngZone) {
         fixture.ngZone.run(() => {
           router.navigate(['tutorials']);
@@ -116,6 +113,8 @@ describe('AppComponent', () => {
 
   it('ngOnInit listens to router events setting page title from articles route data', fakeAsync(
     () => {
+      fixture.detectChanges();
+
       if (fixture.ngZone) {
         fixture.ngZone.run(() => {
           router.navigate(['articles']);
@@ -135,6 +134,8 @@ describe('AppComponent', () => {
 
   it('ngOnInit listens to router events setting page title to default when data not set', fakeAsync(
     () => {
+      fixture.detectChanges();
+
       if (fixture.ngZone) {
         fixture.ngZone.run(() => {
           router.navigate(['DoNotExist']);

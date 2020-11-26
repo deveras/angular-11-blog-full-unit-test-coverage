@@ -120,7 +120,8 @@ const routes: Routes = [
         initialNavigation: "enabled",
         onSameUrlNavigation: "reload",
         scrollPositionRestoration: "enabled",
-        anchorScrolling: "disabled"
+        anchorScrolling: "disabled",
+        relativeLinkResolution: 'legacy'
       })
     ],
     exports: [RouterModule]

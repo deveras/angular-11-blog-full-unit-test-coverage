@@ -30,14 +30,11 @@ describe('BookshelfComponent', () => {
       providers: [ BookshelfService ],
       imports: [
         HttpClientTestingModule,
-        RouterModule.forRoot([])
+        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' })
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     });
-  });
 
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(BookshelfComponent);
     subjectUnderTest = fixture.componentInstance;
 

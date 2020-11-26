@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment.prod';
 )
 export class ArticlesService
 {
-  private errorMessage:string = 'Failed to retrieve data from the server';
+  private errorMessage:string = 'Failed to retrieve data from the server - ArticlesService';
 
 
   constructor(

@@ -39,10 +39,7 @@ describe('PaginationComponent', () => {
         { provide: Router, useValue: routerStub }
       ]
     });
-  });
 
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(PaginationComponent);
     subjectUnderTest = fixture.componentInstance;
 

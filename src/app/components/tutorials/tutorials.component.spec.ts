@@ -28,14 +28,11 @@ describe('TutorialsComponent', () => {
       providers: [ TutorialsService ],
       imports: [
         HttpClientTestingModule,
-        RouterModule.forRoot([])
+        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' })
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
-  });
 
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(TutorialsComponent);
     subjectUnderTest = fixture.componentInstance;
 

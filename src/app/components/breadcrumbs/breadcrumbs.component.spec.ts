@@ -11,12 +11,9 @@ describe('BreadcrumbsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ BreadcrumbsComponent ],
-      imports: [ RouterModule.forRoot([]) ]
+      imports: [ RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }) ]
     });
-  });
 
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(BreadcrumbsComponent);
     subjectUnderTest = fixture.componentInstance;
   });

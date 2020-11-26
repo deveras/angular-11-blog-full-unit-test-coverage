@@ -71,7 +71,7 @@ describe('BookshelfService', () => {
 
 
   it('getAll should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve data from the server";
+    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
 
     subjectUnderTest.getAll().subscribe(
       (response) => fail("no reason to stop here..."),
@@ -90,7 +90,7 @@ describe('BookshelfService', () => {
 
 
   it('getAll should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve data from the server";
+    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
 
     subjectUnderTest.getAll().subscribe(
       (response) => fail("no reason to stop here..."),
@@ -140,7 +140,7 @@ describe('BookshelfService', () => {
 
 
   it('getById should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve data from the server";
+    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
 
     subjectUnderTest.getById(1).subscribe(
       (response) => fail("no reason to stop here..."),
@@ -159,7 +159,7 @@ describe('BookshelfService', () => {
 
 
   it('getById should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve data from the server";
+    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
 
     subjectUnderTest.getById(1).subscribe(
       (response) => fail("no reason to stop here..."),

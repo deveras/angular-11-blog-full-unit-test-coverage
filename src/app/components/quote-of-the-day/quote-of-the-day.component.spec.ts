@@ -26,10 +26,7 @@ describe('QuoteOfTheDayComponent', () => {
       declarations: [ QuoteOfTheDayComponent ],
       imports: [ HttpClientTestingModule ]
     });
-  });
 
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(QuoteOfTheDayComponent);
     subjectUnderTest = fixture.componentInstance;
 

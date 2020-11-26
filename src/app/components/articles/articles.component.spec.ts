@@ -28,14 +28,11 @@ describe('ArticlesComponent', () => {
       providers: [ ArticlesService ],
       imports: [
         HttpClientTestingModule,
-        RouterModule.forRoot([])
+        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' })
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
-  });
 
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(ArticlesComponent);
     subjectUnderTest = fixture.componentInstance;
 

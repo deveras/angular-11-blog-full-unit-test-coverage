@@ -14,12 +14,9 @@ describe('NavigationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ NavigationComponent ],
-      imports: [ RouterModule.forRoot([])]
+      imports: [ RouterModule.forRoot([], { relativeLinkResolution: 'legacy' })]
     });
-  });
 
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(NavigationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

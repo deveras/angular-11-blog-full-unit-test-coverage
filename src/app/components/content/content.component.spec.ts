@@ -66,10 +66,7 @@ describe('ContentComponent', () => {
         }
       ]
     });
-  });
 
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(ContentComponent);
     subjectUnderTest = fixture.componentInstance;
 

@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment.prod';
 )
 export class QuoteService
 {
-  private errorMessage:string = 'Failed to retrieve data from the server';
+  private errorMessage:string = 'Failed to retrieve data from the server - QuoteService';
 
 
   constructor(
@@ -59,14 +59,11 @@ export class QuoteService
     postData.append("value", value);
 
     this.httpClient.post(environment.api.url + environment.api.quotes.votes, postData)
-      .pipe(
-        catchError(
-          (error:HttpErrorResponse) => {
-            return throwError(this.handleError(error));
-          }
-        )
-      ).subscribe(
-        (response) => this.storageService.set("quoteOfTheDay", quoteId.toString())
+      .subscribe(
+        (response) => this.storageService.set("quoteOfTheDay", quoteId.toString()),
+        (error:HttpErrorResponse) => {
+          return throwError(this.handleError(error));
+        }
       );
   }
 
