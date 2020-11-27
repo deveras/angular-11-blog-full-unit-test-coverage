@@ -25,10 +25,10 @@ describe('LocalStorageService', () => {
     TestBed.configureTestingModule({});
     subjectUnderTest = TestBed.inject(LocalStorageService);
 
-    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
-    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
-    spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
-    spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
+    spyOn(subjectUnderTest.storage, 'getItem').and.callFake(mockLocalStorage.getItem);
+    spyOn(subjectUnderTest.storage, 'setItem').and.callFake(mockLocalStorage.setItem);
+    spyOn(subjectUnderTest.storage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
+    spyOn(subjectUnderTest.storage, 'clear').and.callFake(mockLocalStorage.clear);
   });
 
 
@@ -43,7 +43,7 @@ describe('LocalStorageService', () => {
 
 
   it('get return nothing if key does not exist', () => {
-    expect( subjectUnderTest.get("foo") ).toBe(null);
+    expect( subjectUnderTest.get("foo") ).toEqual(null);
   });
 
 
@@ -59,7 +59,7 @@ describe('LocalStorageService', () => {
 
     subjectUnderTest.remove("foo")
 
-    expect( subjectUnderTest.get("foo") ).toBe(null);
+    expect( subjectUnderTest.get("foo") ).toEqual(null);
   });
 
 

@@ -23,7 +23,6 @@ export class TutorialModel
 }
 
 
-
 @Injectable(
   {
     providedIn: "root"

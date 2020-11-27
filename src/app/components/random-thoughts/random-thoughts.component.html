@@ -1,0 +1,9 @@
+<div id="randomThoughts">
+  <h3>Random thoughts</h3>
+
+  <div *ngIf="showLoading">
+    <i class="fa fa-circle-o-notch fa-spin" ></i>
+  </div>
+
+  <p *ngIf="!showLoading">{{thoughtModel.thought}}</p>
+</div>

@@ -15,6 +15,9 @@ export const environment = {
     quotes: {
       get: "quotes/read.php",
       votes: "quotes/vote.php"
+    },
+    thoughts: {
+      get: "thoughts/read.php"
     }
   }
 };
