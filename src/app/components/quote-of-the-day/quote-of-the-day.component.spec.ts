@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController }
   from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
 import { QuoteService } from './../../services/quote.service';
-import { StorageService } from './../../services/storage.service';
+import { LocalStorageService } from './../../services/local-storage.service';
 import { QuoteModel } from '../../models/quote-model';
 
 
@@ -16,8 +16,8 @@ describe('QuoteOfTheDayComponent', () => {
   let quoteService:QuoteService;
   let spyQuoteServiceGetQuote:jasmine.Spy;
   let spyQuoteServiceUpdateNumVotes:jasmine.Spy;
-  let storateService:StorageService;
-  let spyStorageServiceGet:jasmine.Spy;
+  let localStorateService:LocalStorageService;
+  let spyLocalStorageServiceGet:jasmine.Spy;
   let spyChangeDetectorRefMarkForCheck:jasmine.Spy;
 
 
@@ -34,8 +34,8 @@ describe('QuoteOfTheDayComponent', () => {
     spyQuoteServiceGetQuote = spyOn(quoteService, "getQuote");
     spyQuoteServiceUpdateNumVotes = spyOn(quoteService, "updateNumVotes");
 
-    storateService = TestBed.inject(StorageService);
-    spyStorageServiceGet = spyOn(storateService, "get");
+    localStorateService = TestBed.inject(LocalStorageService);
+    spyLocalStorageServiceGet = spyOn(localStorateService, "get");
 
     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, "markForCheck");
   });
@@ -44,7 +44,6 @@ describe('QuoteOfTheDayComponent', () => {
   it('should create the component', () => {
     expect( subjectUnderTest ).toBeTruthy();
   });
-
 
 
   it('should have a public quote property undefined', () => {
@@ -66,13 +65,13 @@ describe('QuoteOfTheDayComponent', () => {
 
   it('ngOnInit should collect a quote if successfull and set hasVotedThisQuote true when storage id matches the quote id', () => {
     spyQuoteServiceGetQuote.and.returnValue( of(expectedQuote) );
-    spyStorageServiceGet.and.returnValue(1);
+    spyLocalStorageServiceGet.and.returnValue(1);
     fixture.detectChanges();
 
     expect( spyQuoteServiceGetQuote.calls.count() ).toBe(1);
     expect( subjectUnderTest.quote ).toEqual(expectedQuote);
     expect( subjectUnderTest.showLoadingQuote ).toBe(false);
-    expect( spyStorageServiceGet ).toHaveBeenCalled();
+    expect( spyLocalStorageServiceGet ).toHaveBeenCalled();
     expect( subjectUnderTest.hasVotedThisQuote ).toBe(true);
     expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
   });
@@ -80,13 +79,13 @@ describe('QuoteOfTheDayComponent', () => {
 
   it('ngOnInit should collect a quote if successfull and set hasVotedThisQuote false when storage id does not match the quote id', () => {
     spyQuoteServiceGetQuote.and.returnValue( of(expectedQuote) );
-    spyStorageServiceGet.and.returnValue(100);
+    spyLocalStorageServiceGet.and.returnValue(100);
     fixture.detectChanges();
 
     expect( spyQuoteServiceGetQuote.calls.count() ).toBe(1);
     expect( subjectUnderTest.quote ).toEqual(expectedQuote);
     expect( subjectUnderTest.showLoadingQuote ).toBe(false);
-    expect( spyStorageServiceGet ).toHaveBeenCalled();
+    expect( spyLocalStorageServiceGet ).toHaveBeenCalled();
     expect( subjectUnderTest.hasVotedThisQuote ).toBe(false);
     expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
   });

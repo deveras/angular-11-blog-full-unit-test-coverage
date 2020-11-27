@@ -1,0 +1,17 @@
+<div id="readingSuggestion">
+  <h3>Reading suggestions</h3>
+  <span *ngIf="showLoading">
+    <i class="fa fa-circle-o-notch fa-spin" ></i>
+  </span>
+  <div *ngIf="!showLoading">
+    <cite>
+      <a [routerLink]=" ['/bookshelf/', bookModel.id, bookModel.title | slug ]">{{bookModel.title}}</a>
+    </cite>
+    <p>
+      <a [href]="bookModel.bookLink" target="_black" title="Click to buy your copy">
+        <img [src]="bookModel.image">
+      </a>by: <a href="{{bookModel.authorLink}}" target="_black" title="Discover more about the author">{{bookModel.author}}</a>
+      <br>{{bookModel.recomendationSummary}}
+    </p>
+  </div>
+</div>

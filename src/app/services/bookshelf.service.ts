@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError } from "rxjs/operators";
+import { map, catchError, retry } from "rxjs/operators";
+import { SessionStorageService } from './session-storage.service';
 import { BookModel, BookAdapter } from '../models/book-model';
 import { environment } from '../../environments/environment.prod';
 
@@ -18,7 +19,8 @@ export class BookshelfService
 
   constructor(
     private adapter:BookAdapter,
-    private httpClient:HttpClient
+    private httpClient:HttpClient,
+    private sessionStorageService:SessionStorageService
   ) {}
 
 
@@ -59,6 +61,49 @@ export class BookshelfService
     ).pipe(
       map(
         (item:any) => this.adapter.adapt(item)
+      ),
+      catchError(
+        (error:HttpErrorResponse) => {
+          return throwError(this.handleError(error));
+        }
+      )
+    );
+  }
+
+
+  private isModelAlreadyInStorage(readingSuggestions:string | null, id:string):boolean {
+    if (readingSuggestions) {
+      return readingSuggestions.indexOf(id) !== -1;
+    } else {
+      return true;
+    }
+  }
+
+
+  public getRandom():Observable<BookModel>
+  {
+    let readingSuggestions = this.sessionStorageService.get("readingSuggestions") !== null
+      ? this.sessionStorageService.get("readingSuggestions")
+      : "";
+
+    return this.httpClient.get<BookModel | null>(
+      environment.api.url + environment.api.bookshelf.random + "?" + readingSuggestions
+    ).pipe(
+      map(
+        (item:any) => {
+          let model = this.adapter.adapt(item);
+
+          if(this.isModelAlreadyInStorage(readingSuggestions, model.id.toString())) {
+            this.sessionStorageService.remove("readingSuggestions");
+            readingSuggestions = "";
+          }
+
+          readingSuggestions = readingSuggestions === "" ? model.id.toString() : (readingSuggestions + "," + model.id.toString());
+          if (readingSuggestions) {
+            this.sessionStorageService.set("readingSuggestions", readingSuggestions);
+          }
+          return model;
+        }
       ),
       catchError(
         (error:HttpErrorResponse) => {

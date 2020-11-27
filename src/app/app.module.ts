@@ -15,6 +15,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { QuoteOfTheDayComponent } from './components/quote-of-the-day/quote-of-the-day.component';
+import { ReadingSuggestionComponent } from './components/reading-suggestion/reading-suggestion.component';
 
 import { PagingFilterPipe } from './pipes/paging-filter.pipe';
 import { SlugPipe } from './pipes/slug.pipe';
@@ -33,6 +34,7 @@ import { SlugPipe } from './pipes/slug.pipe';
     BreadcrumbsComponent,
     PaginationComponent,
     QuoteOfTheDayComponent,
+    ReadingSuggestionComponent,
     PagingFilterPipe,
     SlugPipe
   ],

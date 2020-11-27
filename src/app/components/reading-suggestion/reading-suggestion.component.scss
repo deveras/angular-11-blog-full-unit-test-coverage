@@ -1,0 +1,33 @@
+#readingSuggestion {
+  padding-bottom: 50px;
+
+  span {
+    display: block;
+    padding-top: 30px;
+    height: 80px;
+    text-align: center;
+    width: 100%;
+    i {
+      font-size: 50px;
+      color: #CCC;
+    }
+  }
+
+  div {
+    cite {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    p {
+      img {
+        display: inline-block;
+        float: left;
+        border: 1px solid #777;
+        margin-right: 10px;
+        width: 75px;
+        height: 97px;
+      }
+    }
+  }
+}

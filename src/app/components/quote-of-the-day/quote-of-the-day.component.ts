@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { QuoteModel } from './../../models/quote-model';
 import { QuoteService } from './../../services/quote.service';
-import { StorageService } from './../../services/storage.service';
+import { LocalStorageService } from './../../services/local-storage.service';
 import { Subscription } from 'rxjs';
 
 
@@ -27,7 +27,7 @@ export class QuoteOfTheDayComponent
   constructor(
     private changeDetectorRef:ChangeDetectorRef,
     private quoteService:QuoteService,
-    private storageService:StorageService
+    private localStorageService:LocalStorageService
   ) {}
 
 
@@ -36,7 +36,7 @@ export class QuoteOfTheDayComponent
       (response:QuoteModel) => {
         this.quote = response;
         this.showLoadingQuote = false;
-        this.hasVotedThisQuote = Number(this.storageService.get("quoteOfTheDay")) === this.quote.id;
+        this.hasVotedThisQuote = Number(this.localStorageService.get("quoteOfTheDay")) === this.quote.id;
         this.changeDetectorRef.markForCheck();
       },
       (errorMessage) => {

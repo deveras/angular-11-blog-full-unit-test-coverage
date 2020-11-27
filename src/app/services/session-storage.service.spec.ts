@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { StorageService } from './storage.service';
+import { SessionStorageService } from './session-storage.service';
 
 
-describe('StorageService', () => {
+describe('SessionStorageService', () => {
   let store:{ [key:string]: string } = {};
   const mockLocalStorage = {
     getItem: (key:string):string|null => {
@@ -18,12 +18,12 @@ describe('StorageService', () => {
       store = {};
     }
   };
-  let subjectUnderTest:StorageService;
+  let subjectUnderTest:SessionStorageService;
 
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    subjectUnderTest = TestBed.inject(StorageService);
+    subjectUnderTest = TestBed.inject(SessionStorageService);
 
     spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
     spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);

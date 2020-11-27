@@ -1,5 +1,3 @@
-// https://angular.io/guide/dependency-injection-in-action
-
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 
 
@@ -16,7 +14,7 @@ export const BROWSER_STORAGE = new InjectionToken<Storage>(
     providedIn: 'root'
   }
 )
-export class StorageService
+export class LocalStorageService
 {
   constructor(
     @Inject(BROWSER_STORAGE) public storage: Storage

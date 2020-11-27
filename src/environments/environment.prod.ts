@@ -6,7 +6,8 @@ export const environment = {
       get: "articles/read.php"
     },
     bookshelf: {
-      get: "bookshelf/read.php"
+      get: "bookshelf/read.php",
+      random: "bookshelf/random.php"
     },
     tutorials: {
       get: "tutorials/read.php"

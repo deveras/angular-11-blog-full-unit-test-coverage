@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController }
   from '@angular/common/http/testing';
 import { QuoteService } from './quote.service';
-import { StorageService } from './storage.service';
+import { LocalStorageService } from './local-storage.service';
 import { QuoteModel, QuoteAdapter } from '../models/quote-model';
 import { environment } from '../../environments/environment.prod';
 
@@ -12,8 +12,8 @@ describe('QuoteService', () => {
   const votesEndPoint:string = environment.api.url + environment.api.quotes.votes;
   let subjectUnderTest: QuoteService;
   let httpTestingController: HttpTestingController;
-  let storateService:StorageService;
-  let spyStorageServiceSet:jasmine.Spy;
+  let storateService:LocalStorageService;
+  let spyLocalStorageServiceSet:jasmine.Spy;
 
 
   beforeEach(() => {
@@ -25,8 +25,8 @@ describe('QuoteService', () => {
 
     httpTestingController = TestBed.inject(HttpTestingController);
 
-    storateService = TestBed.inject(StorageService);
-    spyStorageServiceSet = spyOn(storateService, "set");
+    storateService = TestBed.inject(LocalStorageService);
+    spyLocalStorageServiceSet = spyOn(storateService, "set");
   });
 
 
@@ -105,7 +105,7 @@ describe('QuoteService', () => {
 
     testingRequest.flush({ id: 1, value: 1});
 
-    expect( spyStorageServiceSet ).toHaveBeenCalledWith('quoteOfTheDay', '1');
+    expect( spyLocalStorageServiceSet ).toHaveBeenCalledWith('quoteOfTheDay', '1');
 
     httpTestingController.verify();
   });
@@ -127,7 +127,7 @@ describe('QuoteService', () => {
       }
     );
 
-    expect( spyStorageServiceSet ).not.toHaveBeenCalled();
+    expect( spyLocalStorageServiceSet ).not.toHaveBeenCalled();
 
     httpTestingController.verify();
   });

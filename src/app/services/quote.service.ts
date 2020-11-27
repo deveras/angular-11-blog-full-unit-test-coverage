@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
-import { StorageService } from './storage.service';
+import { LocalStorageService } from './local-storage.service';
 import { QuoteModel, QuoteAdapter } from '../models/quote-model';
 import { environment } from '../../environments/environment.prod';
 
@@ -20,7 +20,7 @@ export class QuoteService
   constructor(
     private httpClient:HttpClient,
     private adapter:QuoteAdapter,
-    private storageService:StorageService
+    private localStorageService:LocalStorageService
   ) { }
 
 
@@ -60,7 +60,7 @@ export class QuoteService
 
     this.httpClient.post(environment.api.url + environment.api.quotes.votes, postData)
       .subscribe(
-        (response) => this.storageService.set("quoteOfTheDay", quoteId.toString()),
+        (response) => this.localStorageService.set("quoteOfTheDay", quoteId.toString()),
         (error:HttpErrorResponse) => {
           return throwError(this.handleError(error));
         }
