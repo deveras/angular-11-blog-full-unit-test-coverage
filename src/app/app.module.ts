@@ -18,9 +18,10 @@ import { QuoteOfTheDayComponent } from './components/quote-of-the-day/quote-of-t
 import { ReadingSuggestionComponent } from './components/reading-suggestion/reading-suggestion.component';
 import { RandomThoughtsComponent } from './components/random-thoughts/random-thoughts.component';
 
+import { LazyImageLoadingDirective } from './directives/lazy-image-loading.directive';
+
 import { PagingFilterPipe } from './pipes/paging-filter.pipe';
 import { SlugPipe } from './pipes/slug.pipe';
-
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { SlugPipe } from './pipes/slug.pipe';
     QuoteOfTheDayComponent,
     ReadingSuggestionComponent,
     RandomThoughtsComponent,
+    LazyImageLoadingDirective,
     PagingFilterPipe,
     SlugPipe
   ],
