@@ -57,4 +57,9 @@ export class TutorialsComponent
     }
   }
 
+
+  public trackByCollectionId(index:number, model:TutorialModel):number {
+    return model.id;
+  }
+
 }

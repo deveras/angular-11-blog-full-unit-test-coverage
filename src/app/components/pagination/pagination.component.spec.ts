@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { PaginationComponent, Page } from './pagination.component';
+import { PaginationComponent, PageModel } from './pagination.component';
 import { ArticleModel } from '../../models/article-model';
 import { BookModel } from '../../models/book-model';
 import { TutorialModel } from '../../models/tutorial-model';
@@ -58,9 +58,9 @@ describe('PaginationComponent', () => {
 
 
   it("should have the following properties", () => {
-    const mockPage0 = new Page(0);
-    const mockPage1 = new Page(1);
-    const mockPage2 = new Page(2);
+    const mockPage0 = new PageModel(0);
+    const mockPage1 = new PageModel(1);
+    const mockPage2 = new PageModel(2);
 
     expect( subjectUnderTest.collection ).toBeDefined();
     expect( subjectUnderTest.collection ).toEqual(mockCollection)
@@ -112,6 +112,15 @@ describe('PaginationComponent', () => {
     expect( routerStub.navigate ).not.toHaveBeenCalled();
 
     routerStub.navigate.calls.reset();
+  });
+
+
+  it('trackByPagesId should return the current index', () => {
+    fixture.detectChanges();
+
+    expect( subjectUnderTest.trackByPagesId(0, subjectUnderTest.pages[0]) ).toBe(0);
+    expect( subjectUnderTest.trackByPagesId(1, subjectUnderTest.pages[1]) ).toBe(1);
+    expect( subjectUnderTest.trackByPagesId(2, subjectUnderTest.pages[2]) ).toBe(2);
   });
 
 });

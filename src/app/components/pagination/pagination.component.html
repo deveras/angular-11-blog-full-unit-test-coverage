@@ -1,6 +1,6 @@
 <div id="pagination" *ngIf="collection.length > pageSize">
   <button (click)="onPageIndexClicked(currentPageIndex - 1)">Prev</button>
-  <button *ngFor="let page of pages" (click)="onPageIndexClicked(page.pageIndex)" [class.active]="page.pageIndex == currentPageIndex">{{page.pageIndex + 1}}</button>
+  <button *ngFor="let page of pages; trackBy: trackByPagesId" (click)="onPageIndexClicked(page.pageIndex)" [class.active]="page.pageIndex == currentPageIndex">{{page.pageIndex + 1}}</button>
   <button (click)="onPageIndexClicked(currentPageIndex + 1)">Next</button>
   <p>You are viewing {{collectionType}}: {{firstRecord}} to {{lastRecord}} of {{collection.length}}</p>
 </div>

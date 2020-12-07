@@ -57,4 +57,8 @@ export class BookshelfComponent
     }
   }
 
+
+  public trackByCollectionId(index:number, model:BookModel):number {
+    return model.id;
+  }
 }

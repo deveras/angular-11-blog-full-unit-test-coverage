@@ -57,4 +57,9 @@ export class ArticlesComponent
     }
   }
 
+
+  public trackByCollectionId(index:number, model:ArticleModel):number {
+    return model.id;
+  }
+
 }

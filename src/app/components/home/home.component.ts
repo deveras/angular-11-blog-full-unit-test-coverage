@@ -105,4 +105,9 @@ export class HomeComponent
       default: return "/tutorials";
     }
   }
+
+
+  public trackByCollectionId(index:number, model:ArticleModel | BookModel | TutorialModel):number {
+    return index;
+  }
 }

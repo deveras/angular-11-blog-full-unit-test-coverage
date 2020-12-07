@@ -104,4 +104,13 @@ describe('TutorialsComponent', () => {
 
     expect( (subjectUnderTest as any).tutorialsServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
+
+
+  it('trackByCollectionId should return the id of the model', () => {
+    spyTutorialsServiceGetAll.and.returnValue( of(expectedTutorials) );
+    fixture.detectChanges();
+
+    expect( subjectUnderTest.trackByCollectionId(77, subjectUnderTest.collection[0]) ).toBe(1);
+  });
+
 });

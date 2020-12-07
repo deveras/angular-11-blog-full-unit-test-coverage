@@ -105,4 +105,12 @@ describe('ArticlesComponent', () => {
     expect( (subjectUnderTest as any).articlesServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 
+
+  it('trackByCollectionId should return the id of the model', () => {
+    spyArticlesServiceGetAll.and.returnValue( of(expectedArticles) );
+    fixture.detectChanges();
+
+    expect( subjectUnderTest.trackByCollectionId(77, subjectUnderTest.collection[0]) ).toBe(1);
+  });
+
 });

@@ -9,7 +9,7 @@
 
     <div *ngIf="!showLoading && !errorMessage">
       <ul>
-        <li *ngFor="let item of collection | pagingFilter: currentPageIndex: pageSize">
+        <li *ngFor="let item of collection | pagingFilter: currentPageIndex: pageSize; trackBy: trackByCollectionId">
           <time>{{item.lastUpdateDate | date : 'long'}}</time>
 
           <div>

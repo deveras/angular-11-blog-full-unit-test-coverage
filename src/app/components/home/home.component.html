@@ -5,7 +5,7 @@
     </div>
 
     <ul *ngIf="!showLoading">
-      <li *ngFor="let c of collection">
+      <li *ngFor="let c of collection; trackBy: trackByCollectionId">
         <h2><a [routerLink]="[ prepareLink(c), c.id, c.title | slug ]">{{c.title}}</a></h2>
         <p>{{c.recomendationSummary}}
           <br>{{c.lastUpdateDate | date : 'long'}}</p>

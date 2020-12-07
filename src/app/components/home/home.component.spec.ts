@@ -188,4 +188,16 @@ describe('HomeComponent', () => {
     expect ( subjectUnderTest.prepareLink(new TutorialModel()) ).toBe("/tutorials");
   });
 
+
+  it('trackByCollectionId should return the current index', () => {
+    spyArticlesServiceGetAll.and.returnValue( of(expectedArticles) );
+    spyBookshelfServiceGetAll.and.returnValue( of(expectedBooks) );
+    spyTutorialsServiceGetAll.and.returnValue( of(expectedTutorials) );
+    fixture.detectChanges();
+
+    expect( subjectUnderTest.trackByCollectionId(1, subjectUnderTest.collection[0]) ).toBe(1);
+    expect( subjectUnderTest.trackByCollectionId(2, subjectUnderTest.collection[1]) ).toBe(2);
+    expect( subjectUnderTest.trackByCollectionId(3, subjectUnderTest.collection[2]) ).toBe(3);
+  });
+
 });

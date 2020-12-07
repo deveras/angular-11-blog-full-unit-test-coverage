@@ -5,7 +5,7 @@ import { BookModel } from '../../models/book-model';
 import { TutorialModel } from '../../models/tutorial-model';
 
 
-export class Page {
+export class PageModel {
   public pageIndex:number;
 
   constructor(index:number) {
@@ -30,7 +30,7 @@ export class PaginationComponent
   @Input() currentPageIndex:number = 0;
   @Input() collectionType:string = "Articles";
 
-  public pages:Page[] = [];
+  public pages:PageModel[] = [];
   public firstRecord:number = 0;
   public lastRecord:number = 99;
 
@@ -49,7 +49,7 @@ export class PaginationComponent
     const noOfPages = Math.ceil(this.collection.length / this.pageSize);
     this.pages = [];
     for (let i = 0; i < noOfPages; i++){
-      this.pages.push( new Page(i) );
+      this.pages.push( new PageModel(i) );
     }
   }
 
@@ -67,6 +67,11 @@ export class PaginationComponent
         { replaceUrl: true }
       );
     }
+  }
+
+
+  public trackByPagesId(index:number, model:PageModel):number {
+    return index;
   }
 
 }
