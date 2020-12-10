@@ -16,30 +16,30 @@ import { Subscription } from 'rxjs';
 export class ArticlesComponent
   implements OnInit, OnDestroy
 {
-  private articlesServiceSubscription:Subscription = new Subscription();
-  public collection:ArticleModel[] = [];
-  public errorMessage:string = "";
-  public showLoading:boolean = true;
-  public currentPageIndex:number = 0;
-  public pageSize:number = 5;
+  private articlesServiceSubscription: Subscription = new Subscription();
+  public collection: ArticleModel[] = [];
+  public errorMessage = '';
+  public showLoading = true;
+  public currentPageIndex = 0;
+  public pageSize = 5;
 
 
   constructor(
-    private router:Router,
-    private changeDetectorRef:ChangeDetectorRef,
-    private articlesService:ArticlesService
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
+    private articlesService: ArticlesService
   ) {
     // https://github.com/angular/angular/issues/13831
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.articlesServiceSubscription = this.articlesService.getAll().subscribe(
-      (response:ArticleModel[]) => {
+      (response: ArticleModel[]) => {
         this.collection = response;
         this.showLoading = false;
-        this.currentPageIndex = Number(this.router.url.split("/")[2]) || 0;
+        this.currentPageIndex = Number(this.router.url.split('/')[2]) || 0;
         this.changeDetectorRef.markForCheck();
       },
       (errorMessage) => {
@@ -51,12 +51,12 @@ export class ArticlesComponent
   }
 
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.articlesServiceSubscription.unsubscribe();
   }
 
 
-  public trackByCollectionId(index:number, model:ArticleModel):number {
+  public trackByCollectionId(index: number, model: ArticleModel): number {
     return model.id;
   }
 

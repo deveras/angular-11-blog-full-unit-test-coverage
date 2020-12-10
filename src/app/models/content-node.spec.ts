@@ -1,9 +1,9 @@
 import { ContentNode } from './content-node';
-import { AttributeNode } from "./attribute-node";
+import { AttributeNode } from './attribute-node';
 
 
 describe('ContentNode', () => {
-  let subjectUnderTest:ContentNode;
+  let subjectUnderTest: ContentNode;
 
 
   beforeEach( () => {
@@ -36,10 +36,10 @@ describe('ContentNode', () => {
 
 
   it('should have the following properties defaults', () => {
-    expect( subjectUnderTest.type ).toBe("");
-    expect( subjectUnderTest.tag ).toBe("");
-    expect( subjectUnderTest.content ).toBe("");
-    expect( subjectUnderTest.classes ).toBe("");
+    expect( subjectUnderTest.type ).toBe('');
+    expect( subjectUnderTest.tag ).toBe('');
+    expect( subjectUnderTest.content ).toBe('');
+    expect( subjectUnderTest.classes ).toBe('');
     expect( subjectUnderTest.attributes ).toBe(null);
     expect( subjectUnderTest.children ).toBe(null);
   });

@@ -8,14 +8,14 @@ import { environment } from '../../environments/environment.prod';
 
 
 describe('BookshelfService', () => {
-  const endPointGet:string = environment.api.url + environment.api.bookshelf.get;
-  const endPointRandom:string = environment.api.url + environment.api.bookshelf.random;
-  let subjectUnderTest:BookshelfService;
+  const endPointGet: string = environment.api.url + environment.api.bookshelf.get;
+  const endPointRandom: string = environment.api.url + environment.api.bookshelf.random;
+  let subjectUnderTest: BookshelfService;
   let httpTestingController: HttpTestingController;
-  let sessionStorageService:SessionStorageService;
-  let spySessionStorageServiceSet:jasmine.Spy;
-  let spySessionStorageServiceGet:jasmine.Spy;
-  let spySessionStorageServiceRemove:jasmine.Spy;
+  let sessionStorageService: SessionStorageService;
+  let spySessionStorageServiceSet: jasmine.Spy;
+  let spySessionStorageServiceGet: jasmine.Spy;
+  let spySessionStorageServiceRemove: jasmine.Spy;
 
 
   beforeEach( () => {
@@ -30,9 +30,9 @@ describe('BookshelfService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
 
     sessionStorageService = TestBed.inject(SessionStorageService);
-    spySessionStorageServiceSet = spyOn(sessionStorageService, "set");
-    spySessionStorageServiceGet = spyOn(sessionStorageService, "get");
-    spySessionStorageServiceRemove = spyOn(sessionStorageService, "remove");
+    spySessionStorageServiceSet = spyOn(sessionStorageService, 'set');
+    spySessionStorageServiceGet = spyOn(sessionStorageService, 'get');
+    spySessionStorageServiceRemove = spyOn(sessionStorageService, 'remove');
   });
 
 
@@ -47,25 +47,25 @@ describe('BookshelfService', () => {
 
 
   it('getAll should return a BookModel array via GET request method', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockBooksAPIResponse = [
       {
-        id: 1, title: "foo", recomendationSummary: "bar", author: "baz",
-        authorLink: "foofoo", image: "foobar", body: "foobaz", bookLink: "barfoo",
+        id: 1, title: 'foo', recomendationSummary: 'bar', author: 'baz',
+        authorLink: 'foofoo', image: 'foobar', body: 'foobaz', bookLink: 'barfoo',
         featured: false, weight: 1, lastUpdate: mockDateString,
         createDate: mockDateString
       }, {
-        id: 2, title: "FOO", recomendationSummary: "BAR", author: "BAZ",
-        authorLink: "FOOFOO", image: "FOOBAR", body: "FOOBAZ", bookLink: "BARFOO",
+        id: 2, title: 'FOO', recomendationSummary: 'BAR', author: 'BAZ',
+        authorLink: 'FOOFOO', image: 'FOOBAR', body: 'FOOBAZ', bookLink: 'BARFOO',
         featured: true, weight: 0.5, lastUpdate: mockDateString,
         createDate: mockDateString
       }
     ];
     const expectedBooks = [
-      new BookModel(1, "foo", "bar", "baz", "foofoo", "foobar", "foobaz", "barfoo",
+      new BookModel(1, 'foo', 'bar', 'baz', 'foofoo', 'foobar', 'foobaz', 'barfoo',
         false, 1, new Date(mockDateString), new Date(mockDateString)
       ),
-      new BookModel(2, "FOO", "BAR", "BAZ", "FOOFOO", "FOOBAR", "FOOBAZ", "BARFOO",
+      new BookModel(2, 'FOO', 'BAR', 'BAZ', 'FOOFOO', 'FOOBAR', 'FOOBAZ', 'BARFOO',
         true, 0.5, new Date(mockDateString), new Date(mockDateString)
       )
     ];
@@ -82,11 +82,11 @@ describe('BookshelfService', () => {
 
 
   it('getAll should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
+    const errorMessage = 'Failed to retrieve data from the server - BookshelfService';
 
     subjectUnderTest.getAll().subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
@@ -101,18 +101,18 @@ describe('BookshelfService', () => {
 
 
   it('getAll should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
+    const errorMessage = 'Failed to retrieve data from the server - BookshelfService';
 
     subjectUnderTest.getAll().subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
     const testingRequest = httpTestingController.expectOne(endPointGet);
     expect( testingRequest.request.method ).toEqual('GET');
 
-    testingRequest.flush("Network error",
+    testingRequest.flush('Network error',
       {
         status: 404,
         statusText: errorMessage
@@ -128,21 +128,21 @@ describe('BookshelfService', () => {
 
 
   it('getById should return a BookModel array via GET request method', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockBooksAPIResponse = {
-      id: 1, title: "foo", recomendationSummary: "bar", author: "baz",
-      authorLink: "foofoo", image: "foobar", body: "foobaz", bookLink: "barfoo",
+      id: 1, title: 'foo', recomendationSummary: 'bar', author: 'baz',
+      authorLink: 'foofoo', image: 'foobar', body: 'foobaz', bookLink: 'barfoo',
       featured: false, weight: 1, lastUpdate: mockDateString,
       createDate: mockDateString
     };
-    const expectedBook = new BookModel(1, "foo", "bar", "baz", "foofoo", "foobar", "foobaz", "barfoo",
+    const expectedBook = new BookModel(1, 'foo', 'bar', 'baz', 'foofoo', 'foobar', 'foobaz', 'barfoo',
       false, 1, new Date(mockDateString), new Date(mockDateString)
     );
 
     subjectUnderTest.getById(1).subscribe(
       response => expect( response ).toEqual(expectedBook)
     );
-    const testingRequest = httpTestingController.expectOne(endPointGet + "?1");
+    const testingRequest = httpTestingController.expectOne(endPointGet + '?1');
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush(mockBooksAPIResponse);
@@ -151,15 +151,15 @@ describe('BookshelfService', () => {
 
 
   it('getById should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
+    const errorMessage = 'Failed to retrieve data from the server - BookshelfService';
 
     subjectUnderTest.getById(1).subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(endPointGet + "?1");
+    const testingRequest = httpTestingController.expectOne(endPointGet + '?1');
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.error(
@@ -170,18 +170,18 @@ describe('BookshelfService', () => {
 
 
   it('getById should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
+    const errorMessage = 'Failed to retrieve data from the server - BookshelfService';
 
     subjectUnderTest.getById(1).subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(endPointGet + "?1");
+    const testingRequest = httpTestingController.expectOne(endPointGet + '?1');
     expect( testingRequest.request.method ).toEqual('GET');
 
-    testingRequest.flush("Network error",
+    testingRequest.flush('Network error',
       {
         status: 404,
         statusText: errorMessage
@@ -192,14 +192,14 @@ describe('BookshelfService', () => {
 
 
   it('getRandom should return a BookModel via GET request method when sessionStorage is empty', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockBooksAPIResponse = {
-      id: 1, title: "foo", recomendationSummary: "bar", author: "baz",
-      authorLink: "foofoo", image: "foobar", body: "foobaz", bookLink: "barfoo",
+      id: 1, title: 'foo', recomendationSummary: 'bar', author: 'baz',
+      authorLink: 'foofoo', image: 'foobar', body: 'foobaz', bookLink: 'barfoo',
       featured: false, weight: 1, lastUpdate: mockDateString,
       createDate: mockDateString
     };
-    const expectedBook = new BookModel(1, "foo", "bar", "baz", "foofoo", "foobar", "foobaz", "barfoo",
+    const expectedBook = new BookModel(1, 'foo', 'bar', 'baz', 'foofoo', 'foobar', 'foobaz', 'barfoo',
       false, 1, new Date(mockDateString), new Date(mockDateString)
     );
     spySessionStorageServiceGet.and.returnValue(null);
@@ -207,7 +207,7 @@ describe('BookshelfService', () => {
     subjectUnderTest.getRandom().subscribe(
       response => expect( response ).toEqual(expectedBook)
     );
-    const testingRequest = httpTestingController.expectOne(endPointRandom + "?");
+    const testingRequest = httpTestingController.expectOne(endPointRandom + '?');
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush(mockBooksAPIResponse);
@@ -219,22 +219,22 @@ describe('BookshelfService', () => {
 
 
   it('getRandom should return a BookModel via GET request method when sessionStorage has values', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockBooksAPIResponse = {
-      id: 1, title: "foo", recomendationSummary: "bar", author: "baz",
-      authorLink: "foofoo", image: "foobar", body: "foobaz", bookLink: "barfoo",
+      id: 1, title: 'foo', recomendationSummary: 'bar', author: 'baz',
+      authorLink: 'foofoo', image: 'foobar', body: 'foobaz', bookLink: 'barfoo',
       featured: false, weight: 1, lastUpdate: mockDateString,
       createDate: mockDateString
     };
-    const expectedBook = new BookModel(1, "foo", "bar", "baz", "foofoo", "foobar", "foobaz", "barfoo",
+    const expectedBook = new BookModel(1, 'foo', 'bar', 'baz', 'foofoo', 'foobar', 'foobaz', 'barfoo',
       false, 1, new Date(mockDateString), new Date(mockDateString)
     );
-    spySessionStorageServiceGet.and.returnValue("2,3");
+    spySessionStorageServiceGet.and.returnValue('2,3');
 
     subjectUnderTest.getRandom().subscribe(
       response => expect( response ).toEqual(expectedBook)
     );
-    const testingRequest = httpTestingController.expectOne(endPointRandom + "?2,3");
+    const testingRequest = httpTestingController.expectOne(endPointRandom + '?2,3');
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush(mockBooksAPIResponse);
@@ -246,22 +246,22 @@ describe('BookshelfService', () => {
 
 
   it('getRandom should return a BookModel via GET request method clean sessionStorage and add sessionStorage value', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockBooksAPIResponse = {
-      id: 1, title: "foo", recomendationSummary: "bar", author: "baz",
-      authorLink: "foofoo", image: "foobar", body: "foobaz", bookLink: "barfoo",
+      id: 1, title: 'foo', recomendationSummary: 'bar', author: 'baz',
+      authorLink: 'foofoo', image: 'foobar', body: 'foobaz', bookLink: 'barfoo',
       featured: false, weight: 1, lastUpdate: mockDateString,
       createDate: mockDateString
     };
-    const expectedBook = new BookModel(1, "foo", "bar", "baz", "foofoo", "foobar", "foobaz", "barfoo",
+    const expectedBook = new BookModel(1, 'foo', 'bar', 'baz', 'foofoo', 'foobar', 'foobaz', 'barfoo',
       false, 1, new Date(mockDateString), new Date(mockDateString)
     );
-    spySessionStorageServiceGet.and.returnValue("1");
+    spySessionStorageServiceGet.and.returnValue('1');
 
     subjectUnderTest.getRandom().subscribe(
       response => expect( response ).toEqual(expectedBook)
     );
-    const testingRequest = httpTestingController.expectOne(endPointRandom + "?1");
+    const testingRequest = httpTestingController.expectOne(endPointRandom + '?1');
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush(mockBooksAPIResponse);
@@ -274,16 +274,16 @@ describe('BookshelfService', () => {
 
 
   it('getRandom should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
+    const errorMessage = 'Failed to retrieve data from the server - BookshelfService';
     spySessionStorageServiceGet.and.returnValue(null);
 
     subjectUnderTest.getRandom().subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(endPointRandom + "?");
+    const testingRequest = httpTestingController.expectOne(endPointRandom + '?');
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.error(
@@ -294,19 +294,19 @@ describe('BookshelfService', () => {
 
 
   it('getRandom should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve data from the server - BookshelfService";
+    const errorMessage = 'Failed to retrieve data from the server - BookshelfService';
     spySessionStorageServiceGet.and.returnValue(null);
 
     subjectUnderTest.getRandom().subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(endPointRandom + "?");
+    const testingRequest = httpTestingController.expectOne(endPointRandom + '?');
     expect( testingRequest.request.method ).toEqual('GET');
 
-    testingRequest.flush("Network error",
+    testingRequest.flush('Network error',
       {
         status: 404,
         statusText: errorMessage

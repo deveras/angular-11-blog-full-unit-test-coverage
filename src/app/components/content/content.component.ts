@@ -24,35 +24,35 @@ import { Subscription } from 'rxjs';
 export class ContentComponent
   implements OnInit, OnDestroy
 {
-  private serviceSubscription:Subscription = new Subscription();
-  public errorMessage:string = "";
-  public section:string = "";
-  public content:any = "";
-  public showLoading:boolean = true;
-  @ViewChild('contentBody') public contentBodyElement:ElementRef = new ElementRef(null);
+  private serviceSubscription: Subscription = new Subscription();
+  public errorMessage = '';
+  public section = '';
+  public content: any = '';
+  public showLoading = true;
+  @ViewChild('contentBody') public contentBodyElement: ElementRef = new ElementRef(null);
 
 
   constructor(
-    private readonly route:ActivatedRoute,
-    private readonly changeDetectorRef:ChangeDetectorRef,
-    private readonly titleService:Title,
-    private readonly renderer:Renderer2,
-    private readonly articlesService:ArticlesService,
-    private readonly bookshelfService:BookshelfService,
-    private readonly tutorialsService:TutorialsService
+    private readonly route: ActivatedRoute,
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly titleService: Title,
+    private readonly renderer: Renderer2,
+    private readonly articlesService: ArticlesService,
+    private readonly bookshelfService: BookshelfService,
+    private readonly tutorialsService: TutorialsService
   ) {}
 
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.section = this.route.snapshot.data.title;
-    let serviceName = this.section.toLowerCase() + "Service";
-    let service:ArticlesService | BookshelfService | TutorialsService;
+    const serviceName = this.section.toLowerCase() + 'Service';
+    let service: ArticlesService | BookshelfService | TutorialsService;
 
-    switch(serviceName) {
-      case "articlesService":
+    switch (serviceName) {
+      case 'articlesService':
         service = this.articlesService;
         break;
-      case "bookshelfService":
+      case 'bookshelfService':
         service = this.bookshelfService;
         break;
       default:
@@ -61,7 +61,7 @@ export class ContentComponent
     }
 
     this.serviceSubscription = service.getById( this.route.snapshot.params.id ).subscribe(
-      (response:ArticleModel | TutorialModel | BookModel) => {
+      (response: ArticleModel | TutorialModel | BookModel) => {
         this.titleService.setTitle(response.title);
         this.content = response;
         this.showLoading = false;
@@ -72,7 +72,7 @@ export class ContentComponent
         );
         this.changeDetectorRef.markForCheck();
       },
-      (errorMessage:string) => {
+      (errorMessage: string) => {
         this.errorMessage = errorMessage;
         this.showLoading = false;
         this.changeDetectorRef.markForCheck();
@@ -81,14 +81,14 @@ export class ContentComponent
   }
 
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.serviceSubscription.unsubscribe();
   }
 
 
-  private prepareChildren(children:any, container:ElementRef) {
-    for (let i=0; i < children.length; i++) {
-      let el = children[i];
+  private prepareChildren(children: any, container: ElementRef) {
+    for (let i = 0; i < children.length; i++) {
+      const el = children[i];
       if ( this.isTag(el.type) ) {
         if ( !this.isNotInvalidTag(el.tag) ) {
           continue;
@@ -102,13 +102,13 @@ export class ContentComponent
   }
 
 
-  private isTag(type:string):boolean {
-    return type === "t";
+  private isTag(type: string): boolean {
+    return type === 't';
   }
 
 
-  private isNotInvalidTag(tag:string):boolean {
-    const invalidTags:string[] = ["script"]
+  private isNotInvalidTag(tag: string): boolean {
+    const invalidTags: string[] = ['script'];
     if (invalidTags.includes(tag)) {
       return false;
     }
@@ -116,9 +116,9 @@ export class ContentComponent
   }
 
 
-  private prepareTag(el:ContentNode):ElementRef {
-    let newElement = this.renderer.createElement(el.tag);
-    if (el.classes) this.renderer.setAttribute(newElement, 'class', el.classes);
+  private prepareTag(el: ContentNode): ElementRef {
+    const newElement = this.renderer.createElement(el.tag);
+    if (el.classes) { this.renderer.setAttribute(newElement, 'class', el.classes); }
 
     if (el.attributes){
       this.prepareAttibutes(el.attributes, newElement);
@@ -135,17 +135,17 @@ export class ContentComponent
   }
 
 
-  private prepareAttibutes(els:AttributeNode[], container:ElementRef) {
-    els.forEach( (element:AttributeNode) => {
+  private prepareAttibutes(els: AttributeNode[], container: ElementRef) {
+    els.forEach( (element: AttributeNode) => {
       this.renderer.setAttribute(container, element.name, element.value);
     });
   }
 
 
-  private transform(content:string):ElementRef {
+  private transform(content: string): ElementRef {
     return this.prepareChildren(
       JSON.parse(content),
-      this.renderer.createElement("div")
+      this.renderer.createElement('div')
     );
   }
 

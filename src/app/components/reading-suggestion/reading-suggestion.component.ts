@@ -14,19 +14,19 @@ import { BookModel } from '../../models/book-model';
 export class ReadingSuggestionComponent
   implements OnInit
 {
-  public showLoading:boolean = true;
-  public bookModel?:BookModel;
+  public showLoading = true;
+  public bookModel?: BookModel;
 
 
   constructor(
-    private changeDetectorRef:ChangeDetectorRef,
-    private bookshelfService:BookshelfService
+    private changeDetectorRef: ChangeDetectorRef,
+    private bookshelfService: BookshelfService
   ) { }
 
 
   ngOnInit(): void {
     this.bookshelfService.getRandom().subscribe(
-      (response:BookModel) => {
+      (response: BookModel) => {
         this.bookModel = response;
         this.showLoading = false;
         this.changeDetectorRef.markForCheck();

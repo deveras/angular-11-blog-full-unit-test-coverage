@@ -15,14 +15,14 @@ import { ThoughtModel } from '../../models/thought-model';
 export class RandomThoughtsComponent
   implements OnInit, OnDestroy
 {
- private randomThoughtsServiceSubscription:Subscription = new Subscription();
-  public showLoading:boolean = true;
-  public thoughtModel?:ThoughtModel;
+ private randomThoughtsServiceSubscription: Subscription = new Subscription();
+  public showLoading = true;
+  public thoughtModel?: ThoughtModel;
 
 
   constructor(
-    private changeDetectorRef:ChangeDetectorRef,
-    private randomThoughtsService:RandomThoughtsService
+    private changeDetectorRef: ChangeDetectorRef,
+    private randomThoughtsService: RandomThoughtsService
   ) { }
 
 
@@ -34,7 +34,7 @@ export class RandomThoughtsComponent
         this.changeDetectorRef.markForCheck();
       },
       (error) => {
-        this.thoughtModel = new ThoughtModel(0, "Why can't apple fix their display arragement after each lock screen...", new Date());
+        this.thoughtModel = new ThoughtModel(0, 'Why can\'t apple fix their display arragement after each lock screen...', new Date());
         this.showLoading = false;
         this.changeDetectorRef.markForCheck();
       }
@@ -42,7 +42,7 @@ export class RandomThoughtsComponent
   }
 
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.randomThoughtsServiceSubscription.unsubscribe();
   }
 

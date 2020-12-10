@@ -2,8 +2,8 @@ import { TutorialModel, TutorialAdapter } from './tutorial-model';
 
 
 describe('TutorialModel', () => {
-  let subjectUnderTest:TutorialModel;
-  let dateInstance = new Date();
+  let subjectUnderTest: TutorialModel;
+  const dateInstance = new Date();
 
 
   beforeEach( () => {
@@ -23,7 +23,7 @@ describe('TutorialModel', () => {
   });
 
 
- it('should have defined the following properties and types', () => {
+  it('should have defined the following properties and types', () => {
     expect( subjectUnderTest.id ).toBeDefined();
     expect( subjectUnderTest.id ).toBeInstanceOf(Number);
     expect( subjectUnderTest.title ).toBeDefined();
@@ -39,11 +39,11 @@ describe('TutorialModel', () => {
   });
 
 
- it('should have the following properties defaults', () => {
+  it('should have the following properties defaults', () => {
     expect( subjectUnderTest.id ).toBe(0);
-    expect( subjectUnderTest.title ).toBe("");
-    expect( subjectUnderTest.recomendationSummary ).toBe("");
-    expect( subjectUnderTest.body ).toBe("");
+    expect( subjectUnderTest.title ).toBe('');
+    expect( subjectUnderTest.recomendationSummary ).toBe('');
+    expect( subjectUnderTest.body ).toBe('');
     expect( subjectUnderTest.lastUpdateDate ).toEqual(dateInstance);
     expect( subjectUnderTest.createDate ).toEqual(dateInstance);
   });
@@ -51,16 +51,16 @@ describe('TutorialModel', () => {
 
   it('should allow public update of all its properties values', () => {
     subjectUnderTest.id = 100;
-    subjectUnderTest.title = "foo";
-    subjectUnderTest.recomendationSummary = "bar";
-    subjectUnderTest.body = "foobaz";
+    subjectUnderTest.title = 'foo';
+    subjectUnderTest.recomendationSummary = 'bar';
+    subjectUnderTest.body = 'foobaz';
     subjectUnderTest.lastUpdateDate = dateInstance;
     subjectUnderTest.createDate = dateInstance;
 
     expect( subjectUnderTest.id ).toBe(100);
-    expect( subjectUnderTest.title ).toBe("foo");
-    expect( subjectUnderTest.recomendationSummary ).toBe("bar");
-    expect( subjectUnderTest.body ).toBe("foobaz");
+    expect( subjectUnderTest.title ).toBe('foo');
+    expect( subjectUnderTest.recomendationSummary ).toBe('bar');
+    expect( subjectUnderTest.body ).toBe('foobaz');
     expect( subjectUnderTest.lastUpdateDate ).toEqual(dateInstance);
     expect( subjectUnderTest.createDate ).toEqual(dateInstance);
   });
@@ -69,8 +69,8 @@ describe('TutorialModel', () => {
 
 
 describe('TutorialAdapter', () => {
-  let subjectUnderTest:TutorialAdapter;
-  let dateInstance = new Date();
+  let subjectUnderTest: TutorialAdapter;
+  const dateInstance = new Date();
 
 
   beforeEach( () => {
@@ -85,27 +85,27 @@ describe('TutorialAdapter', () => {
 
   it('should have an adapt method', () => {
     expect( subjectUnderTest.adapt ).toBeDefined();
-    expect( typeof subjectUnderTest.adapt ).toBe("function");
+    expect( typeof subjectUnderTest.adapt ).toBe('function');
   });
 
 
   it('adapt should return a TutorialAdapter instance', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockResponse = {
       id: 100,
-      title: "foo",
-      recomendationSummary: "bar",
-      body: "baz",
+      title: 'foo',
+      recomendationSummary: 'bar',
+      body: 'baz',
       lastUpdate: mockDateString,
       createDate: mockDateString,
     };
 
-    const tutorialModel:TutorialModel = subjectUnderTest.adapt(mockResponse);
+    const tutorialModel: TutorialModel = subjectUnderTest.adapt(mockResponse);
 
     expect( tutorialModel.id ).toBe(100);
-    expect( tutorialModel.title ).toBe("foo");
-    expect( tutorialModel.recomendationSummary ).toBe("bar");
-    expect( tutorialModel.body ).toBe("baz");
+    expect( tutorialModel.title ).toBe('foo');
+    expect( tutorialModel.recomendationSummary ).toBe('bar');
+    expect( tutorialModel.body ).toBe('baz');
     expect( tutorialModel.lastUpdateDate ).toEqual(new Date(mockDateString));
     expect( tutorialModel.createDate ).toEqual(new Date(mockDateString));
   });

@@ -16,27 +16,27 @@ import { Subscription } from 'rxjs';
 export class QuoteOfTheDayComponent
   implements OnInit, OnDestroy
 {
-  private quoteServiceSubscription:Subscription = new Subscription();
-  public hasVotedThisQuote:boolean = false;
-  public showLoadingQuote:boolean = true;
-  public showLoadingVote:boolean = false;
-  public quote?:QuoteModel;
-  public errorMessage?:string = "";
+  private quoteServiceSubscription: Subscription = new Subscription();
+  public hasVotedThisQuote = false;
+  public showLoadingQuote = true;
+  public showLoadingVote = false;
+  public quote?: QuoteModel;
+  public errorMessage = '';
 
 
   constructor(
-    private changeDetectorRef:ChangeDetectorRef,
-    private quoteService:QuoteService,
-    private localStorageService:LocalStorageService
+    private changeDetectorRef: ChangeDetectorRef,
+    private quoteService: QuoteService,
+    private localStorageService: LocalStorageService
   ) {}
 
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.quoteServiceSubscription = this.quoteService.getQuote().subscribe(
-      (response:QuoteModel) => {
+      (response: QuoteModel) => {
         this.quote = response;
         this.showLoadingQuote = false;
-        this.hasVotedThisQuote = Number(this.localStorageService.get("quoteOfTheDay")) === this.quote.id;
+        this.hasVotedThisQuote = Number(this.localStorageService.get('quoteOfTheDay')) === this.quote.id;
         this.changeDetectorRef.markForCheck();
       },
       (errorMessage) => {
@@ -48,12 +48,12 @@ export class QuoteOfTheDayComponent
   }
 
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.quoteServiceSubscription.unsubscribe();
   }
 
 
-  public onThumbsClick (value:number):void {
+  public onThumbsClick(value: number): void {
     if (!this.hasVotedThisQuote && this.quote) {
       this.showLoadingVote = true;
       this.changeDetectorRef.markForCheck();

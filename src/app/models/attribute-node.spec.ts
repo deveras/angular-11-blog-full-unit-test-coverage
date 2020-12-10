@@ -1,15 +1,15 @@
-import { AttributeNode } from "./attribute-node";
+import { AttributeNode } from './attribute-node';
 
 
 describe('AttributeNode', () => {
-  let subjectUnderTest:AttributeNode;
+  let subjectUnderTest: AttributeNode;
 
 
   beforeEach( () => {
     subjectUnderTest = new AttributeNode();
   });
 
-   it('should create an instance', () => {
+  it('should create an instance', () => {
     expect( subjectUnderTest ).toBeTruthy();
   });
 
@@ -28,8 +28,8 @@ describe('AttributeNode', () => {
 
 
   it('should have the following properties defaults', () => {
-    expect( subjectUnderTest.name ).toBe("");
-    expect( subjectUnderTest.value ).toBe("");
+    expect( subjectUnderTest.name ).toBe('');
+    expect( subjectUnderTest.value ).toBe('');
   });
 
 });

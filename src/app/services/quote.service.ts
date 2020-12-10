@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError } from "rxjs/operators";
+import { map, catchError } from 'rxjs/operators';
 import { LocalStorageService } from './local-storage.service';
 import { QuoteModel, QuoteAdapter } from '../models/quote-model';
 import { environment } from '../../environments/environment.prod';
@@ -14,17 +14,17 @@ import { environment } from '../../environments/environment.prod';
 )
 export class QuoteService
 {
-  private errorMessage:string = 'Failed to retrieve data from the server - QuoteService';
+  private errorMessage = 'Failed to retrieve data from the server - QuoteService';
 
 
   constructor(
-    private httpClient:HttpClient,
-    private adapter:QuoteAdapter,
-    private localStorageService:LocalStorageService
+    private httpClient: HttpClient,
+    private adapter: QuoteAdapter,
+    private localStorageService: LocalStorageService
   ) { }
 
 
-  private handleError(error:HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.message);
     } else {
@@ -35,17 +35,17 @@ export class QuoteService
   }
 
 
-  public getQuote():Observable<QuoteModel>
+  public getQuote(): Observable<QuoteModel>
   {
     return this.httpClient.get<QuoteModel>(
       environment.api.url + environment.api.quotes.get
     )
       .pipe(
         map(
-          (item:QuoteModel) => this.adapter.adapt(item)
+          (item: QuoteModel) => this.adapter.adapt(item)
         ),
         catchError(
-          (error:HttpErrorResponse) => {
+          (error: HttpErrorResponse) => {
             return throwError(this.handleError(error));
           }
         )
@@ -53,15 +53,15 @@ export class QuoteService
   }
 
 
-  public updateNumVotes(value:number, quoteId:number) {
-    var postData: any = new FormData();
-    postData.append("id", quoteId);
-    postData.append("value", value);
+  public updateNumVotes(value: number, quoteId: number) {
+    const postData: any = new FormData();
+    postData.append('id', quoteId);
+    postData.append('value', value);
 
     this.httpClient.post(environment.api.url + environment.api.quotes.votes, postData)
       .subscribe(
-        (response) => this.localStorageService.set("quoteOfTheDay", quoteId.toString()),
-        (error:HttpErrorResponse) => {
+        (response) => this.localStorageService.set('quoteOfTheDay', quoteId.toString()),
+        (error: HttpErrorResponse) => {
           return throwError(this.handleError(error));
         }
       );

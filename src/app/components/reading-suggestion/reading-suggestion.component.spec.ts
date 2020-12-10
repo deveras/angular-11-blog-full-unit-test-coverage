@@ -9,12 +9,12 @@ import { SlugPipe } from '../../pipes/slug.pipe';
 
 
 describe('ReadingSuggestionComponent', () => {
-  const expectedBook:BookModel = new BookModel(1, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
+  const expectedBook: BookModel = new BookModel(1, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
   let subjectUnderTest: ReadingSuggestionComponent;
   let fixture: ComponentFixture<ReadingSuggestionComponent>;
-  let bookshelfService:BookshelfService;
-  let spyBookshelfServiceGetRandom:jasmine.Spy;
-  let spyChangeDetectorRefMarkForCheck:jasmine.Spy;
+  let bookshelfService: BookshelfService;
+  let spyBookshelfServiceGetRandom: jasmine.Spy;
+  let spyChangeDetectorRefMarkForCheck: jasmine.Spy;
 
 
   beforeEach(async () => {
@@ -27,9 +27,9 @@ describe('ReadingSuggestionComponent', () => {
     subjectUnderTest = fixture.componentInstance;
 
     bookshelfService = TestBed.inject(BookshelfService);
-    spyBookshelfServiceGetRandom = spyOn(bookshelfService, "getRandom");
+    spyBookshelfServiceGetRandom = spyOn(bookshelfService, 'getRandom');
 
-    spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, "markForCheck");
+    spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
 

@@ -37,7 +37,7 @@ describe('NavigationComponent', () => {
 
 
   it('closeMobileMenu should emit a toogle of openMobileMenu', () => {
-    const spyEventEmitter = spyOn(component.openMobileMenuChange, "emit");
+    const spyEventEmitter = spyOn(component.openMobileMenuChange, 'emit');
     component.closeMobileMenu();
     expect( spyEventEmitter ).toHaveBeenCalledWith(true);
 

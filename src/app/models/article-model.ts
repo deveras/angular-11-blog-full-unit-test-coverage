@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
-import { Adapter } from "./adapter";
+import { Injectable } from '@angular/core';
+import { Adapter } from './adapter';
 
 
 export class ArticleModel
 {
   constructor(
-    public id:number = 0,
-    public title:string = "",
-    public recomendationSummary:string = "",
-    public body:string = "",
-    public lastUpdateDate:Date = new Date(),
-    public createDate:Date = new Date()
+    public id: number = 0,
+    public title: string = '',
+    public recomendationSummary: string = '',
+    public body: string = '',
+    public lastUpdateDate: Date = new Date(),
+    public createDate: Date = new Date()
   ) {
     this.id = id;
     this.title = title;
@@ -25,13 +25,13 @@ export class ArticleModel
 
 @Injectable(
   {
-    providedIn: "root"
+    providedIn: 'root'
   }
 )
 export class ArticleAdapter
   implements Adapter<ArticleModel>
 {
-  adapt(item:any):ArticleModel {
+  adapt(item: any): ArticleModel {
     return new ArticleModel(
       item.id,
       item.title,
@@ -39,6 +39,6 @@ export class ArticleAdapter
       item.body,
       new Date(item.lastUpdate),
       new Date(item.createDate)
-    )
+    );
   }
 }

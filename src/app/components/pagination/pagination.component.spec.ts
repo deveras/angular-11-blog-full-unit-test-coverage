@@ -7,24 +7,24 @@ import { TutorialModel } from '../../models/tutorial-model';
 
 
 describe('PaginationComponent', () => {
-  let subjectUnderTest:PaginationComponent;
-  let fixture:ComponentFixture<PaginationComponent>;
-  let routerStub = {
-    navigate: jasmine.createSpy("navigate"),
-    url: "/foo/1"
+  let subjectUnderTest: PaginationComponent;
+  let fixture: ComponentFixture<PaginationComponent>;
+  const routerStub = {
+    navigate: jasmine.createSpy('navigate'),
+    url: '/foo/1'
   };
-  const mockArticleModel1:ArticleModel = new ArticleModel(1, "foo", "bar", "baz", new Date(), new Date());
-  const mockArticleModel2:ArticleModel = new ArticleModel(2, "foo", "bar", "baz", new Date(), new Date());
-  const mockArticleModel3:ArticleModel = new ArticleModel(3, "foo", "bar", "baz", new Date(), new Date());
-  const mockArticleModel4:ArticleModel = new ArticleModel(4, "foo", "bar", "baz", new Date(), new Date());
-  const mockBookModel1:BookModel = new BookModel(1, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
-  const mockBookModel2:BookModel = new BookModel(2, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
-  const mockBookModel3:BookModel = new BookModel(3, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
-  const mockBookModel4:BookModel = new BookModel(4, "foo", "bar", "baz", "fooFoo", "fooBar", "fooBaz", "barFoo", true, 1, new Date(), new Date());
-  const mockTutorialModel1:TutorialModel = new TutorialModel(1, "foo", "bar", "baz", new Date(), new Date());
-  const mockTutorialModel2:TutorialModel = new TutorialModel(2, "foo", "bar", "baz", new Date(), new Date());
-  const mockTutorialModel3:TutorialModel = new TutorialModel(3, "foo", "bar", "baz", new Date(), new Date());
-  const mockTutorialModel4:TutorialModel = new TutorialModel(4, "foo", "bar", "baz", new Date(), new Date());
+  const mockArticleModel1: ArticleModel = new ArticleModel(1, 'foo', 'bar', 'baz', new Date(), new Date());
+  const mockArticleModel2: ArticleModel = new ArticleModel(2, 'foo', 'bar', 'baz', new Date(), new Date());
+  const mockArticleModel3: ArticleModel = new ArticleModel(3, 'foo', 'bar', 'baz', new Date(), new Date());
+  const mockArticleModel4: ArticleModel = new ArticleModel(4, 'foo', 'bar', 'baz', new Date(), new Date());
+  const mockBookModel1: BookModel = new BookModel(1, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
+  const mockBookModel2: BookModel = new BookModel(2, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
+  const mockBookModel3: BookModel = new BookModel(3, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
+  const mockBookModel4: BookModel = new BookModel(4, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
+  const mockTutorialModel1: TutorialModel = new TutorialModel(1, 'foo', 'bar', 'baz', new Date(), new Date());
+  const mockTutorialModel2: TutorialModel = new TutorialModel(2, 'foo', 'bar', 'baz', new Date(), new Date());
+  const mockTutorialModel3: TutorialModel = new TutorialModel(3, 'foo', 'bar', 'baz', new Date(), new Date());
+  const mockTutorialModel4: TutorialModel = new TutorialModel(4, 'foo', 'bar', 'baz', new Date(), new Date());
   const mockCollection = [
     mockArticleModel1, mockArticleModel2, mockArticleModel3, mockArticleModel4,
     mockBookModel1, mockBookModel2, mockBookModel3, mockBookModel4,
@@ -46,7 +46,7 @@ describe('PaginationComponent', () => {
     subjectUnderTest.collection = mockCollection;
     subjectUnderTest.pageSize = 5;
     subjectUnderTest.currentPageIndex = 0;
-    subjectUnderTest.collectionType = "baz";
+    subjectUnderTest.collectionType = 'baz';
 
     fixture.detectChanges();
   });
@@ -57,19 +57,19 @@ describe('PaginationComponent', () => {
   });
 
 
-  it("should have the following properties", () => {
+  it('should have the following properties', () => {
     const mockPage0 = new PageModel(0);
     const mockPage1 = new PageModel(1);
     const mockPage2 = new PageModel(2);
 
     expect( subjectUnderTest.collection ).toBeDefined();
-    expect( subjectUnderTest.collection ).toEqual(mockCollection)
+    expect( subjectUnderTest.collection ).toEqual(mockCollection);
     expect( subjectUnderTest.pageSize ).toBeDefined();
     expect( subjectUnderTest.pageSize ).toBe(5);
     expect( subjectUnderTest.currentPageIndex ).toBeDefined();
     expect( subjectUnderTest.currentPageIndex ).toBe(0);
     expect( subjectUnderTest.collectionType ).toBeDefined();
-    expect( subjectUnderTest.collectionType ).toBe("baz");
+    expect( subjectUnderTest.collectionType ).toBe('baz');
     expect( subjectUnderTest.pages ).toBeDefined();
     expect( subjectUnderTest.pages ).toEqual( [ mockPage0, mockPage1, mockPage2 ] );
     expect( subjectUnderTest.firstRecord ).toBeDefined();
@@ -79,7 +79,7 @@ describe('PaginationComponent', () => {
   });
 
 
-  it("should calculate firstRecord and lastRecord accoring to changes in currentPageIndex", () => {
+  it('should calculate firstRecord and lastRecord accoring to changes in currentPageIndex', () => {
     subjectUnderTest.currentPageIndex = 2;
     subjectUnderTest.ngOnInit();
     expect( subjectUnderTest.firstRecord ).toBe(11);

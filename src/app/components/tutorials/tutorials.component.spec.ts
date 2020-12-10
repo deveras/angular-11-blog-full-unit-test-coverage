@@ -12,14 +12,14 @@ import { SlugPipe } from '../../pipes/slug.pipe';
 
 describe('TutorialsComponent', () => {
   const expectedTutorials = [ {
-    id: 1, title: "foo", recomendationSummary: "baz", body: "foo",
+    id: 1, title: 'foo', recomendationSummary: 'baz', body: 'foo',
     lastUpdateDate: new Date(), createDate: new Date()
   }];
   let fixture: ComponentFixture<TutorialsComponent>;
   let subjectUnderTest: TutorialsComponent;
-  let tutorialsService:TutorialsService;
-  let spyTutorialsServiceGetAll:jasmine.Spy;
-  let spyChangeDetectorRefMarkForCheck:jasmine.Spy;
+  let tutorialsService: TutorialsService;
+  let spyTutorialsServiceGetAll: jasmine.Spy;
+  let spyChangeDetectorRefMarkForCheck: jasmine.Spy;
 
 
   beforeEach(async () => {
@@ -31,17 +31,17 @@ describe('TutorialsComponent', () => {
         RouterModule.forRoot([], { relativeLinkResolution: 'legacy' })
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-    })
+    });
 
     fixture = TestBed.createComponent(TutorialsComponent);
     subjectUnderTest = fixture.componentInstance;
 
     tutorialsService = TestBed.inject(TutorialsService);
-    spyTutorialsServiceGetAll = spyOn(tutorialsService, "getAll");
+    spyTutorialsServiceGetAll = spyOn(tutorialsService, 'getAll');
 
     // subjectUnderTest.changeDetectorRef is private,
     // however i want to ensure that markForCheck is called
-    spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, "markForCheck");
+    spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
 
@@ -54,7 +54,7 @@ describe('TutorialsComponent', () => {
     expect( subjectUnderTest.collection ).toBeDefined();
     expect( subjectUnderTest.collection ).toEqual([]);
     expect( subjectUnderTest.errorMessage ).toBeDefined();
-    expect( subjectUnderTest.errorMessage ).toBe("");
+    expect( subjectUnderTest.errorMessage ).toBe('');
     expect( subjectUnderTest.showLoading ).toBeDefined();
     expect( subjectUnderTest.showLoading ).toBe(true);
     expect( subjectUnderTest.currentPageIndex ).toBeDefined();
@@ -76,11 +76,11 @@ describe('TutorialsComponent', () => {
 
 
   it('ngOnInit should populate the errorMessage when getting books fails', () => {
-    spyTutorialsServiceGetAll.and.returnValue( throwError("foo bar baz") );
+    spyTutorialsServiceGetAll.and.returnValue( throwError('foo bar baz') );
     fixture.detectChanges();
 
     expect( spyTutorialsServiceGetAll.calls.count() ).toBe(1);
-    expect( subjectUnderTest.errorMessage ).toEqual("foo bar baz");
+    expect( subjectUnderTest.errorMessage ).toEqual('foo bar baz');
     expect( subjectUnderTest.showLoading ).toBe(false);
     expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
   });
@@ -90,7 +90,7 @@ describe('TutorialsComponent', () => {
     spyTutorialsServiceGetAll.and.returnValue( {
       subscribe: () => {
         return {
-          unsubscribe: () => { return "bar"}
+          unsubscribe: () => 'bar'
         };
       }
     });

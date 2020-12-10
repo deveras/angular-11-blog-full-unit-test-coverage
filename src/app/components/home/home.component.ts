@@ -19,25 +19,25 @@ import { Subscription } from 'rxjs';
 export class HomeComponent
   implements OnInit, OnDestroy
 {
-  private articlesServiceSubscription:Subscription = new Subscription();
-  private bookshelfServiceSubscription:Subscription = new Subscription();
-  private tutorialsServiceSubscription:Subscription = new Subscription();
-  private collectionsReceived:number = 0;
-  private errorsReceived:number = 0;
-  public collection:(ArticleModel | BookModel | TutorialModel)[] = [];
-  public errorMessage:string = "";
-  public showLoading:boolean = true;
+  private articlesServiceSubscription: Subscription = new Subscription();
+  private bookshelfServiceSubscription: Subscription = new Subscription();
+  private tutorialsServiceSubscription: Subscription = new Subscription();
+  private collectionsReceived = 0;
+  private errorsReceived = 0;
+  public collection: (ArticleModel | BookModel | TutorialModel)[] = [];
+  public errorMessage = '';
+  public showLoading = true;
 
 
   constructor(
-    private changeDetectorRef:ChangeDetectorRef,
-    private articlesService:ArticlesService,
-    private bookshelfService:BookshelfService,
-    private tutorialsService:TutorialsService
+    private changeDetectorRef: ChangeDetectorRef,
+    private articlesService: ArticlesService,
+    private bookshelfService: BookshelfService,
+    private tutorialsService: TutorialsService
   ) {}
 
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.articlesServiceSubscription = this.articlesService.getAll().subscribe(
       this.prepareSuccessResponse.bind(this),
       this.prepareErrorMessage.bind(this)
@@ -55,15 +55,15 @@ export class HomeComponent
   }
 
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.articlesServiceSubscription.unsubscribe();
     this.bookshelfServiceSubscription.unsubscribe();
     this.tutorialsServiceSubscription.unsubscribe();
   }
 
 
-  private prepareSuccessResponse(response:(ArticleModel | BookModel | TutorialModel)[]):void {
-    for (let index in response) {
+  private prepareSuccessResponse(response: (ArticleModel | BookModel | TutorialModel)[]): void {
+    for (const index in response) {
       this.collection.push(response[index]);
     }
     this.collection.sort(this.sortCollection);
@@ -77,14 +77,14 @@ export class HomeComponent
     if (this.errorsReceived !== 2) {
       this.errorsReceived++;
     } else {
-      this.errorMessage = "Cannot connect to the server";
+      this.errorMessage = 'Cannot connect to the server';
       this.showLoading = false;
       this.changeDetectorRef.markForCheck();
     }
   }
 
 
-  private sortCollection(a:(ArticleModel | BookModel | TutorialModel), b:(ArticleModel | BookModel | TutorialModel)) {
+  private sortCollection(a: (ArticleModel | BookModel | TutorialModel), b: (ArticleModel | BookModel | TutorialModel)) {
     if (a.lastUpdateDate.getTime() >= b.lastUpdateDate.getTime()) {
       return -1;
     }
@@ -92,16 +92,16 @@ export class HomeComponent
   }
 
 
-  public prepareLink(item:ArticleModel | BookModel | TutorialModel):string {
-    switch(item.constructor.name) {
-      case "ArticleModel": return "/articles";
-      case "BookModel": return "/bookshelf";
-      default: return "/tutorials";
+  public prepareLink(item: ArticleModel | BookModel | TutorialModel): string {
+    switch (item.constructor.name) {
+      case 'ArticleModel': return '/articles';
+      case 'BookModel': return '/bookshelf';
+      default: return '/tutorials';
     }
   }
 
 
-  public trackByCollectionId(index:number, model:ArticleModel | BookModel | TutorialModel):number {
+  public trackByCollectionId(index: number, model: ArticleModel | BookModel | TutorialModel): number {
     return index;
   }
 }

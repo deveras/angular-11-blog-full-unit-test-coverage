@@ -7,8 +7,8 @@ import { environment } from '../../environments/environment.prod';
 
 
 describe('TutorialsService', () => {
-  const endPoint:string = environment.api.url + environment.api.tutorials.get;
-  let subjectUnderTest:TutorialsService;
+  const endPoint: string = environment.api.url + environment.api.tutorials.get;
+  let subjectUnderTest: TutorialsService;
   let httpTestingController: HttpTestingController;
 
 
@@ -36,19 +36,19 @@ describe('TutorialsService', () => {
 
 
   it('getAll should return a TutorialModel array via GET request method', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockTutorialsAPIResponse = [
       {
-        id: 1, title: "foo", recomendationSummary: "bar", body: "baz",
+        id: 1, title: 'foo', recomendationSummary: 'bar', body: 'baz',
        lastUpdate: mockDateString, createDate: mockDateString
       }, {
-        id: 2, title: "FOO", recomendationSummary: "BAR", body: "BAZ",
+        id: 2, title: 'FOO', recomendationSummary: 'BAR', body: 'BAZ',
         lastUpdate: mockDateString, createDate: mockDateString
       }
     ];
     const expectedTutorials = [
-      new TutorialModel(1, "foo", "bar", "baz", new Date(mockDateString), new Date(mockDateString) ),
-      new TutorialModel(2, "FOO", "BAR", "BAZ", new Date(mockDateString), new Date(mockDateString) )
+      new TutorialModel(1, 'foo', 'bar', 'baz', new Date(mockDateString), new Date(mockDateString) ),
+      new TutorialModel(2, 'FOO', 'BAR', 'BAZ', new Date(mockDateString), new Date(mockDateString) )
     ];
 
     subjectUnderTest.getAll().subscribe(
@@ -63,11 +63,11 @@ describe('TutorialsService', () => {
 
 
   it('getAll should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve data from the server - TutorialsService";
+    const errorMessage = 'Failed to retrieve data from the server - TutorialsService';
 
     subjectUnderTest.getAll().subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
@@ -82,18 +82,18 @@ describe('TutorialsService', () => {
 
 
   it('getAll should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve data from the server - TutorialsService";
+    const errorMessage = 'Failed to retrieve data from the server - TutorialsService';
 
     subjectUnderTest.getAll().subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
     const testingRequest = httpTestingController.expectOne(endPoint);
     expect( testingRequest.request.method ).toEqual('GET');
 
-    testingRequest.flush("Network error",
+    testingRequest.flush('Network error',
       {
         status: 404,
         statusText: errorMessage
@@ -109,17 +109,17 @@ describe('TutorialsService', () => {
 
 
   it('getById should return a TutorialModel array via GET request method', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockTutorialsAPIResponse = {
-      id: 1, title: "foo", recomendationSummary: "bar", body: "baz",
+      id: 1, title: 'foo', recomendationSummary: 'bar', body: 'baz',
       lastUpdate: mockDateString, createDate: mockDateString
     };
-    const expectedTutorial = new TutorialModel(1, "foo", "bar", "baz", new Date(mockDateString), new Date(mockDateString) );
+    const expectedTutorial = new TutorialModel(1, 'foo', 'bar', 'baz', new Date(mockDateString), new Date(mockDateString) );
 
     subjectUnderTest.getById(1).subscribe(
       response => expect( response ).toEqual(expectedTutorial)
     );
-    const testingRequest = httpTestingController.expectOne(endPoint + "?1");
+    const testingRequest = httpTestingController.expectOne(endPoint + '?1');
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.flush(mockTutorialsAPIResponse);
@@ -128,15 +128,15 @@ describe('TutorialsService', () => {
 
 
   it('getById should return an observable error string, when there is a problem in the client', () => {
-    const errorMessage = "Failed to retrieve data from the server - TutorialsService";
+    const errorMessage = 'Failed to retrieve data from the server - TutorialsService';
 
     subjectUnderTest.getById(1).subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(endPoint + "?1");
+    const testingRequest = httpTestingController.expectOne(endPoint + '?1');
     expect( testingRequest.request.method ).toEqual('GET');
 
     testingRequest.error(
@@ -147,18 +147,18 @@ describe('TutorialsService', () => {
 
 
   it('getById should return an observable error string, when there is a problem with the network', () => {
-    const errorMessage = "Failed to retrieve data from the server - TutorialsService";
+    const errorMessage = 'Failed to retrieve data from the server - TutorialsService';
 
     subjectUnderTest.getById(1).subscribe(
-      (response) => fail("no reason to stop here..."),
-      (receivedErrorMessage:string) => {
+      (response) => fail('no reason to stop here...'),
+      (receivedErrorMessage: string) => {
         expect( receivedErrorMessage ).toBe(errorMessage);
       }
     );
-    const testingRequest = httpTestingController.expectOne(endPoint + "?1");
+    const testingRequest = httpTestingController.expectOne(endPoint + '?1');
     expect( testingRequest.request.method ).toEqual('GET');
 
-    testingRequest.flush("Network error",
+    testingRequest.flush('Network error',
       {
         status: 404,
         statusText: errorMessage

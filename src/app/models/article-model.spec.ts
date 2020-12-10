@@ -2,8 +2,8 @@ import { ArticleModel, ArticleAdapter } from './article-model';
 
 
 describe('ArticleModel', () => {
-  let subjectUnderTest:ArticleModel;
-  let dateInstance = new Date();
+  let subjectUnderTest: ArticleModel;
+  const dateInstance = new Date();
 
 
   beforeEach( () => {
@@ -23,7 +23,7 @@ describe('ArticleModel', () => {
   });
 
 
- it('should have defined the following properties and types', () => {
+  it('should have defined the following properties and types', () => {
     expect( subjectUnderTest.id ).toBeDefined();
     expect( subjectUnderTest.id ).toBeInstanceOf(Number);
     expect( subjectUnderTest.title ).toBeDefined();
@@ -41,9 +41,9 @@ describe('ArticleModel', () => {
 
   it('should have the following properties defaults', () => {
     expect( subjectUnderTest.id ).toBe(0);
-    expect( subjectUnderTest.title ).toBe("");
-    expect( subjectUnderTest.recomendationSummary ).toBe("");
-    expect( subjectUnderTest.body ).toBe("");
+    expect( subjectUnderTest.title ).toBe('');
+    expect( subjectUnderTest.recomendationSummary ).toBe('');
+    expect( subjectUnderTest.body ).toBe('');
     expect( subjectUnderTest.lastUpdateDate ).toEqual(dateInstance);
     expect( subjectUnderTest.createDate ).toEqual(dateInstance);
   });
@@ -51,16 +51,16 @@ describe('ArticleModel', () => {
 
   it('should allow public update of all its properties values', () => {
     subjectUnderTest.id = 100;
-    subjectUnderTest.title = "foo";
-    subjectUnderTest.recomendationSummary = "bar";
-    subjectUnderTest.body = "foobaz";
+    subjectUnderTest.title = 'foo';
+    subjectUnderTest.recomendationSummary = 'bar';
+    subjectUnderTest.body = 'foobaz';
     subjectUnderTest.lastUpdateDate = dateInstance;
     subjectUnderTest.createDate = dateInstance;
 
     expect( subjectUnderTest.id ).toBe(100);
-    expect( subjectUnderTest.title ).toBe("foo");
-    expect( subjectUnderTest.recomendationSummary ).toBe("bar");
-    expect( subjectUnderTest.body ).toBe("foobaz");
+    expect( subjectUnderTest.title ).toBe('foo');
+    expect( subjectUnderTest.recomendationSummary ).toBe('bar');
+    expect( subjectUnderTest.body ).toBe('foobaz');
     expect( subjectUnderTest.lastUpdateDate ).toEqual(dateInstance);
     expect( subjectUnderTest.createDate ).toEqual(dateInstance);
   });
@@ -69,8 +69,8 @@ describe('ArticleModel', () => {
 
 
 describe('ArticleAdapter', () => {
-  let subjectUnderTest:ArticleAdapter;
-  let dateInstance = new Date();
+  let subjectUnderTest: ArticleAdapter;
+  const dateInstance = new Date();
 
 
   beforeEach( () => {
@@ -85,27 +85,27 @@ describe('ArticleAdapter', () => {
 
   it('should have an adapt method', () => {
     expect( subjectUnderTest.adapt ).toBeDefined();
-    expect( typeof subjectUnderTest.adapt ).toBe("function");
+    expect( typeof subjectUnderTest.adapt ).toBe('function');
   });
 
 
   it('adapt should return a ArticleModel instance', () => {
-    const mockDateString = "1977-11-19 03:00:00";
+    const mockDateString = '1977-11-19 03:00:00';
     const mockResponse = {
       id: 100,
-      title: "foo",
-      recomendationSummary: "bar",
-      body: "baz",
+      title: 'foo',
+      recomendationSummary: 'bar',
+      body: 'baz',
       lastUpdate: mockDateString,
       createDate: mockDateString,
     };
 
-    const articleModel:ArticleModel = subjectUnderTest.adapt(mockResponse);
+    const articleModel: ArticleModel = subjectUnderTest.adapt(mockResponse);
 
     expect( articleModel.id ).toBe(100);
-    expect( articleModel.title ).toBe("foo");
-    expect( articleModel.recomendationSummary ).toBe("bar");
-    expect( articleModel.body ).toBe("baz");
+    expect( articleModel.title ).toBe('foo');
+    expect( articleModel.recomendationSummary ).toBe('bar');
+    expect( articleModel.body ).toBe('baz');
     expect( articleModel.lastUpdateDate ).toEqual(new Date(mockDateString));
     expect( articleModel.createDate ).toEqual(new Date(mockDateString));
   });

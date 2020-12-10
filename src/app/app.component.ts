@@ -12,15 +12,15 @@ import { filter } from 'rxjs/operators';
   }
 )
 export class AppComponent {
-  public openMobileMenu:boolean = false;
-  public breadcrumbsTitle:string = "";
-  public breadcrumbsRoute:string = "";
-  public showLoading:boolean = true;
+  public openMobileMenu = false;
+  public breadcrumbsTitle = '';
+  public breadcrumbsRoute = '';
+  public showLoading = true;
 
 
   constructor(
-    private router:Router,
-    private titleService:Title
+    private router: Router,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
@@ -33,8 +33,8 @@ export class AppComponent {
             this.breadcrumbsTitle = event.snapshot.data.breadcrumbs.title;
             this.breadcrumbsRoute = event.snapshot.data.breadcrumbs.route || undefined;
           } else {
-            this.titleService.setTitle("Blog");
-            this.breadcrumbsTitle = "";
+            this.titleService.setTitle('Blog');
+            this.breadcrumbsTitle = '';
           }
         }
         this.showLoading = false;

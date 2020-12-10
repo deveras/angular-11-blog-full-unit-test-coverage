@@ -6,13 +6,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     selector: 'blog-breadcrumbs',
     templateUrl: './breadcrumbs.component.html',
     styleUrls: ['./breadcrumbs.component.scss'],
-    inputs: [ "crumbs" ],
+    inputs: [ 'crumbs' ],
     changeDetection: ChangeDetectionStrategy.OnPush
   }
 )
 export class BreadcrumbsComponent
 {
-  public crumbs:any[] = [];
+  public crumbs: any[] = [];
 
 
   constructor() { }

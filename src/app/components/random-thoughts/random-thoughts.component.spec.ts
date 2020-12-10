@@ -9,12 +9,12 @@ import { ThoughtModel } from '../../models/thought-model';
 
 describe('RandomThoughtsComponent', () => {
   const mockDate = new Date();
-  const expectedThought = new ThoughtModel(1, "foo", mockDate);
+  const expectedThought = new ThoughtModel(1, 'foo', mockDate);
   let subjectUnderTest: RandomThoughtsComponent;
   let fixture: ComponentFixture<RandomThoughtsComponent>;
-  let randomThoughtsService:RandomThoughtsService;
-  let spyRandomThoughtsServiceGet:jasmine.Spy;
-  let spyChangeDetectorRefMarkForCheck:jasmine.Spy;
+  let randomThoughtsService: RandomThoughtsService;
+  let spyRandomThoughtsServiceGet: jasmine.Spy;
+  let spyChangeDetectorRefMarkForCheck: jasmine.Spy;
 
 
   beforeEach(async () => {
@@ -27,9 +27,9 @@ describe('RandomThoughtsComponent', () => {
     subjectUnderTest = fixture.componentInstance;
 
     randomThoughtsService = TestBed.inject(RandomThoughtsService);
-    spyRandomThoughtsServiceGet = spyOn(randomThoughtsService, "getThought");
+    spyRandomThoughtsServiceGet = spyOn(randomThoughtsService, 'getThought');
 
-     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, "markForCheck");
+    spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
 
@@ -64,8 +64,8 @@ describe('RandomThoughtsComponent', () => {
   it('ngOnInit should populate', () => {
     jasmine.clock().install();
     jasmine.clock().mockDate( new Date(2020, 11, 19) );
-    spyRandomThoughtsServiceGet.and.returnValue( throwError("foo bar baz") );
-    const expectedModel = new ThoughtModel(0, "Why can't apple fix their display arragement after each lock screen...", new Date());
+    spyRandomThoughtsServiceGet.and.returnValue( throwError('foo bar baz') );
+    const expectedModel = new ThoughtModel(0, 'Why can\'t apple fix their display arragement after each lock screen...', new Date());
 
     fixture.detectChanges();
 
@@ -82,7 +82,7 @@ describe('RandomThoughtsComponent', () => {
     spyRandomThoughtsServiceGet.and.returnValue( {
       subscribe: () => {
         return {
-          unsubscribe: () => { return "bar"}
+          unsubscribe: () => 'bar'
         };
       }
     });

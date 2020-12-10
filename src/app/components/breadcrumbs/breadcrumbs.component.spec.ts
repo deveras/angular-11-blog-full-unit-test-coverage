@@ -31,11 +31,11 @@ describe('BreadcrumbsComponent', () => {
 
 
   it('should have the right values when detectChanges is called by angular', () => {
-    subjectUnderTest.crumbs = [ { title: "foo", route: "bar"} ];
+    subjectUnderTest.crumbs = [ { title: 'foo', route: 'bar'} ];
     fixture.detectChanges();
 
-    expect (subjectUnderTest.crumbs[0].title).toBe("foo");
-    expect (subjectUnderTest.crumbs[0].route).toBe("bar");
+    expect (subjectUnderTest.crumbs[0].title).toBe('foo');
+    expect (subjectUnderTest.crumbs[0].route).toBe('bar');
   });
 
 });

@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
-import { Adapter } from "./adapter";
+import { Injectable } from '@angular/core';
+import { Adapter } from './adapter';
 
 
 export class QuoteModel
 {
   constructor(
-    public id:number = 0,
-    public quote:string = "",
-    public author:string = "",
-    public authorLink:string = "",
-    public displayDate:Date = new Date(),
-    public numVotes:number = 0,
-    public lastUpdateDate:Date = new Date(),
-    public createDate:Date = new Date()
+    public id: number = 0,
+    public quote: string = '',
+    public author: string = '',
+    public authorLink: string = '',
+    public displayDate: Date = new Date(),
+    public numVotes: number = 0,
+    public lastUpdateDate: Date = new Date(),
+    public createDate: Date = new Date()
   ) {
     this.id = id;
     this.quote = quote;
@@ -28,13 +28,13 @@ export class QuoteModel
 
 @Injectable(
   {
-    providedIn: "root"
+    providedIn: 'root'
   }
 )
 export class QuoteAdapter
   implements Adapter<QuoteModel>
 {
-  adapt(item:any):QuoteModel {
+  adapt(item: any): QuoteModel {
     return new QuoteModel(
       item.id,
       item.quote,
@@ -44,6 +44,6 @@ export class QuoteAdapter
       item.numVotes,
       new Date(item.lastUpdate),
       new Date(item.createDate)
-    )
+    );
   }
 }

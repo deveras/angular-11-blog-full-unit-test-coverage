@@ -10,15 +10,15 @@ import { QuoteModel } from '../../models/quote-model';
 
 describe('QuoteOfTheDayComponent', () => {
   const mockDate = new Date();
-  const expectedQuote = new QuoteModel(1, "foo", "bar", "baz", mockDate, 100, mockDate, mockDate);
-  let subjectUnderTest:QuoteOfTheDayComponent;
-  let fixture:ComponentFixture<QuoteOfTheDayComponent>;
-  let quoteService:QuoteService;
-  let spyQuoteServiceGetQuote:jasmine.Spy;
-  let spyQuoteServiceUpdateNumVotes:jasmine.Spy;
-  let localStorateService:LocalStorageService;
-  let spyLocalStorageServiceGet:jasmine.Spy;
-  let spyChangeDetectorRefMarkForCheck:jasmine.Spy;
+  const expectedQuote = new QuoteModel(1, 'foo', 'bar', 'baz', mockDate, 100, mockDate, mockDate);
+  let subjectUnderTest: QuoteOfTheDayComponent;
+  let fixture: ComponentFixture<QuoteOfTheDayComponent>;
+  let quoteService: QuoteService;
+  let spyQuoteServiceGetQuote: jasmine.Spy;
+  let spyQuoteServiceUpdateNumVotes: jasmine.Spy;
+  let localStorateService: LocalStorageService;
+  let spyLocalStorageServiceGet: jasmine.Spy;
+  let spyChangeDetectorRefMarkForCheck: jasmine.Spy;
 
 
   beforeEach(async () => {
@@ -31,13 +31,13 @@ describe('QuoteOfTheDayComponent', () => {
     subjectUnderTest = fixture.componentInstance;
 
     quoteService = TestBed.inject(QuoteService);
-    spyQuoteServiceGetQuote = spyOn(quoteService, "getQuote");
-    spyQuoteServiceUpdateNumVotes = spyOn(quoteService, "updateNumVotes");
+    spyQuoteServiceGetQuote = spyOn(quoteService, 'getQuote');
+    spyQuoteServiceUpdateNumVotes = spyOn(quoteService, 'updateNumVotes');
 
     localStorateService = TestBed.inject(LocalStorageService);
-    spyLocalStorageServiceGet = spyOn(localStorateService, "get");
+    spyLocalStorageServiceGet = spyOn(localStorateService, 'get');
 
-    spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, "markForCheck");
+    spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
 
@@ -59,7 +59,7 @@ describe('QuoteOfTheDayComponent', () => {
     expect( subjectUnderTest.showLoadingVote ).toBeDefined();
     expect( subjectUnderTest.showLoadingVote ).toBe(false);
     expect( subjectUnderTest.errorMessage ).toBeDefined();
-    expect( subjectUnderTest.errorMessage ).toBe("");
+    expect( subjectUnderTest.errorMessage ).toBe('');
   });
 
 
@@ -92,11 +92,11 @@ describe('QuoteOfTheDayComponent', () => {
 
 
   it('ngOnInit should populate the errorMessage when getting a quote fails', () => {
-    spyQuoteServiceGetQuote.and.returnValue( throwError("foo bar baz") );
+    spyQuoteServiceGetQuote.and.returnValue( throwError('foo bar baz') );
     fixture.detectChanges();
 
     expect( spyQuoteServiceGetQuote.calls.count() ).toBe(1);
-    expect( subjectUnderTest.errorMessage ).toEqual("foo bar baz");
+    expect( subjectUnderTest.errorMessage ).toEqual('foo bar baz');
     expect( subjectUnderTest.showLoadingQuote ).toBe(false);
     expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
   });
@@ -106,7 +106,7 @@ describe('QuoteOfTheDayComponent', () => {
     spyQuoteServiceGetQuote.and.returnValue( {
       subscribe: () => {
         return {
-          unsubscribe: () => { return "bar"}
+          unsubscribe: () => 'bar'
         };
       }
     });

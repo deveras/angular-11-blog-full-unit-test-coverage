@@ -10,102 +10,102 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "/home",
-    pathMatch: "full"
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
   }, {
-    path: "home",
+    path: 'home',
     component: HomeComponent,
   }, {
-    path: "articles",
+    path: 'articles',
     component: ArticlesComponent,
     data: {
-      title: "Articles",
+      title: 'Articles',
       breadcrumbs: {
-        title: "Articles"
+        title: 'Articles'
       }
     }
   }, {
-    path: "articles/:id",
+    path: 'articles/:id',
     component: ArticlesComponent,
     data: {
-      title: "Articles",
+      title: 'Articles',
       breadcrumbs: {
-        title: "Articles"
+        title: 'Articles'
       }
     }
   }, {
-    path: "articles/:id/:slug",
+    path: 'articles/:id/:slug',
     component: ContentComponent,
     data: {
-      title: "Articles",
+      title: 'Articles',
       breadcrumbs: {
-        title: "Articles",
-        route: "articles"
+        title: 'Articles',
+        route: 'articles'
       }
     }
   }, {
-    path: "bookshelf",
+    path: 'bookshelf',
     component: BookshelfComponent,
     data: {
-      title: "Bookshelf",
+      title: 'Bookshelf',
       breadcrumbs: {
-        title: "Bookshelf"
+        title: 'Bookshelf'
       }
     }
   }, {
-    path: "bookshelf/:id",
+    path: 'bookshelf/:id',
     component: BookshelfComponent,
     data: {
-      title: "Bookshelf",
+      title: 'Bookshelf',
       breadcrumbs: {
-        title: "Bookshelf"
+        title: 'Bookshelf'
       }
     }
   }, {
-    path: "bookshelf/:id/:slug",
+    path: 'bookshelf/:id/:slug',
     component: ContentComponent,
     data: {
-      title: "Bookshelf",
+      title: 'Bookshelf',
       breadcrumbs: {
-        title: "Bookshelf",
-        route: "bookshelf"
+        title: 'Bookshelf',
+        route: 'bookshelf'
       }
     }
   }, {
-    path: "tutorials",
+    path: 'tutorials',
     component: TutorialsComponent,
     data: {
-      title: "Tutorials",
+      title: 'Tutorials',
       breadcrumbs: {
-        title: "Tutorials"
+        title: 'Tutorials'
       }
     }
   }, {
-    path: "tutorials/:id",
+    path: 'tutorials/:id',
     component: TutorialsComponent,
     data: {
-      title: "Tutorials",
+      title: 'Tutorials',
       breadcrumbs: {
-        title: "Tutorials"
+        title: 'Tutorials'
       }
     }
   }, {
-    path: "tutorials/:id/:slug",
+    path: 'tutorials/:id/:slug',
     component: ContentComponent,
     data: {
-      title: "Tutorials",
+      title: 'Tutorials',
       breadcrumbs: {
-        title: "Tutorials",
-        route: "tutorials"
+        title: 'Tutorials',
+        route: 'tutorials'
       }
     }
   }, {
-    path: "**",
+    path: '**',
     component: PageNotFoundComponent,
     data: {
-      title: "Page not found",
-      breadcrumb: "Page not found"
+      title: 'Page not found',
+      breadcrumb: 'Page not found'
     }
   }
 ];
@@ -117,10 +117,10 @@ const routes: Routes = [
       RouterModule.forRoot(routes,  {
         enableTracing: false,
         useHash: false,
-        initialNavigation: "enabled",
-        onSameUrlNavigation: "reload",
-        scrollPositionRestoration: "enabled",
-        anchorScrolling: "disabled",
+        initialNavigation: 'enabled',
+        onSameUrlNavigation: 'reload',
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'disabled',
         relativeLinkResolution: 'legacy'
       })
     ],

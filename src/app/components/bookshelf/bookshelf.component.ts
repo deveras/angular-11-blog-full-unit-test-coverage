@@ -16,30 +16,30 @@ import { Subscription } from 'rxjs';
 export class BookshelfComponent
   implements OnInit, OnDestroy
 {
-  private bookshelfServiceSubscription:Subscription = new Subscription();
-  public collection:BookModel[] = [];
-  public errorMessage:string = "";
-  public showLoading:boolean = true;
-  public currentPageIndex:number = 0;
-  public pageSize:number = 5;
+  private bookshelfServiceSubscription: Subscription = new Subscription();
+  public collection: BookModel[] = [];
+  public errorMessage = '';
+  public showLoading = true;
+  public currentPageIndex = 0;
+  public pageSize = 5;
 
 
   constructor(
-    private router:Router,
-    private changeDetectorRef:ChangeDetectorRef,
-    private bookshelfService:BookshelfService
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
+    private bookshelfService: BookshelfService
   ) {
     // https://github.com/angular/angular/issues/13831
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.bookshelfServiceSubscription = this.bookshelfService.getAll().subscribe(
-      (response:BookModel[]) => {
+      (response: BookModel[]) => {
         this.collection = response;
         this.showLoading = false;
-        this.currentPageIndex = Number(this.router.url.split("/")[2]) || 0;
+        this.currentPageIndex = Number(this.router.url.split('/')[2]) || 0;
         this.changeDetectorRef.markForCheck();
       },
       (errorMessage) => {
@@ -51,12 +51,12 @@ export class BookshelfComponent
   }
 
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.bookshelfServiceSubscription.unsubscribe();
   }
 
 
-  public trackByCollectionId(index:number, model:BookModel):number {
+  public trackByCollectionId(index: number, model: BookModel): number {
     return model.id;
   }
 }

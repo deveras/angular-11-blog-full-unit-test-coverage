@@ -16,30 +16,30 @@ import { Subscription } from 'rxjs';
 export class TutorialsComponent
   implements OnInit, OnDestroy
 {
-  private tutorialsServiceSubscription:Subscription = new Subscription();
-  public collection:TutorialModel[] = [];
-  public errorMessage:string = "";
-  public showLoading:boolean = true;
-  public currentPageIndex:number = 0;
-  public pageSize:number = 5;
+  private tutorialsServiceSubscription: Subscription = new Subscription();
+  public collection: TutorialModel[] = [];
+  public errorMessage = '';
+  public showLoading = true;
+  public currentPageIndex = 0;
+  public pageSize = 5;
 
 
   constructor(
-    private router:Router,
-    private changeDetectorRef:ChangeDetectorRef,
-    private tutorialsService:TutorialsService
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
+    private tutorialsService: TutorialsService
   ) {}
 
 
-  ngOnInit():void {
+  ngOnInit(): void {
     // https://github.com/angular/angular/issues/13831
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.tutorialsServiceSubscription = this.tutorialsService.getAll().subscribe(
-      (response:TutorialModel[]) => {
+      (response: TutorialModel[]) => {
         this.collection = response;
         this.showLoading = false;
-        this.currentPageIndex = Number(this.router.url.split("/")[2]) || 0;
+        this.currentPageIndex = Number(this.router.url.split('/')[2]) || 0;
         this.changeDetectorRef.markForCheck();
       },
       (errorMessage) => {
@@ -51,12 +51,12 @@ export class TutorialsComponent
   }
 
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.tutorialsServiceSubscription.unsubscribe();
   }
 
 
-  public trackByCollectionId(index:number, model:TutorialModel):number {
+  public trackByCollectionId(index: number, model: TutorialModel): number {
     return model.id;
   }
 

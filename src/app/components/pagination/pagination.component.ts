@@ -6,13 +6,13 @@ import { TutorialModel } from '../../models/tutorial-model';
 
 
 export class PageModel {
-  public pageIndex:number;
+  public pageIndex: number;
 
-  constructor(index:number) {
+  constructor(index: number) {
     this.pageIndex = index;
   }
 
-};
+}
 
 
 @Component(
@@ -25,17 +25,17 @@ export class PageModel {
 export class PaginationComponent
   implements OnInit
 {
-  @Input() collection:(ArticleModel | TutorialModel | BookModel)[] = [];
-  @Input() pageSize:number = 5;
-  @Input() currentPageIndex:number = 0;
-  @Input() collectionType:string = "Articles";
+  @Input() collection: (ArticleModel | TutorialModel | BookModel)[] = [];
+  @Input() pageSize = 5;
+  @Input() currentPageIndex = 0;
+  @Input() collectionType = 'Articles';
 
-  public pages:PageModel[] = [];
-  public firstRecord:number = 0;
-  public lastRecord:number = 99;
+  public pages: PageModel[] = [];
+  public firstRecord = 0;
+  public lastRecord = 99;
 
 
-  constructor(private router:Router) {}
+  constructor(private router: Router) {}
 
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class PaginationComponent
   }
 
 
-  private calculateNoOfPages():void {
+  private calculateNoOfPages(): void {
     const noOfPages = Math.ceil(this.collection.length / this.pageSize);
     this.pages = [];
     for (let i = 0; i < noOfPages; i++){
@@ -63,14 +63,14 @@ export class PaginationComponent
   public onPageIndexClicked(pageIndex: number) {
     if (pageIndex >= 0 && pageIndex < this.pages.length) {
       this.router.navigate(
-        ['/' + this.router.url.split("/")[1], pageIndex],
+        ['/' + this.router.url.split('/')[1], pageIndex],
         { replaceUrl: true }
       );
     }
   }
 
 
-  public trackByPagesId(index:number, model:PageModel):number {
+  public trackByPagesId(index: number, model: PageModel): number {
     return index;
   }
 

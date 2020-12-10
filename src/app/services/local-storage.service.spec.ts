@@ -3,22 +3,22 @@ import { LocalStorageService } from './local-storage.service';
 
 
 describe('LocalStorageService', () => {
-  let store:{ [key:string]: string } = {};
+  let store: { [key: string]: string } = {};
   const mockLocalStorage = {
-    getItem: (key:string):string|null => {
+    getItem: (key: string): string|null => {
       return key in store ? store[key] : null;
     },
-    setItem: (key:string, value:string):void => {
+    setItem: (key: string, value: string): void => {
       store[key] = `${value}`;
     },
-    removeItem: (key:string):void => {
+    removeItem: (key: string): void => {
       delete store[key];
     },
-    clear: ():void => {
+    clear: (): void => {
       store = {};
     }
   };
-  let subjectUnderTest:LocalStorageService;
+  let subjectUnderTest: LocalStorageService;
 
 
   beforeEach(() => {
@@ -43,43 +43,43 @@ describe('LocalStorageService', () => {
 
 
   it('get return nothing if key does not exist', () => {
-    expect( subjectUnderTest.get("foo") ).toEqual(null);
+    expect( subjectUnderTest.get('foo') ).toEqual(null);
   });
 
 
   it('set should set key foo with value bar', () => {
-    subjectUnderTest.set("foo", "bar");
+    subjectUnderTest.set('foo', 'bar');
 
-    expect( subjectUnderTest.get("foo") ).toBe("bar");
+    expect( subjectUnderTest.get('foo') ).toBe('bar');
   });
 
 
   it('remove should delete key from storage', () => {
-    subjectUnderTest.set("foo", "bar");
+    subjectUnderTest.set('foo', 'bar');
 
-    subjectUnderTest.remove("foo")
+    subjectUnderTest.remove('foo');
 
-    expect( subjectUnderTest.get("foo") ).toEqual(null);
+    expect( subjectUnderTest.get('foo') ).toEqual(null);
   });
 
 
   it('remove should do nothing when removing a key that does not exist', () => {
-    subjectUnderTest.set("foo", "bar");
+    subjectUnderTest.set('foo', 'bar');
 
-    subjectUnderTest.remove("baz")
+    subjectUnderTest.remove('baz');
 
-    expect( subjectUnderTest.get("foo") ).toBe("bar");
+    expect( subjectUnderTest.get('foo') ).toBe('bar');
   });
 
 
   it('clear should remove everything from storage', () => {
-    subjectUnderTest.set("foo", "bar");
-    subjectUnderTest.set("bar", "baz");
+    subjectUnderTest.set('foo', 'bar');
+    subjectUnderTest.set('bar', 'baz');
 
     subjectUnderTest.clear();
 
-    expect ( subjectUnderTest.get("foo") ).toBe(null);
-    expect ( subjectUnderTest.get("bar") ).toBe(null);
+    expect ( subjectUnderTest.get('foo') ).toBe(null);
+    expect ( subjectUnderTest.get('bar') ).toBe(null);
   });
 
 });

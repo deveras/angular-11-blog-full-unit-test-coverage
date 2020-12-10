@@ -1,23 +1,23 @@
 export const environment = {
   production: true,
   api: {
-    url: "https://api.andreferreira.website/",
+    url: 'https://api.andreferreira.website/',
     articles: {
-      get: "articles/read.php"
+      get: 'articles/read.php'
     },
     bookshelf: {
-      get: "bookshelf/read.php",
-      random: "bookshelf/random.php"
+      get: 'bookshelf/read.php',
+      random: 'bookshelf/random.php'
     },
     tutorials: {
-      get: "tutorials/read.php"
+      get: 'tutorials/read.php'
     },
     quotes: {
-      get: "quotes/read.php",
-      votes: "quotes/vote.php"
+      get: 'quotes/read.php',
+      votes: 'quotes/vote.php'
     },
     thoughts: {
-      get: "thoughts/read.php"
+      get: 'thoughts/read.php'
     }
   }
 };

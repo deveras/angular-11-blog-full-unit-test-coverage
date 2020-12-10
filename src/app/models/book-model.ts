@@ -1,22 +1,22 @@
-import { Injectable } from "@angular/core";
-import { Adapter } from "./adapter";
+import { Injectable } from '@angular/core';
+import { Adapter } from './adapter';
 
 
 export class BookModel
 {
   constructor(
-    public id:number = 0,
-    public title:string = "",
-    public recomendationSummary:string = "",
-    public author:string = "",
-    public authorLink:string = "",
-    public image:string = "",
-    public body:string = "",
-    public bookLink:string = "",
-    public featured:boolean = false,
-    public weight:number = 1,
-    public lastUpdateDate:Date = new Date(),
-    public createDate:Date = new Date()
+    public id: number = 0,
+    public title: string = '',
+    public recomendationSummary: string = '',
+    public author: string = '',
+    public authorLink: string = '',
+    public image: string = '',
+    public body: string = '',
+    public bookLink: string = '',
+    public featured: boolean = false,
+    public weight: number = 1,
+    public lastUpdateDate: Date = new Date(),
+    public createDate: Date = new Date()
   ) {
     this.id = id;
     this.title = title;
@@ -36,13 +36,13 @@ export class BookModel
 
 @Injectable(
   {
-    providedIn: "root"
+    providedIn: 'root'
   }
 )
 export class BookAdapter
   implements Adapter<BookModel>
 {
-  adapt(item:any):BookModel {
+  adapt(item: any): BookModel {
     return new BookModel(
       item.id,
       item.title,
@@ -56,6 +56,6 @@ export class BookAdapter
       item.weight,
       new Date(item.lastUpdate),
       new Date(item.createDate)
-    )
+    );
   }
 }

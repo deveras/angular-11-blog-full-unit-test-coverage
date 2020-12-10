@@ -10,12 +10,12 @@ import { of } from 'rxjs';
 
 
 describe('AppComponent', () => {
-  let fixture:ComponentFixture<AppComponent>;
-  let subjectUnderTest:AppComponent;
-  let titleService:Title;
-  let spyTitleServiceSet:jasmine.Spy;
-  let router:Router;
-  let location:Location;
+  let fixture: ComponentFixture<AppComponent>;
+  let subjectUnderTest: AppComponent;
+  let titleService: Title;
+  let spyTitleServiceSet: jasmine.Spy;
+  let router: Router;
+  let location: Location;
 
 
   beforeEach(async () => {
@@ -28,26 +28,26 @@ describe('AppComponent', () => {
       imports: [
         RouterModule.forRoot([
           {
-            path: "articles",
+            path: 'articles',
             component: PageNotFoundComponent,
             data: {
-              title: "The title is now FOO",
+              title: 'The title is now FOO',
               breadcrumbs: {
-                title: "foo"
+                title: 'foo'
               }
             }
           }, {
-            path: "tutorials",
+            path: 'tutorials',
             component: PageNotFoundComponent,
             data: {
-              title: "The title is now BAR",
+              title: 'The title is now BAR',
               breadcrumbs: {
-                title: "bar",
-                route: "baz"
+                title: 'bar',
+                route: 'baz'
               }
             }
           }, {
-            path: "**",
+            path: '**',
             component: PageNotFoundComponent
           }
       ], { relativeLinkResolution: 'legacy' }) ],
@@ -57,7 +57,7 @@ describe('AppComponent', () => {
     subjectUnderTest = fixture.componentInstance;
 
     titleService = TestBed.inject(Title);
-    spyTitleServiceSet = spyOn(titleService, "setTitle");
+    spyTitleServiceSet = spyOn(titleService, 'setTitle');
 
     router = TestBed.get(Router);
     location = TestBed.get(Location);
@@ -82,9 +82,9 @@ describe('AppComponent', () => {
     expect( subjectUnderTest.openMobileMenu ).toBeDefined();
     expect( subjectUnderTest.openMobileMenu ).toBe(false);
     expect( subjectUnderTest.breadcrumbsTitle ).toBeDefined();
-    expect( subjectUnderTest.breadcrumbsTitle ).toBe("");
+    expect( subjectUnderTest.breadcrumbsTitle ).toBe('');
     expect( subjectUnderTest.breadcrumbsRoute ).toBeDefined();
-    expect( subjectUnderTest.breadcrumbsRoute ).toBe("");
+    expect( subjectUnderTest.breadcrumbsRoute ).toBe('');
     expect( subjectUnderTest.showLoading ).toBeDefined();
     expect( subjectUnderTest.showLoading ).toBe(true);
   });
@@ -99,12 +99,12 @@ describe('AppComponent', () => {
           router.navigate(['tutorials']);
           tick(); // resolve promises
 
-          expect( location.path()).toBe("/tutorials");
+          expect( location.path()).toBe('/tutorials');
           expect( spyTitleServiceSet.calls.count() ).toBe(1);
-          expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now BAR");
-          expect( subjectUnderTest.breadcrumbsTitle ).toBe("bar");
+          expect( spyTitleServiceSet ).toHaveBeenCalledWith('The title is now BAR');
+          expect( subjectUnderTest.breadcrumbsTitle ).toBe('bar');
           expect( subjectUnderTest.showLoading ).toBe(false);
-          expect( subjectUnderTest.breadcrumbsRoute ).toBe("baz");
+          expect( subjectUnderTest.breadcrumbsRoute ).toBe('baz');
         });
       }
     }
@@ -120,10 +120,10 @@ describe('AppComponent', () => {
           router.navigate(['articles']);
           tick();
 
-          expect( location.path()).toBe("/articles");
+          expect( location.path()).toBe('/articles');
           expect( spyTitleServiceSet.calls.count() ).toBe(1);
-          expect( spyTitleServiceSet ).toHaveBeenCalledWith("The title is now FOO");
-          expect( subjectUnderTest.breadcrumbsTitle ).toBe("foo");
+          expect( spyTitleServiceSet ).toHaveBeenCalledWith('The title is now FOO');
+          expect( subjectUnderTest.breadcrumbsTitle ).toBe('foo');
           expect( subjectUnderTest.showLoading ).toBe(false);
           expect( subjectUnderTest.breadcrumbsRoute ).not.toBeDefined();
         });
@@ -141,12 +141,12 @@ describe('AppComponent', () => {
           router.navigate(['DoNotExist']);
           tick();
 
-          expect( location.path()).toBe("/DoNotExist");
+          expect( location.path()).toBe('/DoNotExist');
           expect( spyTitleServiceSet.calls.count() ).toBe(1);
-          expect( spyTitleServiceSet ).toHaveBeenCalledWith("Blog");
-          expect( subjectUnderTest.breadcrumbsTitle ).toBe("");
+          expect( spyTitleServiceSet ).toHaveBeenCalledWith('Blog');
+          expect( subjectUnderTest.breadcrumbsTitle ).toBe('');
           expect( subjectUnderTest.showLoading ).toBe(false);
-          expect( subjectUnderTest.breadcrumbsRoute ).toBe("");
+          expect( subjectUnderTest.breadcrumbsRoute ).toBe('');
         });
       }
     }
