@@ -23,7 +23,7 @@ export class ThoughtModel
 export class ThoughtAdapter
   implements Adapter<ThoughtModel>
 {
-  adapt(item: any): ThoughtModel {
+  public adapt(item: any): ThoughtModel {
     return new ThoughtModel(
       item.id,
       item.thought,

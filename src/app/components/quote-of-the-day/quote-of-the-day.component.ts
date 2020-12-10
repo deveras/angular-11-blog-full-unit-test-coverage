@@ -31,7 +31,7 @@ export class QuoteOfTheDayComponent
   ) {}
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.quoteServiceSubscription = this.quoteService.getQuote().subscribe(
       (response: QuoteModel) => {
         this.quote = response;
@@ -48,7 +48,7 @@ export class QuoteOfTheDayComponent
   }
 
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.quoteServiceSubscription.unsubscribe();
   }
 

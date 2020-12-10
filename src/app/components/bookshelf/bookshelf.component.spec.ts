@@ -65,6 +65,12 @@ describe('BookshelfComponent', () => {
   });
 
 
+  it('should have the following public methods', () => {
+    expect( subjectUnderTest.ngOnInit ).toEqual(jasmine.any(Function));
+    expect( subjectUnderTest.ngOnDestroy ).toEqual(jasmine.any(Function));
+  });
+
+
   it('ngOnInit should collect all books onInit if successfull', () => {
     spyBookshelfServiceGetAll.and.returnValue( of(expectedBooks) );
     fixture.detectChanges();
@@ -105,4 +111,5 @@ describe('BookshelfComponent', () => {
 
     expect( (subjectUnderTest as any).bookshelfServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
+
 });

@@ -79,6 +79,11 @@ describe('PaginationComponent', () => {
   });
 
 
+  it('should have a public ngOnInit method', () => {
+    expect( subjectUnderTest.ngOnInit ).toEqual(jasmine.any(Function));
+  });
+
+
   it('should calculate firstRecord and lastRecord accoring to changes in currentPageIndex', () => {
     subjectUnderTest.currentPageIndex = 2;
     subjectUnderTest.ngOnInit();

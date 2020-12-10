@@ -37,7 +37,7 @@ export class HomeComponent
   ) {}
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.articlesServiceSubscription = this.articlesService.getAll().subscribe(
       this.prepareSuccessResponse.bind(this),
       this.prepareErrorMessage.bind(this)
@@ -55,7 +55,7 @@ export class HomeComponent
   }
 
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.articlesServiceSubscription.unsubscribe();
     this.bookshelfServiceSubscription.unsubscribe();
     this.tutorialsServiceSubscription.unsubscribe();

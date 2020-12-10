@@ -31,7 +31,7 @@ export class TutorialModel
 export class TutorialAdapter
   implements Adapter<TutorialModel>
 {
-  adapt(item: any): TutorialModel {
+  public adapt(item: any): TutorialModel {
     return new TutorialModel(
       item.id,
       item.title,

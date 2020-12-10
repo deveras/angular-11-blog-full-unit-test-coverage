@@ -90,6 +90,11 @@ describe('AppComponent', () => {
   });
 
 
+  it('should have a public ngOnInit method', () => {
+    expect( subjectUnderTest.ngOnInit ).toEqual(jasmine.any(Function));
+  });
+
+
   it('ngOnInit listens to router events setting page title from tutorials route data', fakeAsync(
     () => {
       fixture.detectChanges();

@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { BookshelfService } from '../../services/bookshelf.service';
 import { BookModel } from '../../models/book-model';
+import { Subscription } from 'rxjs';
 
 
 @Component(
@@ -14,6 +15,7 @@ import { BookModel } from '../../models/book-model';
 export class ReadingSuggestionComponent
   implements OnInit
 {
+  private bookshelfServiceSubscription: Subscription = new Subscription();
   public showLoading = true;
   public bookModel?: BookModel;
 
@@ -24,14 +26,19 @@ export class ReadingSuggestionComponent
   ) { }
 
 
-  ngOnInit(): void {
-    this.bookshelfService.getRandom().subscribe(
+  public ngOnInit(): void {
+    this.bookshelfServiceSubscription = this.bookshelfService.getRandom().subscribe(
       (response: BookModel) => {
         this.bookModel = response;
         this.showLoading = false;
         this.changeDetectorRef.markForCheck();
       }
     );
+  }
+
+
+  public ngOnDestroy(): void {
+    this.bookshelfServiceSubscription.unsubscribe();
   }
 
 }

@@ -34,7 +34,7 @@ export class QuoteModel
 export class QuoteAdapter
   implements Adapter<QuoteModel>
 {
-  adapt(item: any): QuoteModel {
+  public adapt(item: any): QuoteModel {
     return new QuoteModel(
       item.id,
       item.quote,

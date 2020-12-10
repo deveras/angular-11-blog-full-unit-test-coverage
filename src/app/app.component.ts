@@ -23,7 +23,8 @@ export class AppComponent {
     private titleService: Title
   ) { }
 
-  ngOnInit() {
+
+  public ngOnInit() {
     this.router.events.subscribe(
       (event) => {
         this.showLoading = true;

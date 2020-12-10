@@ -43,7 +43,7 @@ export class ContentComponent
   ) {}
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.section = this.route.snapshot.data.title;
     const serviceName = this.section.toLowerCase() + 'Service';
     let service: ArticlesService | BookshelfService | TutorialsService;
@@ -81,7 +81,7 @@ export class ContentComponent
   }
 
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.serviceSubscription.unsubscribe();
   }
 

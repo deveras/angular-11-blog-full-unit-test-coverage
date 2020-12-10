@@ -10,7 +10,7 @@ export class SlugPipe
   implements PipeTransform
 {
 
-  transform(input: string): string {
+  public transform(input: string): string {
     return input.toString().toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^\w\-]+/g, '')

@@ -34,7 +34,7 @@ export class ArticlesComponent
   }
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.articlesServiceSubscription = this.articlesService.getAll().subscribe(
       (response: ArticleModel[]) => {
         this.collection = response;
@@ -51,7 +51,7 @@ export class ArticlesComponent
   }
 
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.articlesServiceSubscription.unsubscribe();
   }
 

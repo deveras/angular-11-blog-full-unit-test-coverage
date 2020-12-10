@@ -62,6 +62,12 @@ describe('QuoteOfTheDayComponent', () => {
   });
 
 
+  it('should have the following public methods', () => {
+    expect( subjectUnderTest.ngOnInit ).toEqual(jasmine.any(Function));
+    expect( subjectUnderTest.ngOnDestroy ).toEqual(jasmine.any(Function));
+  });
+
+
   it('ngOnInit should collect a quote if successfull and set hasVotedThisQuote true when storage id matches the quote id', () => {
     spyQuoteServiceGetQuote.and.returnValue( of(expectedQuote) );
     spyLocalStorageServiceGet.and.returnValue(1);

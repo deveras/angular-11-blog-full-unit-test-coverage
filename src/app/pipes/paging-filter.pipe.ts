@@ -13,7 +13,7 @@ export class PagingFilterPipe
   implements PipeTransform
 {
 
-  transform(value: (ArticleModel | BookModel | TutorialModel)[] | null, currentPageIndex: number, pageSize: number): (ArticleModel | BookModel | TutorialModel)[] | null {
+  public transform(value: (ArticleModel | BookModel | TutorialModel)[] | null, currentPageIndex: number, pageSize: number): (ArticleModel | BookModel | TutorialModel)[] | null {
     if (value == null) { return null; }
 
     const resultsArray: (ArticleModel | BookModel | TutorialModel)[] = [];

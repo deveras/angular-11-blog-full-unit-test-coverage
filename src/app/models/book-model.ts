@@ -42,7 +42,7 @@ export class BookModel
 export class BookAdapter
   implements Adapter<BookModel>
 {
-  adapt(item: any): BookModel {
+  public adapt(item: any): BookModel {
     return new BookModel(
       item.id,
       item.title,

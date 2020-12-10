@@ -48,6 +48,12 @@ describe('ReadingSuggestionComponent', () => {
   });
 
 
+  it('should have the following public methods', () => {
+    expect( subjectUnderTest.ngOnInit ).toEqual(jasmine.any(Function));
+    expect( subjectUnderTest.ngOnDestroy ).toEqual(jasmine.any(Function));
+  });
+
+
   it('ngOnInit should collect a book if successfull', () => {
     spyBookshelfServiceGetRandom.and.returnValue( of(expectedBook) );
     fixture.detectChanges();
@@ -59,4 +65,22 @@ describe('ReadingSuggestionComponent', () => {
   });
 
 
+  it('ngOnDestroy should unsubscribe', () => {
+    spyBookshelfServiceGetRandom.and.returnValue( {
+      subscribe: () => {
+        return {
+          unsubscribe: () => 'bar'
+        };
+      }
+    });
+    fixture.detectChanges();
+
+    // subjectUnderTest.subs is private,
+    // however i want to ensure that unsubscribe is called
+    spyOn((subjectUnderTest as any).bookshelfServiceSubscription, 'unsubscribe');
+
+    subjectUnderTest.ngOnDestroy();
+
+    expect( (subjectUnderTest as any).bookshelfServiceSubscription.unsubscribe ).toHaveBeenCalled();
+  });
 });

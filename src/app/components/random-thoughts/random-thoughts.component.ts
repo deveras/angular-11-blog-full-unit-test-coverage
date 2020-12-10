@@ -26,7 +26,7 @@ export class RandomThoughtsComponent
   ) { }
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.randomThoughtsServiceSubscription = this.randomThoughtsService.getThought().subscribe(
       (response) => {
         this.thoughtModel = response;
@@ -42,7 +42,7 @@ export class RandomThoughtsComponent
   }
 
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.randomThoughtsServiceSubscription.unsubscribe();
   }
 

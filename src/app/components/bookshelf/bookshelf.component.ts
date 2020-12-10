@@ -34,7 +34,7 @@ export class BookshelfComponent
   }
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.bookshelfServiceSubscription = this.bookshelfService.getAll().subscribe(
       (response: BookModel[]) => {
         this.collection = response;
@@ -51,7 +51,7 @@ export class BookshelfComponent
   }
 
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.bookshelfServiceSubscription.unsubscribe();
   }
 

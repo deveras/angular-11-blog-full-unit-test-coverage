@@ -83,6 +83,12 @@ describe('HomeComponent', () => {
   });
 
 
+  it('should have the following public methods', () => {
+    expect( subjectUnderTest.ngOnInit ).toEqual(jasmine.any(Function));
+    expect( subjectUnderTest.ngOnDestroy ).toEqual(jasmine.any(Function));
+  });
+
+
   it('ngOnInit should collect all collections', () => {
     spyArticlesServiceGetAll.and.returnValue( of(expectedArticles) );
     spyBookshelfServiceGetAll.and.returnValue( of(expectedBooks) );

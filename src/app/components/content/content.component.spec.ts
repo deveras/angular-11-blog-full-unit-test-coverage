@@ -126,6 +126,12 @@ describe('ContentComponent', () => {
   });
 
 
+  it('should have the following public methods', () => {
+    expect( subjectUnderTest.ngOnInit ).toEqual(jasmine.any(Function));
+    expect( subjectUnderTest.ngOnDestroy ).toEqual(jasmine.any(Function));
+  });
+
+
   it('ngOnInit should collect all articles onInit if successfull', () => {
     (subjectUnderTest as any).route.snapshot.data.title = 'Articles';
     spyArticlesService.and.returnValue( of(expectedArticle) );

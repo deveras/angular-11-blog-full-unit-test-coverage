@@ -31,7 +31,7 @@ export class ArticleModel
 export class ArticleAdapter
   implements Adapter<ArticleModel>
 {
-  adapt(item: any): ArticleModel {
+  public adapt(item: any): ArticleModel {
     return new ArticleModel(
       item.id,
       item.title,

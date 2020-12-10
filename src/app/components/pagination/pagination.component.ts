@@ -25,10 +25,10 @@ export class PageModel {
 export class PaginationComponent
   implements OnInit
 {
-  @Input() collection: (ArticleModel | TutorialModel | BookModel)[] = [];
-  @Input() pageSize = 5;
-  @Input() currentPageIndex = 0;
-  @Input() collectionType = 'Articles';
+  @Input() public collection: (ArticleModel | TutorialModel | BookModel)[] = [];
+  @Input() public pageSize = 5;
+  @Input() public currentPageIndex = 0;
+  @Input() public collectionType = 'Articles';
 
   public pages: PageModel[] = [];
   public firstRecord = 0;
@@ -38,7 +38,7 @@ export class PaginationComponent
   constructor(private router: Router) {}
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.calculateNoOfPages();
     this.firstRecord = this.currentPageIndex * this.pageSize + 1;
     this.lastRecord = this.getLastRecord();

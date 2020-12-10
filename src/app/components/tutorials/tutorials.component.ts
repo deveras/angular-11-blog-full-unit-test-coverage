@@ -31,7 +31,7 @@ export class TutorialsComponent
   ) {}
 
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     // https://github.com/angular/angular/issues/13831
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
@@ -51,7 +51,7 @@ export class TutorialsComponent
   }
 
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.tutorialsServiceSubscription.unsubscribe();
   }
 
