@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { QuoteOfTheDayComponent } from './quote-of-the-day.component';
-import { HttpClientTestingModule, HttpTestingController }
-  from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
 import { QuoteService } from './../../services/quote.service';
 import { LocalStorageService } from './../../services/local-storage.service';

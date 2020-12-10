@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController }
-  from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { QuoteService } from './quote.service';
 import { LocalStorageService } from './local-storage.service';
 import { QuoteModel, QuoteAdapter } from '../models/quote-model';

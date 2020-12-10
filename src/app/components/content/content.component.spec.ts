@@ -2,9 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectorRef, Renderer2, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { RouterTestingModule }  from '@angular/router/testing';
-import { HttpClientTestingModule, HttpTestingController }
-  from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
 import { ContentComponent } from './content.component';
 import { ArticlesService } from './../../services/articles.service';

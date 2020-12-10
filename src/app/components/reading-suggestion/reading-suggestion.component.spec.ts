@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReadingSuggestionComponent } from './reading-suggestion.component';
-import { HttpClientTestingModule, HttpTestingController }
-  from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { BookshelfService } from '../../services/bookshelf.service';
 import { BookModel } from '../../models/book-model';

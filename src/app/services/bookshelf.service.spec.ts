@@ -1,5 +1,4 @@
-import { HttpClientTestingModule, HttpTestingController }
-  from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { BookshelfService } from './bookshelf.service';
 import { SessionStorageService } from '../services/session-storage.service';

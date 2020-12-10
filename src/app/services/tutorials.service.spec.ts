@@ -1,5 +1,4 @@
-import { HttpClientTestingModule, HttpTestingController }
-  from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { TutorialsService } from './tutorials.service';
 import { TutorialModel, TutorialAdapter } from '../models/tutorial-model';
