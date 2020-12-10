@@ -17,10 +17,18 @@ describe('PaginationComponent', () => {
   const mockArticleModel2: ArticleModel = new ArticleModel(2, 'foo', 'bar', 'baz', new Date(), new Date());
   const mockArticleModel3: ArticleModel = new ArticleModel(3, 'foo', 'bar', 'baz', new Date(), new Date());
   const mockArticleModel4: ArticleModel = new ArticleModel(4, 'foo', 'bar', 'baz', new Date(), new Date());
-  const mockBookModel1: BookModel = new BookModel(1, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
-  const mockBookModel2: BookModel = new BookModel(2, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
-  const mockBookModel3: BookModel = new BookModel(3, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
-  const mockBookModel4: BookModel = new BookModel(4, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
+  const mockBookModel1: BookModel = new BookModel(
+    1, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date()
+  );
+  const mockBookModel2: BookModel = new BookModel(
+    2, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date()
+  );
+  const mockBookModel3: BookModel = new BookModel(
+    3, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date()
+  );
+  const mockBookModel4: BookModel = new BookModel(
+    4, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date()
+  );
   const mockTutorialModel1: TutorialModel = new TutorialModel(1, 'foo', 'bar', 'baz', new Date(), new Date());
   const mockTutorialModel2: TutorialModel = new TutorialModel(2, 'foo', 'bar', 'baz', new Date(), new Date());
   const mockTutorialModel3: TutorialModel = new TutorialModel(3, 'foo', 'bar', 'baz', new Date(), new Date());

@@ -24,9 +24,15 @@ describe('PagingFilterPipe', () => {
 
 
   it('transform should return a subset of the passed in collection', () => {
-    const mockArticleModel1: ArticleModel = new ArticleModel(1, 'foo', 'bar', 'baz', new Date(), new Date());
-    const mockBookModel1: BookModel = new BookModel(2, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date());
-    const mockTutorialModel1: TutorialModel = new TutorialModel(3, 'foo', 'bar', 'baz', new Date(), new Date());
+    const mockArticleModel1: ArticleModel = new ArticleModel(
+      1, 'foo', 'bar', 'baz', new Date(), new Date()
+    );
+    const mockBookModel1: BookModel = new BookModel(
+      2, 'foo', 'bar', 'baz', 'fooFoo', 'fooBar', 'fooBaz', 'barFoo', true, 1, new Date(), new Date()
+    );
+    const mockTutorialModel1: TutorialModel = new TutorialModel(
+      3, 'foo', 'bar', 'baz', new Date(), new Date()
+    );
     const mockCollection = [ mockArticleModel1, mockBookModel1, mockTutorialModel1 ];
 
     expect( subjectUnderTest.transform(mockCollection, 0, 1) ).toEqual( [ mockArticleModel1 ] );
