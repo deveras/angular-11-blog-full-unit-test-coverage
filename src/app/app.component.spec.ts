@@ -59,8 +59,9 @@ describe('AppComponent', () => {
     titleService = TestBed.inject(Title);
     spyTitleServiceSet = spyOn(titleService, 'setTitle');
 
-    router = TestBed.get(Router);
-    location = TestBed.get(Location);
+    router = TestBed.inject(Router);
+
+    location = TestBed.inject(Location);
 
     // avoid: Object is possibly 'null'
     if (fixture.ngZone) {
