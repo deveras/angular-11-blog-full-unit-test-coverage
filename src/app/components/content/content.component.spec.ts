@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChangeDetectorRef, Renderer2, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { RouterTestingModule }  from '@angular/router/testing';
@@ -11,32 +12,40 @@ import { BookshelfService } from './../../services/bookshelf.service';
 import { TutorialsService } from './../../services/tutorials.service';
 
 
-
 describe('ContentComponent', () => {
   const expectedArticle =  {
-    id: 1, title: "foo", recomendationSummary: "baz", body: "foo",
+    id: 1, title: "foo", recomendationSummary: "baz",
+    body: '[ { "type": "t", "tag": "p", "content": "foo", "classes": "foo, bar", "attributes": [ { "name": "title", "value": "foo" } ] } ]',
     lastUpdateDate: new Date(), createDate: new Date()
   };
   const expectedBook =  {
     id: 1, title: "foo", recomendationSummary: "baz", author: "foo",
-    authorLink: "bar", image: "baz", body: "foo", bookLink: "bar",
-    featured: false, weight: 1, lastUpdateDate: new Date(),
+    authorLink: "bar", image: "baz",
+    body: '[ { "type": "t", "tag": "p", "children": [ { "type": "t", "tag": "br", "content": "foo" } ] } ]',
+    bookLink: "bar", featured: false, weight: 1, lastUpdateDate: new Date(),
     createDate: new Date()
   };
   const expectedTutorial =  {
-    id: 1, title: "foo", recomendationSummary: "baz", body: "foo",
+    id: 1, title: "foo", recomendationSummary: "baz",
+    body: '[ { "type": "t", "tag": "p", "children": [ { "type": "c", "content": "baz" }]  } ]',
     lastUpdateDate: new Date(), createDate: new Date()
   };
   let subjectUnderTest:ContentComponent;
   let fixture:ComponentFixture<ContentComponent>;
   let titleService:Title;
+  let renderer:Renderer2;
   let spyTitleServiceSet:jasmine.Spy;
+  let spyRendererAppendChild:jasmine.Spy;
+  let spyRendererCreateText:jasmine.Spy;
+  let spyRendererCreateElement:jasmine.Spy;
+  let spyRendererAttribute:jasmine.Spy;
   let articlesService:ArticlesService;
   let spyArticlesService:jasmine.Spy;
   let bookshelfService:BookshelfService;
   let spyBookshelfService:jasmine.Spy;
   let tutorialsService:TutorialsService;
   let spyTutorialsService:jasmine.Spy;
+  let spyChangeDetectorRefDetectChanges:jasmine.Spy;
   let spyChangeDetectorRefMarkForCheck:jasmine.Spy;
 
 
@@ -48,7 +57,9 @@ describe('ContentComponent', () => {
         RouterTestingModule
       ],
       providers: [
+        ChangeDetectorRef,
         Title,
+        Renderer2,
         BookshelfService,
         TutorialsService,
         ArticlesService,
@@ -73,6 +84,13 @@ describe('ContentComponent', () => {
     titleService = TestBed.inject(Title);
     spyTitleServiceSet = spyOn(titleService, "setTitle");
 
+    renderer = fixture.componentRef.injector.get(Renderer2);
+    // Need to allow the object to do its job: callThrough()
+    spyRendererAppendChild = spyOn(renderer, "appendChild").and.callThrough();
+    spyRendererCreateText = spyOn(renderer, "createText").and.callThrough();
+    spyRendererCreateElement = spyOn(renderer, "createElement").and.callThrough();
+    spyRendererAttribute = spyOn(renderer, "setAttribute").and.callThrough();
+
     articlesService = TestBed.inject(ArticlesService);
     spyArticlesService = spyOn(articlesService, "getById");
 
@@ -85,6 +103,7 @@ describe('ContentComponent', () => {
     // subjectUnderTest.changeDetectorRef is private,
     // however i want to ensure that markForCheck is called
     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, "markForCheck");
+    spyChangeDetectorRefDetectChanges = spyOn((subjectUnderTest as any).changeDetectorRef, "detectChanges");
   });
 
 
@@ -93,19 +112,25 @@ describe('ContentComponent', () => {
   });
 
 
-  it('should have 4 public properties', () => {
+  it('should have 5 public properties', () => {
     expect( subjectUnderTest.errorMessage ).toBeDefined();
     expect( subjectUnderTest.errorMessage ).toBe("");
     expect( subjectUnderTest.section ).toBeDefined();
+    expect( subjectUnderTest.section ).toBe("");
     expect( subjectUnderTest.content ).toBeDefined();
+    expect( subjectUnderTest.content ).toBe("");
     expect( subjectUnderTest.showLoading ).toBeDefined();
     expect( subjectUnderTest.showLoading ).toBe(true);
+    expect( subjectUnderTest.contentBodyElement ).toBeDefined();
+    expect( subjectUnderTest.contentBodyElement ).toBeInstanceOf(ElementRef);
+    expect( subjectUnderTest.contentBodyElement.nativeElement ).toBe(null);
   });
 
 
   it('ngOnInit should collect all articles onInit if successfull', () => {
     (subjectUnderTest as any).route.snapshot.data.title = "Articles";
     spyArticlesService.and.returnValue( of(expectedArticle) );
+    subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ["appendChild"]);
     fixture.detectChanges();
 
     expect( spyArticlesService.calls.count() ).toBe(1);
@@ -113,12 +138,18 @@ describe('ContentComponent', () => {
     expect( spyTitleServiceSet ).toHaveBeenCalledWith("foo");
     expect( subjectUnderTest.content ).toEqual(expectedArticle);
     expect( subjectUnderTest.showLoading ).toBe(false);
-    expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
+    expect( spyChangeDetectorRefDetectChanges.calls.count() ).toBe(1);
+    expect( spyRendererAppendChild.calls.count() ).toBe(4); // +2
+    expect( spyRendererCreateElement.calls.count() ).toBe(4); // +2
+    expect( spyRendererCreateText.calls.count() ).toBe(1);
+    expect( spyRendererAttribute.calls.count() ).toBe(2);
+    expect( spyChangeDetectorRefMarkForCheck.calls.count() ).toBe(1);
   });
 
 
   it('ngOnInit should collect all books onInit if successfull', () => {
     spyBookshelfService.and.returnValue( of(expectedBook) );
+    subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ["appendChild"]);
     fixture.detectChanges();
 
     expect( spyBookshelfService.calls.count() ).toBe(1);
@@ -126,13 +157,19 @@ describe('ContentComponent', () => {
     expect( spyTitleServiceSet ).toHaveBeenCalledWith("foo");
     expect( subjectUnderTest.content ).toEqual(expectedBook);
     expect( subjectUnderTest.showLoading ).toBe(false);
-    expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
+    expect( spyChangeDetectorRefDetectChanges.calls.count() ).toBe(1);
+    expect( spyRendererAppendChild.calls.count() ).toBe(5); // +2
+    expect( spyRendererCreateElement.calls.count() ).toBe(5); // +2
+    expect( spyRendererCreateText.calls.count() ).toBe(1);
+    expect( spyRendererAttribute ).not.toHaveBeenCalled();
+    expect( spyChangeDetectorRefMarkForCheck.calls.count() ).toBe(1);
   });
 
 
   it('ngOnInit should collect all tutorials onInit if successfull', () => {
     (subjectUnderTest as any).route.snapshot.data.title = "Tutorials";
     spyTutorialsService.and.returnValue( of(expectedTutorial) );
+    subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ["appendChild"]);
     fixture.detectChanges();
 
     expect( spyTutorialsService.calls.count() ).toBe(1);
@@ -140,9 +177,33 @@ describe('ContentComponent', () => {
     expect( spyTitleServiceSet ).toHaveBeenCalledWith("foo");
     expect( subjectUnderTest.content ).toEqual(expectedTutorial);
     expect( subjectUnderTest.showLoading ).toBe(false);
-    expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
+    expect( spyChangeDetectorRefDetectChanges.calls.count() ).toBe(1);
+    expect( spyRendererAppendChild.calls.count() ).toBe(4); // +2
+    expect( spyRendererCreateElement.calls.count() ).toBe(4); // +2
+    expect( spyRendererCreateText.calls.count() ).toBe(1);
+    expect( spyRendererAttribute ).not.toHaveBeenCalled();
+    expect( spyChangeDetectorRefMarkForCheck.calls.count() ).toBe(1);
   });
 
+
+  it('ngOnInit should skip script tags', () => {
+    const expectedArticleWithScript =  {
+      id: 1, title: "foo", recomendationSummary: "baz",
+      body: '[ { "type": "t", "tag": "script", "content": "evil" } ]',
+      lastUpdateDate: new Date(), createDate: new Date()
+    };
+    (subjectUnderTest as any).route.snapshot.data.title = "Articles";
+    spyArticlesService.and.returnValue( of(expectedArticleWithScript) );
+    subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ["appendChild"]);
+    fixture.detectChanges();
+
+    expect( spyArticlesService.calls.count() ).toBe(1);
+    expect( spyTitleServiceSet.calls.count() ).toBe(1);
+    expect( spyTitleServiceSet ).toHaveBeenCalledWith("foo");
+    expect( subjectUnderTest.content ).toEqual(expectedArticleWithScript);
+    expect( subjectUnderTest.showLoading ).toBe(false);
+    expect( spyChangeDetectorRefMarkForCheck ).toHaveBeenCalled();
+  });
 
   it('ngOnInit should populate the errorMessage when getting books fails', () => {
     spyBookshelfService.and.returnValue( throwError("foo bar baz") );

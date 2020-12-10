@@ -5,15 +5,8 @@
     </span>
 
     <div *ngIf="!showLoading">
-      <h1>{{content.title}} * {{section.toLowerCase()}}</h1>
-      <h2 *ngIf="content.author">by <a target="_blank" [href]="content.authorLink">{{content.author}}</a></h2>
-
-      <a *ngIf="content.image" [href]="content.bookLink" target="_black" title="Click to buy your copy">
-        <img [src]="content.image">
-      </a>
-      <p>{{content.recomendationSummary}}</p>
-
-      <div>{{content.body}}</div>
+      <div #contentBody></div>
     </div>
+
   </section>
 </div>

@@ -1,0 +1,20 @@
+@import 'variables';
+
+#content {
+
+  section{
+
+    &>span {
+      display: block;
+      margin: 150px auto;
+      height: 80px;
+      text-align: center;
+      min-width: 100%;
+
+      i {
+        font-size: 10em;
+        color: $colorGreySuperLight;
+      }
+    }
+  }
+}
