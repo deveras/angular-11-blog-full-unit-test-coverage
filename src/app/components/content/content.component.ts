@@ -82,9 +82,7 @@ export class ContentComponent
 
 
   ngOnDestroy():void {
-    if (this.serviceSubscription && this.serviceSubscription.unsubscribe) {
-      this.serviceSubscription.unsubscribe();
-    }
+    this.serviceSubscription.unsubscribe();
   }
 
 

@@ -52,9 +52,7 @@ export class ArticlesComponent
 
 
   ngOnDestroy():void {
-    if (this.articlesServiceSubscription && this.articlesServiceSubscription.unsubscribe) {
-      this.articlesServiceSubscription.unsubscribe();
-    }
+    this.articlesServiceSubscription.unsubscribe();
   }
 
 

@@ -56,15 +56,9 @@ export class HomeComponent
 
 
   ngOnDestroy():void {
-    if (this.articlesServiceSubscription && this.articlesServiceSubscription.unsubscribe) {
-      this.articlesServiceSubscription.unsubscribe();
-    }
-    if(this.bookshelfServiceSubscription && this.bookshelfServiceSubscription.unsubscribe) {
-      this.bookshelfServiceSubscription.unsubscribe();
-    }
-    if(this.tutorialsServiceSubscription && this.tutorialsServiceSubscription.unsubscribe) {
-      this.tutorialsServiceSubscription.unsubscribe();
-    }
+    this.articlesServiceSubscription.unsubscribe();
+    this.bookshelfServiceSubscription.unsubscribe();
+    this.tutorialsServiceSubscription.unsubscribe();
   }
 
 

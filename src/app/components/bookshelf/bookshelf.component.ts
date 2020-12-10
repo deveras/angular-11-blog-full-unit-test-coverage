@@ -52,9 +52,7 @@ export class BookshelfComponent
 
 
   ngOnDestroy():void {
-    if (this.bookshelfServiceSubscription && this.bookshelfServiceSubscription.unsubscribe) {
-      this.bookshelfServiceSubscription.unsubscribe();
-    }
+    this.bookshelfServiceSubscription.unsubscribe();
   }
 
 

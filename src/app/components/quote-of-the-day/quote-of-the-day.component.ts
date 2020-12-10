@@ -49,9 +49,7 @@ export class QuoteOfTheDayComponent
 
 
   ngOnDestroy():void {
-    if (this.quoteServiceSubscription && this.quoteServiceSubscription.unsubscribe) {
-      this.quoteServiceSubscription.unsubscribe();
-    }
+    this.quoteServiceSubscription.unsubscribe();
   }
 
 

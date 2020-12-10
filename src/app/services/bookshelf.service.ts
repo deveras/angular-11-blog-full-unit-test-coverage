@@ -99,9 +99,7 @@ export class BookshelfService
           }
 
           readingSuggestions = readingSuggestions === "" ? model.id.toString() : (readingSuggestions + "," + model.id.toString());
-          if (readingSuggestions) {
-            this.sessionStorageService.set("readingSuggestions", readingSuggestions);
-          }
+          this.sessionStorageService.set("readingSuggestions", readingSuggestions);
           return model;
         }
       ),

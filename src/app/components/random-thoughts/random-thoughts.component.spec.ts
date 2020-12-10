@@ -76,4 +76,25 @@ describe('RandomThoughtsComponent', () => {
 
     jasmine.clock().uninstall();
   });
+
+
+  it('ngOnDestroy should unsubscribe', () => {
+    spyRandomThoughtsServiceGet.and.returnValue( {
+      subscribe: () => {
+        return {
+          unsubscribe: () => { return "bar"}
+        };
+      }
+    });
+    fixture.detectChanges();
+
+    // subjectUnderTest.subs is private,
+    // however i want to ensure that unsubscribe is called
+    spyOn((subjectUnderTest as any).randomThoughtsServiceSubscription, 'unsubscribe');
+
+    subjectUnderTest.ngOnDestroy();
+
+    expect( (subjectUnderTest as any).randomThoughtsServiceSubscription.unsubscribe ).toHaveBeenCalled();
+  });
+
 });

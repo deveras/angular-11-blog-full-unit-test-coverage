@@ -43,9 +43,7 @@ export class RandomThoughtsComponent
 
 
   ngOnDestroy():void {
-    if (this.randomThoughtsServiceSubscription && this.randomThoughtsServiceSubscription.unsubscribe) {
-      this.randomThoughtsServiceSubscription.unsubscribe();
-    }
+    this.randomThoughtsServiceSubscription.unsubscribe();
   }
 
 }
