@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { filter } from 'rxjs/operators';
@@ -11,7 +11,9 @@ import { filter } from 'rxjs/operators';
     styleUrls: ['./app.component.scss']
   }
 )
-export class AppComponent {
+export class AppComponent
+  implements OnInit
+{
   public openMobileMenu = false;
   public breadcrumbsTitle = '';
   public breadcrumbsRoute = '';
@@ -24,7 +26,7 @@ export class AppComponent {
   ) { }
 
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.router.events.subscribe(
       (event) => {
         this.showLoading = true;

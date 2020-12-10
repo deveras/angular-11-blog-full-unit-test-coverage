@@ -22,7 +22,7 @@ export class ArticlesService
   ) {}
 
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): string {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.message);
     } else {

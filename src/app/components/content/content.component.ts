@@ -86,7 +86,7 @@ export class ContentComponent
   }
 
 
-  private prepareChildren(children: any, container: ElementRef) {
+  private prepareChildren(children: any, container: ElementRef): ElementRef {
     for (let i = 0; i < children.length; i++) {
       const el = children[i];
       if ( this.isTag(el.type) ) {
@@ -135,7 +135,7 @@ export class ContentComponent
   }
 
 
-  private prepareAttibutes(els: AttributeNode[], container: ElementRef) {
+  private prepareAttibutes(els: AttributeNode[], container: ElementRef): void {
     els.forEach( (element: AttributeNode) => {
       this.renderer.setAttribute(container, element.name, element.value);
     });

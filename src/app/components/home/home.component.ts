@@ -73,7 +73,7 @@ export class HomeComponent
   }
 
 
-  private prepareErrorMessage() {
+  private prepareErrorMessage(): void {
     if (this.errorsReceived !== 2) {
       this.errorsReceived++;
     } else {
@@ -84,7 +84,7 @@ export class HomeComponent
   }
 
 
-  private sortCollection(a: (ArticleModel | BookModel | TutorialModel), b: (ArticleModel | BookModel | TutorialModel)) {
+  private sortCollection(a: (ArticleModel | BookModel | TutorialModel), b: (ArticleModel | BookModel | TutorialModel)): number {
     if (a.lastUpdateDate.getTime() >= b.lastUpdateDate.getTime()) {
       return -1;
     }

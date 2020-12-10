@@ -24,7 +24,7 @@ export class QuoteService
   ) { }
 
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): string {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.message);
     } else {
@@ -53,7 +53,7 @@ export class QuoteService
   }
 
 
-  public updateNumVotes(value: number, quoteId: number) {
+  public updateNumVotes(value: number, quoteId: number): void {
     const postData: any = new FormData();
     postData.append('id', quoteId);
     postData.append('value', value);

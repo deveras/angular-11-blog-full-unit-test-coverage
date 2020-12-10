@@ -54,13 +54,13 @@ export class PaginationComponent
   }
 
 
-  private getLastRecord() {
+  private getLastRecord(): number {
     const maxLast = this.currentPageIndex * this.pageSize + this.pageSize;
     return (maxLast < this.collection.length) ? maxLast : this.collection.length;
   }
 
 
-  public onPageIndexClicked(pageIndex: number) {
+  public onPageIndexClicked(pageIndex: number): void {
     if (pageIndex >= 0 && pageIndex < this.pages.length) {
       this.router.navigate(
         ['/' + this.router.url.split('/')[1], pageIndex],
