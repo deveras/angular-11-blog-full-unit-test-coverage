@@ -79,15 +79,13 @@ describe('AppComponent', () => {
   });
 
 
-  it('should have 4 public properties', () => {
+  it('should have 3 public properties', () => {
     expect( subjectUnderTest.openMobileMenu ).toBeDefined();
     expect( subjectUnderTest.openMobileMenu ).toBe(false);
-    expect( subjectUnderTest.breadcrumbsTitle ).toBeDefined();
-    expect( subjectUnderTest.breadcrumbsTitle ).toBe('');
-    expect( subjectUnderTest.breadcrumbsRoute ).toBeDefined();
-    expect( subjectUnderTest.breadcrumbsRoute ).toBe('');
     expect( subjectUnderTest.showLoading ).toBeDefined();
     expect( subjectUnderTest.showLoading ).toBe(true);
+    expect( subjectUnderTest.breadcrumbs ).toBeDefined();
+    expect( subjectUnderTest.breadcrumbs ).toEqual([]);
   });
 
 
@@ -108,9 +106,9 @@ describe('AppComponent', () => {
           expect( location.path()).toBe('/tutorials');
           expect( spyTitleServiceSet.calls.count() ).toBe(1);
           expect( spyTitleServiceSet ).toHaveBeenCalledWith('The title is now BAR');
-          expect( subjectUnderTest.breadcrumbsTitle ).toBe('bar');
+          expect( subjectUnderTest.breadcrumbs[0].title ).toBe('bar');
           expect( subjectUnderTest.showLoading ).toBe(false);
-          expect( subjectUnderTest.breadcrumbsRoute ).toBe('baz');
+          expect( subjectUnderTest.breadcrumbs[0].route ).toBe('baz');
         });
       }
     }
@@ -129,9 +127,9 @@ describe('AppComponent', () => {
           expect( location.path()).toBe('/articles');
           expect( spyTitleServiceSet.calls.count() ).toBe(1);
           expect( spyTitleServiceSet ).toHaveBeenCalledWith('The title is now FOO');
-          expect( subjectUnderTest.breadcrumbsTitle ).toBe('foo');
+          expect( subjectUnderTest.breadcrumbs[0].title ).toBe('foo');
           expect( subjectUnderTest.showLoading ).toBe(false);
-          expect( subjectUnderTest.breadcrumbsRoute ).not.toBeDefined();
+          expect( subjectUnderTest.breadcrumbs[0].route ).toBe('');
         });
       }
     }
@@ -150,9 +148,9 @@ describe('AppComponent', () => {
           expect( location.path()).toBe('/DoNotExist');
           expect( spyTitleServiceSet.calls.count() ).toBe(1);
           expect( spyTitleServiceSet ).toHaveBeenCalledWith('Blog');
-          expect( subjectUnderTest.breadcrumbsTitle ).toBe('');
+          expect( subjectUnderTest.breadcrumbs[0].title ).toBe('');
           expect( subjectUnderTest.showLoading ).toBe(false);
-          expect( subjectUnderTest.breadcrumbsRoute ).toBe('');
+          expect( subjectUnderTest.breadcrumbs[0].route ).toBe('');
         });
       }
     }
