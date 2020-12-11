@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild,
-  ElementRef, Renderer2, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { BookshelfService } from './../../services/bookshelf.service';
@@ -27,7 +26,7 @@ export class ContentComponent
   private serviceSubscription: Subscription = new Subscription();
   public errorMessage = '';
   public section = '';
-  public content: any = '';
+  public content: ArticleModel | TutorialModel | BookModel = new ArticleModel();
   public showLoading = true;
   @ViewChild('contentBody') public contentBodyElement: ElementRef = new ElementRef(null);
 
@@ -86,16 +85,14 @@ export class ContentComponent
   }
 
 
-  private prepareChildren(children: any, container: ElementRef): ElementRef {
-    for (let i = 0; i < children.length; i++) {
-      const el = children[i];
+  private prepareChildren(children: ContentNode[], container: ElementRef): ElementRef {
+    for (const el of children) {
       if ( this.isTag(el.type) ) {
-        if ( !this.isNotInvalidTag(el.tag) ) {
-          continue;
+        if ( this.isNotInvalidTag(el.tag) ) {
+          this.renderer.appendChild( container, this.prepareTag(el) );
         }
-        this.renderer.appendChild(container, this.prepareTag(el));
-      } else {
-        this.renderer.appendChild(container, this.renderer.createText(el.content));
+      } else if (el.content) {
+        this.renderer.appendChild( container, this.renderer.createText(el.content) );
       }
     }
     return container;
@@ -108,8 +105,8 @@ export class ContentComponent
 
 
   private isNotInvalidTag(tag: string): boolean {
-    const invalidTags: string[] = ['script'];
-    if (invalidTags.includes(tag)) {
+    const invalidTags: string[] = [ 'script' ];
+    if (invalidTags.includes(tag.toLowerCase())) {
       return false;
     }
     return true;
@@ -136,8 +133,10 @@ export class ContentComponent
 
 
   private prepareAttibutes(els: AttributeNode[], container: ElementRef): void {
-    els.forEach( (element: AttributeNode) => {
-      this.renderer.setAttribute(container, element.name, element.value);
+    els.forEach( (attribute: AttributeNode) => {
+      if (attribute.name.toLowerCase() !== 'style') {
+        this.renderer.setAttribute(container, attribute.name, attribute.value);
+      }
     });
   }
 

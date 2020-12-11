@@ -9,26 +9,14 @@ import { ContentComponent } from './content.component';
 import { ArticlesService } from './../../services/articles.service';
 import { BookshelfService } from './../../services/bookshelf.service';
 import { TutorialsService } from './../../services/tutorials.service';
+import { ArticleModel } from '../../models/article-model';
+import { BookModel } from '../../models/book-model';
+import { TutorialModel } from '../../models/tutorial-model';
 
 
 describe('ContentComponent', () => {
-  const expectedArticle =  {
-    id: 1, title: 'foo', recomendationSummary: 'baz',
-    body: '[ { "type": "t", "tag": "p", "content": "foo", "classes": "foo, bar", "attributes": [ { "name": "title", "value": "foo" } ] } ]',
-    lastUpdateDate: new Date(), createDate: new Date()
-  };
-  const expectedBook =  {
-    id: 1, title: 'foo', recomendationSummary: 'baz', author: 'foo',
-    authorLink: 'bar', image: 'baz',
-    body: '[ { "type": "t", "tag": "p", "children": [ { "type": "t", "tag": "br", "content": "foo" } ] } ]',
-    bookLink: 'bar', featured: false, weight: 1, lastUpdateDate: new Date(),
-    createDate: new Date()
-  };
-  const expectedTutorial =  {
-    id: 1, title: 'foo', recomendationSummary: 'baz',
-    body: '[ { "type": "t", "tag": "p", "children": [ { "type": "c", "content": "baz" }]  } ]',
-    lastUpdateDate: new Date(), createDate: new Date()
-  };
+  const mockDate = new Date();
+  let expectedTutorial: TutorialModel;
   let subjectUnderTest: ContentComponent;
   let fixture: ComponentFixture<ContentComponent>;
   let titleService: Title;
@@ -49,6 +37,9 @@ describe('ContentComponent', () => {
 
 
   beforeEach(async () => {
+    jasmine.clock().install();
+    jasmine.clock().mockDate( new Date(2020, 11, 19) );
+
     await TestBed.configureTestingModule({
       declarations: [ ContentComponent ],
       imports: [
@@ -106,6 +97,11 @@ describe('ContentComponent', () => {
   });
 
 
+  afterEach(() => {
+    jasmine.clock().uninstall();
+  });
+
+
   it('should create the component', () => {
     expect( subjectUnderTest ).toBeTruthy();
   });
@@ -117,7 +113,7 @@ describe('ContentComponent', () => {
     expect( subjectUnderTest.section ).toBeDefined();
     expect( subjectUnderTest.section ).toBe('');
     expect( subjectUnderTest.content ).toBeDefined();
-    expect( subjectUnderTest.content ).toBe('');
+    expect( subjectUnderTest.content ).toEqual(new ArticleModel());
     expect( subjectUnderTest.showLoading ).toBeDefined();
     expect( subjectUnderTest.showLoading ).toBe(true);
     expect( subjectUnderTest.contentBodyElement ).toBeDefined();
@@ -133,6 +129,11 @@ describe('ContentComponent', () => {
 
 
   it('ngOnInit should collect all articles onInit if successfull', () => {
+    const expectedArticle = {
+      id: 1, title: 'foo', recomendationSummary: 'baz',
+      body: '[ { "type": "t", "tag": "p", "content": "foo", "classes": "foo, bar", "attributes": [ { "name": "title", "value": "foo" } ] } ]',
+      lastUpdateDate: new Date(), createDate: new Date()
+    };
     (subjectUnderTest as any).route.snapshot.data.title = 'Articles';
     spyArticlesService.and.returnValue( of(expectedArticle) );
     subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ['appendChild']);
@@ -153,6 +154,13 @@ describe('ContentComponent', () => {
 
 
   it('ngOnInit should collect all books onInit if successfull', () => {
+    const expectedBook = {
+      id: 1, title: 'foo', recomendationSummary: 'baz', author: 'foo',
+      authorLink: 'bar', image: 'baz',
+      body: '[ { "type": "t", "tag": "p", "children": [ { "type": "t", "tag": "br", "content": "foo" } ] } ]',
+      bookLink: 'bar', featured: false, weight: 1, lastUpdateDate: new Date(),
+      createDate: new Date()
+    };
     spyBookshelfService.and.returnValue( of(expectedBook) );
     subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ['appendChild']);
     fixture.detectChanges();
@@ -172,6 +180,11 @@ describe('ContentComponent', () => {
 
 
   it('ngOnInit should collect all tutorials onInit if successfull', () => {
+    const expectedTutorial = {
+      id: 1, title: 'foo', recomendationSummary: 'baz',
+      body: '[ { "type": "t", "tag": "p", "children": [ { "type": "c", "content": "baz" }]  } ]',
+      lastUpdateDate: new Date(), createDate: new Date()
+    };
     (subjectUnderTest as any).route.snapshot.data.title = 'Tutorials';
     spyTutorialsService.and.returnValue( of(expectedTutorial) );
     subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ['appendChild']);
