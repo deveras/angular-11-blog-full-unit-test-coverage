@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { BookshelfService } from '../../services/bookshelf.service';
 import { BookModel } from '../../models/book-model';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
   }
 )
 export class ReadingSuggestionComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   private bookshelfServiceSubscription: Subscription = new Subscription();
   public showLoading = true;
