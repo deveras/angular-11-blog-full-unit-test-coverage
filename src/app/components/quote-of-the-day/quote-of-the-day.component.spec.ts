@@ -36,6 +36,7 @@ describe('QuoteOfTheDayComponent', () => {
     localStorateService = TestBed.inject(LocalStorageService);
     spyLocalStorageServiceGet = spyOn(localStorateService, 'get');
 
+    // tslint:disable: no-any
     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
@@ -119,10 +120,12 @@ describe('QuoteOfTheDayComponent', () => {
 
     // subjectUnderTest.quoteServiceSubscription is private,
     // however i want to ensure that unsubscribe is called
+    // tslint:disable: no-any
     spyOn((subjectUnderTest as any).quoteServiceSubscription, 'unsubscribe');
 
     subjectUnderTest.ngOnDestroy();
 
+    // tslint:disable: no-any
     expect( (subjectUnderTest as any).quoteServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 

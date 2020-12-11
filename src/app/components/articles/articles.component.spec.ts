@@ -40,6 +40,7 @@ describe('ArticlesComponent', () => {
 
     // subjectUnderTest.changeDetectorRef is private,
     // however i want to ensure that markForCheck is called
+    // tslint:disable: no-any
     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
@@ -103,10 +104,12 @@ describe('ArticlesComponent', () => {
 
     // subjectUnderTest.subs is private,
     // however i want to ensure that unsubscribe is called
+    // tslint:disable: no-any
     spyOn((subjectUnderTest as any).articlesServiceSubscription, 'unsubscribe');
 
     subjectUnderTest.ngOnDestroy();
 
+    // tslint:disable: no-any
     expect( (subjectUnderTest as any).articlesServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 

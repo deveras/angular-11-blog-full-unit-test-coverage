@@ -28,6 +28,7 @@ describe('RandomThoughtsComponent', () => {
     randomThoughtsService = TestBed.inject(RandomThoughtsService);
     spyRandomThoughtsServiceGet = spyOn(randomThoughtsService, 'getThought');
 
+    // tslint:disable: no-any
     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
@@ -95,10 +96,12 @@ describe('RandomThoughtsComponent', () => {
 
     // subjectUnderTest.subs is private,
     // however i want to ensure that unsubscribe is called
+    // tslint:disable: no-any
     spyOn((subjectUnderTest as any).randomThoughtsServiceSubscription, 'unsubscribe');
 
     subjectUnderTest.ngOnDestroy();
 
+    // tslint:disable: no-any
     expect( (subjectUnderTest as any).randomThoughtsServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 

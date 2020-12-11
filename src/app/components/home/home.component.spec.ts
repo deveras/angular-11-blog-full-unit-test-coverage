@@ -64,6 +64,7 @@ describe('HomeComponent', () => {
     tutorialsService = TestBed.inject(TutorialsService);
     spyTutorialsServiceGetAll = spyOn(tutorialsService, 'getAll');
 
+    // tslint:disable: no-any
     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
@@ -167,14 +168,20 @@ describe('HomeComponent', () => {
 
     // subjectUnderTest.subs is private,
     // however i want to ensure that unsubscribe is called
+    // tslint:disable: no-any
     spyOn((subjectUnderTest as any).articlesServiceSubscription, 'unsubscribe');
+    // tslint:disable: no-any
     spyOn((subjectUnderTest as any).bookshelfServiceSubscription, 'unsubscribe');
+    // tslint:disable: no-any
     spyOn((subjectUnderTest as any).tutorialsServiceSubscription, 'unsubscribe');
 
     subjectUnderTest.ngOnDestroy();
 
+    // tslint:disable: no-any
     expect( (subjectUnderTest as any).articlesServiceSubscription.unsubscribe ).toHaveBeenCalled();
+    // tslint:disable: no-any
     expect( (subjectUnderTest as any).bookshelfServiceSubscription.unsubscribe ).toHaveBeenCalled();
+    // tslint:disable: no-any
     expect( (subjectUnderTest as any).tutorialsServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 

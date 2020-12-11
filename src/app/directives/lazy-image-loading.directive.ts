@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 
-
+/* tslint:disable: directive-selector */
 @Directive(
   { selector: 'img' }
 )

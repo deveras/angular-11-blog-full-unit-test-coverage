@@ -30,6 +30,7 @@ describe('ReadingSuggestionComponent', () => {
     bookshelfService = TestBed.inject(BookshelfService);
     spyBookshelfServiceGetRandom = spyOn(bookshelfService, 'getRandom');
 
+    // tslint:disable: no-any
     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
   });
 
@@ -79,10 +80,12 @@ describe('ReadingSuggestionComponent', () => {
 
     // subjectUnderTest.subs is private,
     // however i want to ensure that unsubscribe is called
+    // tslint:disable: no-any
     spyOn((subjectUnderTest as any).bookshelfServiceSubscription, 'unsubscribe');
 
     subjectUnderTest.ngOnDestroy();
 
+    // tslint:disable: no-any
     expect( (subjectUnderTest as any).bookshelfServiceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 });

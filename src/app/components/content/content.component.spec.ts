@@ -16,7 +16,6 @@ import { TutorialModel } from '../../models/tutorial-model';
 
 describe('ContentComponent', () => {
   const mockDate = new Date();
-  let expectedTutorial: TutorialModel;
   let subjectUnderTest: ContentComponent;
   let fixture: ComponentFixture<ContentComponent>;
   let titleService: Title;
@@ -92,7 +91,9 @@ describe('ContentComponent', () => {
 
     // subjectUnderTest.changeDetectorRef is private,
     // however i want to ensure that markForCheck is called
+    // tslint:disable: no-any
     spyChangeDetectorRefMarkForCheck = spyOn((subjectUnderTest as any).changeDetectorRef, 'markForCheck');
+    // tslint:disable: no-any
     spyChangeDetectorRefDetectChanges = spyOn((subjectUnderTest as any).changeDetectorRef, 'detectChanges');
   });
 
@@ -134,6 +135,7 @@ describe('ContentComponent', () => {
       body: '[ { "type": "t", "tag": "p", "content": "foo", "classes": "foo, bar", "attributes": [ { "name": "title", "value": "foo" } ] } ]',
       lastUpdateDate: new Date(), createDate: new Date()
     };
+    // tslint:disable: no-any
     (subjectUnderTest as any).route.snapshot.data.title = 'Articles';
     spyArticlesService.and.returnValue( of(expectedArticle) );
     subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ['appendChild']);
@@ -185,6 +187,7 @@ describe('ContentComponent', () => {
       body: '[ { "type": "t", "tag": "p", "children": [ { "type": "c", "content": "baz" }]  } ]',
       lastUpdateDate: new Date(), createDate: new Date()
     };
+    // tslint:disable: no-any
     (subjectUnderTest as any).route.snapshot.data.title = 'Tutorials';
     spyTutorialsService.and.returnValue( of(expectedTutorial) );
     subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ['appendChild']);
@@ -210,6 +213,7 @@ describe('ContentComponent', () => {
       body: '[ { "type": "t", "tag": "script", "content": "evil" } ]',
       lastUpdateDate: new Date(), createDate: new Date()
     };
+    // tslint:disable: no-any
     (subjectUnderTest as any).route.snapshot.data.title = 'Articles';
     spyArticlesService.and.returnValue( of(expectedArticleWithScript) );
     subjectUnderTest.contentBodyElement.nativeElement = jasmine.createSpyObj('nativeElement', ['appendChild']);
@@ -246,10 +250,12 @@ describe('ContentComponent', () => {
 
     // subjectUnderTest.serviceSubscription is private,
     // however i want to ensure that unsubscribe is called
+    // tslint:disable: no-any
     spyOn((subjectUnderTest as any).serviceSubscription, 'unsubscribe');
 
     subjectUnderTest.ngOnDestroy();
 
+    // tslint:disable: no-any
     expect( (subjectUnderTest as any).serviceSubscription.unsubscribe ).toHaveBeenCalled();
   });
 });
