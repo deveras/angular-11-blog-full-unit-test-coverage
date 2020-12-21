@@ -138,7 +138,7 @@ describe('QuoteOfTheDayComponent', () => {
     expect( subjectUnderTest.showLoadingVote ).toBe(false);
     expect( spyChangeDetectorRefMarkForCheck.calls.count() ).toBe(1);
 
-    subjectUnderTest.onThumbsClick(1);
+    subjectUnderTest.onThumbsClick('1');
 
     if ( subjectUnderTest.quote ) {
       expect( subjectUnderTest.quote.numVotes ).toBe(101);
@@ -152,7 +152,7 @@ describe('QuoteOfTheDayComponent', () => {
   it('onThumbsClick should do nothing if quote was voted before', () => {
     subjectUnderTest.hasVotedThisQuote = true;
 
-    subjectUnderTest.onThumbsClick(1);
+    subjectUnderTest.onThumbsClick('1');
 
     expect( subjectUnderTest.showLoadingVote ).toBe(false);
     expect( spyChangeDetectorRefMarkForCheck ).not.toHaveBeenCalled();

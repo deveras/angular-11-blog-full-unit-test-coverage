@@ -23,17 +23,27 @@ export class ArticleModel
 }
 
 
+export interface ApiArticleInterface {
+  id: number;
+  title: string;
+  recomendationSummary: string;
+  body: string;
+  lastUpdate: Date;
+  createDate: Date;
+}
+
+
 @Injectable(
   {
     providedIn: 'root'
   }
 )
 export class ArticleAdapter
-  implements Adapter<ArticleModel>
+  implements Adapter<ApiArticleInterface, ArticleModel>
 {
-  public adapt(item: any): ArticleModel {
+  public adapt(item: ApiArticleInterface): ArticleModel {
     return new ArticleModel(
-      item.id,
+      Number(item.id),
       item.title,
       item.recomendationSummary,
       item.body,

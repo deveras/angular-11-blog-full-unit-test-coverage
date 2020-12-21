@@ -1,4 +1,4 @@
-import { ArticleModel, ArticleAdapter } from './article-model';
+import { ArticleModel, ApiArticleInterface, ArticleAdapter } from './article-model';
 
 
 describe('ArticleModel', () => {
@@ -90,8 +90,8 @@ describe('ArticleAdapter', () => {
 
 
   it('adapt should return a ArticleModel instance', () => {
-    const mockDateString = '1977-11-19 03:00:00';
-    const mockResponse = {
+    const mockDateString = new Date('1977-11-19 03:00:00');
+    const mockResponse: ApiArticleInterface = {
       id: 100,
       title: 'foo',
       recomendationSummary: 'bar',

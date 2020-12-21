@@ -4,6 +4,7 @@
     "codelyzer"
   ],
   "rules": {
+    "member-access": true,
     "align": {
       "options": [
         "parameters",

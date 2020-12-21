@@ -64,7 +64,9 @@ export class HomeComponent
 
   private prepareSuccessResponse(response: (ArticleModel | BookModel | TutorialModel)[]): void {
     for (const index in response) {
-      this.collection.push(response[index]);
+      if (response.hasOwnProperty(index)) {
+        this.collection.push(response[index]);
+      }
     }
     this.collection.sort(this.sortCollection);
     this.collection = this.collection.slice(0, 5);

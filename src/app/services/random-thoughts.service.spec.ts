@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RandomThoughtsService } from './random-thoughts.service';
-import { ThoughtModel, ThoughtAdapter } from '../models/thought-model';
+import { ThoughtModel, ApiThoughtInterface, ThoughtAdapter } from '../models/thought-model';
 import { environment } from '../../environments/environment.prod';
 
 

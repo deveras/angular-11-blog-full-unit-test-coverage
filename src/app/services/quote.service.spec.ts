@@ -96,7 +96,7 @@ describe('QuoteService', () => {
 
 
   it('updateNumVotes should update the storage with quoteOfDay and value 1', () => {
-    subjectUnderTest.updateNumVotes(1, 1);
+    subjectUnderTest.updateNumVotes('1', 1);
 
     const testingRequest = httpTestingController.expectOne(votesEndPoint);
 
@@ -113,7 +113,7 @@ describe('QuoteService', () => {
   it('updateNumVotes should not update the storage and throw', () => {
     const errorMessage = 'Failed to retrieve data from the server - QuoteService';
 
-    subjectUnderTest.updateNumVotes(1, 1);
+    subjectUnderTest.updateNumVotes('1', 1);
 
     const testingRequest = httpTestingController.expectOne(votesEndPoint);
 

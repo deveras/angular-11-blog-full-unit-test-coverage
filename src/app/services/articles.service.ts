@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { ArticleModel, ArticleAdapter } from '../models/article-model';
+import { ArticleModel, ApiArticleInterface, ArticleAdapter } from '../models/article-model';
 import { environment } from '../../environments/environment.prod';
 
 
@@ -35,12 +35,12 @@ export class ArticlesService
 
   public getAll(): Observable<ArticleModel[]>
   {
-    return this.httpClient.get<ArticleModel[]>(
+    return this.httpClient.get<ApiArticleInterface[]>(
       environment.api.url + environment.api.articles.get
     ).pipe(
       map(
-        (response: any[]) => response.map(
-          (item) => this.adapter.adapt(item)
+        (response: ApiArticleInterface[]): ArticleModel[] => response.map(
+          (item: ApiArticleInterface): ArticleModel => this.adapter.adapt(item)
         )
       ),
       catchError(
@@ -54,11 +54,11 @@ export class ArticlesService
 
   public getById(id: number): Observable<ArticleModel>
   {
-    return this.httpClient.get<ArticleModel>(
+    return this.httpClient.get<ApiArticleInterface>(
       environment.api.url + environment.api.articles.get + '?' + id
     ).pipe(
       map(
-        (item: any) => this.adapter.adapt(item)
+        (item: ApiArticleInterface): ArticleModel => this.adapter.adapt(item)
       ),
       catchError(
         (error: HttpErrorResponse) => {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { TutorialModel, TutorialAdapter } from '../models/tutorial-model';
+import { TutorialModel, ApiTutorialInterface, TutorialAdapter } from '../models/tutorial-model';
 import { environment } from '../../environments/environment.prod';
 
 
@@ -35,12 +35,12 @@ export class TutorialsService
 
   public getAll(): Observable<TutorialModel[]>
   {
-    return this.httpClient.get<TutorialModel[]>(
+    return this.httpClient.get<ApiTutorialInterface[]>(
       environment.api.url + environment.api.tutorials.get
     ).pipe(
       map(
-        (response: any[]) => response.map(
-          (item) => this.adapter.adapt(item)
+        (response: ApiTutorialInterface[]): TutorialModel[] => response.map(
+          (item: ApiTutorialInterface): TutorialModel => this.adapter.adapt(item)
         )
       ),
       catchError(
@@ -54,11 +54,11 @@ export class TutorialsService
 
   public getById(id: number): Observable<TutorialModel>
   {
-    return this.httpClient.get<TutorialModel>(
+    return this.httpClient.get<ApiTutorialInterface>(
       environment.api.url + environment.api.tutorials.get + '?' + id
     ).pipe(
       map(
-        (item: any) => this.adapter.adapt(item)
+        (item: ApiTutorialInterface): TutorialModel => this.adapter.adapt(item)
       ),
       catchError(
         (error: HttpErrorResponse) => {

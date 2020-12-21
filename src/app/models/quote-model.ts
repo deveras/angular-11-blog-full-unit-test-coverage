@@ -26,17 +26,29 @@ export class QuoteModel
 }
 
 
+export interface ApiQuoteInterface {
+  id: number;
+  quote: string;
+  author: string;
+  authorLink: string;
+  displayDate: Date;
+  numVotes: number;
+  lastUpdate: Date;
+  createDate: Date;
+}
+
+
 @Injectable(
   {
     providedIn: 'root'
   }
 )
 export class QuoteAdapter
-  implements Adapter<QuoteModel>
+  implements Adapter<ApiQuoteInterface, QuoteModel>
 {
-  public adapt(item: any): QuoteModel {
+  public adapt(item: ApiQuoteInterface): QuoteModel {
     return new QuoteModel(
-      item.id,
+      Number(item.id),
       item.quote,
       item.author,
       item.authorLink,

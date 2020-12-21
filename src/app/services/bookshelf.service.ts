@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, retry } from 'rxjs/operators';
 import { SessionStorageService } from './session-storage.service';
-import { BookModel, BookAdapter } from '../models/book-model';
+import { BookModel, ApiBookInterface, BookAdapter } from '../models/book-model';
 import { environment } from '../../environments/environment.prod';
 
 
@@ -37,12 +37,12 @@ export class BookshelfService
 
   public getAll(): Observable<BookModel[]>
   {
-    return this.httpClient.get<BookModel[]>(
+    return this.httpClient.get<ApiBookInterface[]>(
       environment.api.url + environment.api.bookshelf.get
     ).pipe(
       map(
-        (response: any[]) => response.map(
-          (item) => this.adapter.adapt(item)
+        (response: ApiBookInterface[]): BookModel[] => response.map(
+          (item: ApiBookInterface): BookModel => this.adapter.adapt(item)
         )
       ),
       catchError(
@@ -56,11 +56,11 @@ export class BookshelfService
 
   public getById(id: number): Observable<BookModel>
   {
-    return this.httpClient.get<BookModel>(
+    return this.httpClient.get<ApiBookInterface>(
       environment.api.url + environment.api.bookshelf.get + '?' + id
     ).pipe(
       map(
-        (item: any) => this.adapter.adapt(item)
+        (item: ApiBookInterface): BookModel => this.adapter.adapt(item)
       ),
       catchError(
         (error: HttpErrorResponse) => {
@@ -86,11 +86,11 @@ export class BookshelfService
       ? this.sessionStorageService.get('readingSuggestions')
       : '';
 
-    return this.httpClient.get<BookModel | null>(
+    return this.httpClient.get<ApiBookInterface>(
       environment.api.url + environment.api.bookshelf.random + '?' + readingSuggestions
     ).pipe(
       map(
-        (item: any) => {
+        (item: ApiBookInterface): BookModel => {
           const model = this.adapter.adapt(item);
 
           if (this.isModelAlreadyInStorage(readingSuggestions, model.id.toString())) {

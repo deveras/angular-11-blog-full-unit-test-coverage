@@ -23,17 +23,27 @@ export class TutorialModel
 }
 
 
+export interface ApiTutorialInterface {
+  id: number;
+  title: string;
+  recomendationSummary: string;
+  body: string;
+  lastUpdate: Date;
+  createDate: Date;
+}
+
+
 @Injectable(
   {
     providedIn: 'root'
   }
 )
 export class TutorialAdapter
-  implements Adapter<TutorialModel>
+  implements Adapter<ApiTutorialInterface, TutorialModel>
 {
-  public adapt(item: any): TutorialModel {
+  public adapt(item: ApiTutorialInterface): TutorialModel {
     return new TutorialModel(
-      item.id,
+      Number(item.id),
       item.title,
       item.recomendationSummary,
       item.body,

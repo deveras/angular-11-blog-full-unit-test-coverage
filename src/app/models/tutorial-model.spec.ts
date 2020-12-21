@@ -1,4 +1,4 @@
-import { TutorialModel, TutorialAdapter } from './tutorial-model';
+import { TutorialModel, ApiTutorialInterface, TutorialAdapter } from './tutorial-model';
 
 
 describe('TutorialModel', () => {
@@ -90,8 +90,8 @@ describe('TutorialAdapter', () => {
 
 
   it('adapt should return a TutorialAdapter instance', () => {
-    const mockDateString = '1977-11-19 03:00:00';
-    const mockResponse = {
+    const mockDateString = new Date('1977-11-19 03:00:00');
+    const mockResponse: ApiTutorialInterface = {
       id: 100,
       title: 'foo',
       recomendationSummary: 'bar',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { ThoughtModel, ThoughtAdapter } from '../models/thought-model';
+import { ThoughtModel, ApiThoughtInterface, ThoughtAdapter } from '../models/thought-model';
 import { environment } from '../../environments/environment.prod';
 
 
@@ -35,11 +35,11 @@ export class RandomThoughtsService
 
   public getThought(): Observable<ThoughtModel>
   {
-    return this.httpClient.get<ThoughtModel>(
+    return this.httpClient.get<ApiThoughtInterface>(
       environment.api.url + environment.api.thoughts.get
     ).pipe(
       map(
-        (item: ThoughtModel) => this.adapter.adapt(item)
+        (item: ApiThoughtInterface): ThoughtModel => this.adapter.adapt(item)
       ),
       catchError(
         (error: HttpErrorResponse) => {

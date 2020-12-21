@@ -15,15 +15,22 @@ export class ThoughtModel
 }
 
 
+export interface ApiThoughtInterface {
+  id: number;
+  thought: string;
+  createDate: Date;
+}
+
+
 @Injectable(
   {
     providedIn: 'root'
   }
 )
 export class ThoughtAdapter
-  implements Adapter<ThoughtModel>
+  implements Adapter<ApiThoughtInterface, ThoughtModel>
 {
-  public adapt(item: any): ThoughtModel {
+  public adapt(item: ApiThoughtInterface): ThoughtModel {
     return new ThoughtModel(
       item.id,
       item.thought,

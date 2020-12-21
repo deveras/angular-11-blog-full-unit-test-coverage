@@ -1,4 +1,4 @@
-export interface Adapter<T>
+export interface Adapter<T, U>
 {
-  adapt(item: any): T;
+  adapt(item: T): U;
 }

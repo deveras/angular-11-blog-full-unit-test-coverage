@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 
 @Component(
@@ -6,15 +6,13 @@ import { Component, ChangeDetectionStrategy, EventEmitter } from '@angular/core'
     selector: 'blog-navigation',
     templateUrl: './navigation.component.html',
     styleUrls: ['./navigation.component.scss'],
-    inputs : [ 'openMobileMenu' ],
-    outputs : [ 'openMobileMenuChange' ],
     changeDetection: ChangeDetectionStrategy.OnPush
   }
 )
 export class NavigationComponent
 {
-  public openMobileMenu = false;
-  public openMobileMenuChange = new EventEmitter<boolean>();
+  @Input() public openMobileMenu = false;
+  @Output() public openMobileMenuChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
   constructor() {}

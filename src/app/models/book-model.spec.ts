@@ -1,4 +1,4 @@
-import { BookModel, BookAdapter } from './book-model';
+import { BookModel, ApiBookInterface, BookAdapter } from './book-model';
 
 
 describe('BookModel', () => {
@@ -120,8 +120,8 @@ describe('BookAdapter', () => {
 
 
   it('adapt should return a BookModel instance', () => {
-    const mockDateString = '1977-11-19 03:00:00';
-    const mockResponse = {
+    const mockDateString = new Date('1977-11-19 03:00:00');
+    const mockResponse: ApiBookInterface = {
       id: 100,
       title: 'foo',
       recomendationSummary: 'bar',

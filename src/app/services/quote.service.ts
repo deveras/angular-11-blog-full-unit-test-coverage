@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { LocalStorageService } from './local-storage.service';
-import { QuoteModel, QuoteAdapter } from '../models/quote-model';
+import { QuoteModel, ApiQuoteInterface, QuoteAdapter } from '../models/quote-model';
 import { environment } from '../../environments/environment.prod';
 
 
@@ -37,12 +37,12 @@ export class QuoteService
 
   public getQuote(): Observable<QuoteModel>
   {
-    return this.httpClient.get<QuoteModel>(
+    return this.httpClient.get<ApiQuoteInterface>(
       environment.api.url + environment.api.quotes.get
     )
       .pipe(
         map(
-          (item: QuoteModel) => this.adapter.adapt(item)
+          (item: ApiQuoteInterface): QuoteModel => this.adapter.adapt(item)
         ),
         catchError(
           (error: HttpErrorResponse) => {
@@ -53,9 +53,9 @@ export class QuoteService
   }
 
 
-  public updateNumVotes(value: number, quoteId: number): void {
-    const postData: any = new FormData();
-    postData.append('id', quoteId);
+  public updateNumVotes(value: string, quoteId: number): void {
+    const postData: FormData = new FormData();
+    postData.append('id', quoteId.toString());
     postData.append('value', value);
 
     this.httpClient.post(environment.api.url + environment.api.quotes.votes, postData)

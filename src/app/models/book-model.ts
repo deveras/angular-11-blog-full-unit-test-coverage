@@ -34,17 +34,33 @@ export class BookModel
 }
 
 
+export interface ApiBookInterface {
+  id: number;
+  title: string;
+  recomendationSummary: string;
+  author: string;
+  authorLink: string;
+  image: string;
+  body: string;
+  bookLink: string;
+  featured: boolean;
+  weight: number;
+  lastUpdate: Date;
+  createDate: Date;
+}
+
+
 @Injectable(
   {
     providedIn: 'root'
   }
 )
 export class BookAdapter
-  implements Adapter<BookModel>
+  implements Adapter<ApiBookInterface, BookModel>
 {
-  public adapt(item: any): BookModel {
+  public adapt(item: ApiBookInterface): BookModel {
     return new BookModel(
-      item.id,
+      Number(item.id),
       item.title,
       item.recomendationSummary,
       item.author,

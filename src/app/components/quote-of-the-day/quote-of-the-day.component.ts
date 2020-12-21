@@ -53,12 +53,12 @@ export class QuoteOfTheDayComponent
   }
 
 
-  public onThumbsClick(value: number): void {
+  public onThumbsClick(value: string): void {
     if (!this.hasVotedThisQuote && this.quote) {
       this.showLoadingVote = true;
       this.changeDetectorRef.markForCheck();
 
-      this.quote.numVotes += value;
+      this.quote.numVotes += Number(value);
       this.quoteService.updateNumVotes(value, this.quote.id);
       this.hasVotedThisQuote = true;
       this.showLoadingVote = false;
